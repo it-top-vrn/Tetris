@@ -47,10 +47,11 @@ void DeleteRow();				// Удаление заполенной строки
 
 bool GameOver();				// Определение проигрыша
 
+void Game();
 
 int main() 
 {
-	
+	Game();
 }
 
 void Fig_I_Poz1(int x, int y) // Фигура I, горизонтальное положение
