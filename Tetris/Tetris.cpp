@@ -6,7 +6,7 @@
 	Версия:0.1(Февраль 2019г.)
 */
 #include <iostream>
-
+#include <Windows.h>
 using namespace std;
 
 const int ROW = 20;// количество строк 
@@ -332,6 +332,29 @@ void StartFig(int type, int position)
 	case 7:InitFig_T(position);
 		break;
 	}
+}
+
+void Fig_Step(int type, int poz)
+{
+	switch (type)
+	{
+		case 1:
+		{
+			switch (poz)
+			{
+				case 1:
+				{
+					for (int i = 0; i < ROW; i++)
+					{
+						Fig_I_Poz1(i, 3);
+					}
+				}
+			}
+		}
+
+	}
+
+	
 }
 bool RowFull(int row)
 {
