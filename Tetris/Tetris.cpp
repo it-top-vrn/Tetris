@@ -50,26 +50,292 @@ int main()
     
 }
 
+void Fig_I_Poz1(int x, int y) // фигура I, горизонтальное положение
+{
+	game_place[x][y] = 1;
+	game_place[x][y + 1] = 1;
+	game_place[x][y + 2] = 1;
+	game_place[x][y + 3] = 1;
+}
+
+void Fig_I_Poz2(int x, int y) // фигура I, вертикальное положение
+{
+	game_place[x][y] = 1;
+	game_place[x + 1][y] = 1;
+	game_place[x + 2][y] = 1;
+	game_place[x + 3][y] = 1;
+}
+
+void Fig_J_Poz1(int x, int y)
+{
+	game_place[x][y] = 1;
+	game_place[x + 1][y] = 1;
+	game_place[x + 2][y - 1] = 1;
+	game_place[x + 2][y] = 1;
+}
+
+void Fig_J_Poz2(int x, int y)
+{
+	game_place[x][y] = 1;
+	game_place[x + 1][y] = 1;
+	game_place[x + 1][y + 1] = 1;
+	game_place[x + 1][y + 2] = 1;
+}
+
+void Fig_J_Poz3(int x, int y)
+{
+	game_place[x][y] = 1;
+	game_place[x][y + 1] = 1;
+	game_place[x + 1][y] = 1;
+	game_place[x + 2][y] = 1;
+}
+
+void Fig_J_Poz4(int x, int y)
+{
+	game_place[x][y] = 1;
+	game_place[x][y + 1] = 1;
+	game_place[x][y + 2] = 1;
+	game_place[x + 1][y + 2] = 1;
+}
+
+void Fig_L_Poz1(int x, int y)
+{
+	game_place[x][y] = 1;
+	game_place[x + 1][y] = 1;
+	game_place[x + 2][y] = 1;
+	game_place[x + 2][y + 1] = 1;
+}
+
+void Fig_L_Poz2(int x, int y)
+{
+	game_place[x][y] = 1;
+	game_place[x][y + 1] = 1;
+	game_place[x][y + 2] = 1;
+	game_place[x + 1][y] = 1;
+}
+
+void Fig_L_Poz3(int x, int y)
+{
+	game_place[x][y] = 1;
+	game_place[x][y + 1] = 1;
+	game_place[x + 1][y + 1] = 1;
+	game_place[x + 2][y + 1] = 1;
+}
+
+void Fig_L_Poz4(int x, int y)
+{
+	game_place[x][y] = 1;
+	game_place[x + 1][y] = 1;
+	game_place[x + 1][y - 1] = 1;
+	game_place[x + 1][y - 2] = 1;
+}
+
+void Fig_O_Poz(int x, int y)
+{
+	game_place[x][y] = 1;
+	game_place[x][y + 1] = 1;
+	game_place[x + 1][y] = 1;
+	game_place[x + 1][y + 1] = 1;
+}
+
+void Fig_S_Poz1(int x, int y)
+{
+	game_place[x][y] = 1;
+	game_place[x][y - 1] = 1;
+	game_place[x + 1][y - 1] = 1;
+	game_place[x + 1][y - 2] = 1;
+}
+
+void Fig_S_Poz2(int x, int y)
+{
+	game_place[x][y] = 1;
+	game_place[x + 1][y] = 1;
+	game_place[x + 1][y + 1] = 1;
+	game_place[x + 2][y + 1] = 1;
+}
+
+void Fig_Z_Poz1(int x, int y)
+{
+	game_place[x][y] = 1;
+	game_place[x][y + 1] = 1;
+	game_place[x + 1][y + 1] = 1;
+	game_place[x + 1][y + 2] = 1;
+}
+
+void Fig_Z_Poz2(int x, int y)
+{
+	game_place[x][y] = 1;
+	game_place[x + 1][y] = 1;
+	game_place[x + 1][y - 1] = 1;
+	game_place[x + 2][y - 1] = 1;
+}
+
+void Fig_T_Poz1(int x, int y)
+{
+	game_place[x][y] = 1;
+	game_place[x][y + 1] = 1;
+	game_place[x][y + 2] = 1;
+	game_place[x + 1][y + 1] = 1;
+}
+
+void Fig_T_Poz2(int x, int y)
+{
+	game_place[x][y] = 1;
+	game_place[x + 1][y] = 1;
+	game_place[x + 1][y + 1] = 1;
+	game_place[x + 1][y + 2] = 1;
+}
+
+void Fig_T_Poz3(int x, int y)
+{
+	game_place[x][y] = 1;
+	game_place[x + 1][y] = 1;
+	game_place[x + 2][y] = 1;
+	game_place[x + 1][y - 1] = 1;
+}
+
+void Fig_T_Poz4(int x, int y)
+{
+	game_place[x][y] = 1;
+	game_place[x + 1][y] = 1;
+	game_place[x + 2][y] = 1;
+	game_place[x + 1][y + 1] = 1;
+}
+
 void InitFig_I(int position)
 {
 	switch (position)
 	{
 	case 1: // горизонтальное положение
 	{
-		game_place[0][3] = 1;
-		game_place[0][4] = 1;
-		game_place[0][5] = 1;
-		game_place[0][6] = 1;
+		Fig_I_Poz1(0, 3);
 	}
 		break;
 	case 2: // вертикальное положение
 	{
-		game_place[0][5] = 1;
-		game_place[1][5] = 1;
-		game_place[2][5] = 1;
-		game_place[3][5] = 1;
+		Fig_I_Poz2(0, 5);
 	}
 		break;
+	}
+}
+
+void InitFig_J(int position)
+{
+	switch (position)
+	{
+	case 1:
+	{
+		Fig_J_Poz1(0, 5);
+	}
+	break;
+	case 2:
+	{
+		Fig_J_Poz2(0, 4);
+	}
+	break;
+	case 3:
+	{
+		Fig_J_Poz3(0, 4);
+	}
+	break;
+	case 4:
+	{
+		Fig_J_Poz4(0, 3);
+	}
+	break;
+	}
+}
+
+void InitFig_L(int position)
+{
+	switch (position)
+	{
+	case 1:
+	{
+		Fig_L_Poz1(0, 5);
+	}
+	break;
+	case 2:
+	{
+		Fig_L_Poz2(0, 4);
+	}
+	break;
+	case 3:
+	{
+		Fig_L_Poz3(0, 4);
+	}
+	break;
+	case 4:
+	{
+		Fig_L_Poz4(0, 6);
+	}
+	break;
+	}
+}
+
+void InitFig_O()
+{
+	Fig_O_Poz(0, 4);
+}
+
+void InitFig_S(int position)
+{
+	switch (position)
+	{
+	case 1:
+	{
+		Fig_S_Poz1(0, 6);
+	}
+	break;
+	case 2:
+	{
+		Fig_S_Poz2(0, 4);
+	}
+	break;
+	}
+}
+
+void InitFig_Z(int position)
+{
+	switch (position)
+	{
+	case 1:
+	{
+		Fig_Z_Poz1(0, 4);
+	}
+	break;
+	case 2:
+	{
+		Fig_Z_Poz2(0, 6);
+	}
+	break;
+	}
+}
+
+void InitFig_T(int position)
+{
+	switch (position)
+	{
+	case 1:
+	{
+		Fig_T_Poz1(0, 4);
+	}
+	break;
+	case 2:
+	{
+		Fig_T_Poz2(0, 4);
+	}
+	break;
+	case 3:
+	{
+		Fig_T_Poz3(0, 5);
+	}
+	break;
+	case 4:
+	{
+		Fig_T_Poz4(0, 4);
+	}
+	break;
 	}
 }
 
