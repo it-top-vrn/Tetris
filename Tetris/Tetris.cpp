@@ -177,27 +177,22 @@ void InitFig_J(int position)
 	{
 	case 1: 
 	{
-		Fig_J_Pos1(0,5);
-		
+		Fig_J_Pos1(0,5);		
 	}
 		break;
 	case 2:
 	{
 		Fig_J_Pos2(1, 5);
-		
 	}
 		break;
 	case 3: 
 	{
-		Fig_J_Pos3(0, 5);
-		
+		Fig_J_Pos3(0, 5);		
 	}
 		break;
 	case 4: 
 	{
-
-		Fig_J_Pos4(0, 5);
-	
+		Fig_J_Pos4(0, 5);	
 	}
 	break;
 	}
@@ -210,14 +205,11 @@ void InitFig_Z(int position)
 	case 1:
 	{
 		Fig_Z_Pos1(0, 5);
-		
 	}
 	break;
 	case 2:
 	{
-
-		Fig_Z_Pos2(0,5);
-		
+		Fig_Z_Pos2(0,5);		
 	}
 		break;
 	}
@@ -228,29 +220,22 @@ void InitFig_T(int position)
 	{
 	case 1:
 	{
-
-		Fig_T_Pos1(0, 5);
-		
+		Fig_T_Pos1(0, 5);	
 	}
 	break;
 	case 2:
 	{  
-		Fig_T_Pos2(0,5);
-		
+		Fig_T_Pos2(0,5);	
 	}
 	break;
 	case 3:
 	{
-
-		Fig_T_Pos3(0, 5);
-		;
+		Fig_T_Pos3(0, 5);	
 	}
 	break;
 	case 4:
 	{
-
-		Fig_T_Pos4(0, 5);
-		
+		Fig_T_Pos4(0, 5);	
 	}
 	break;
 	}
@@ -334,7 +319,6 @@ void DeleteRow()
 				}
 				m--;
 			} while (m != 0);
-
 		}
 	}
 }
