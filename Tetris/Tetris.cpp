@@ -8,6 +8,7 @@
 
 #include <iostream>
 #include "pch.h"
+#include <Windows.h>
 
 using namespace std;
 
@@ -32,22 +33,20 @@ int temp; // временная переменная, для подсчёта з
 void InitFig_I(int position);
 void InitFig_J(int position);
 void InitFig_L(int position);
-void InitFig_O();                 //
+void InitFig_O();                 // квадрат
 void InitFig_S(int position);
 void InitFig_Z(int position);
 void InitFig_T(int position);
 void StartFig(int type, int position);
 
-bool RowFull(int row); // определение заполненности строки
-int GameScore(); // определение очков
-void DeleteRow(); // удаление заполненной строки
-
-bool GameOver(); // определение проигрыша
-
+bool RowFull(int row);   // определение заполненности строки
+int GameScore();         // определение очков
+void DeleteRow();        // удаление заполненной строки
+bool GameOver();         // определение проигрыша
 
 int main()
 {
-
+	setlocale(LC_ALL, "rus");
 }
 
 void Fig_I_Pos1(int x,int y) //I горизонталь
@@ -264,7 +263,31 @@ void StartFig(int type, int position)
 	}
 }
 
-bool RowFull(int row)
+void Fig_Step()
+{
+
+   switch (step)
+   {
+		case 1:
+		{
+			switch (pos)
+			{
+			case 1:
+
+				for (int i = 0; i < ROW; i++)
+				{
+					Fig_I_Pos1(i, 3);
+				}
+
+				break;
+			}
+			break;
+		}
+	}
+
+
+}
+ bool RowFull(int row)
 {
 	temp = 0;
 	for (int j = 0; j < COL; j++)
@@ -284,7 +307,7 @@ int GameScore()
 	int k = 0; // переменная, подсчёт заполненных строк
 	for (int i = 0; i < ROW; i++)
 	{
-		if (RowFull(i)) // если строка заполенная, то увеличиваем счётчик заполненных строк на 1
+		if (RowFull(i)) // если строка заполненная, то увеличиваем счётчик заполненных строк на 1
 			k++;
 	}
 
@@ -319,6 +342,7 @@ void DeleteRow()
 				}
 				m--;
 			} while (m != 0);
+
 		}
 	}
 }
