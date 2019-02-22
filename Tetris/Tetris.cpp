@@ -1,9 +1,8 @@
-﻿/*
+/*
 	Игра "Тетрис"
 	Учебный проект консольной версии игры "Тетрис"
 	(c) Frolov Dmitry ,Starinin Andrey, Kitavina Natal`ya, Dmitry Sanzharovskiy ,Karygin Roman , Bardin Valentin ,Bryantsev Vsevolod, Ivutin Anton , Protsenko Vyacheslav , Protsenko Mikhail
 	(c) Компьютерная академия ШАГ Воронеж
-
 	Версия:0.1(Февраль 2019г.)
 */
 
@@ -14,7 +13,7 @@ using namespace std;
 const int ROW = 20;// количество строк 
 const int COL = 10;// количество столбцов 
 
-int game_place[ROW][COL]={}; // двумерный массив 20 строк и 10 столбцов
+int game_place[ROW][COL] = {}; // двумерный массив 20 строк и 10 столбцов
 
 /*
 	Типы фигур:
@@ -30,13 +29,13 @@ int game_place[ROW][COL]={}; // двумерный массив 20 строк и
 int score = 0; // подсчет очков
 int temp;//временная переменная , для подсчета заполненности строки
 
-InitFig_I(int position);
-InitFig_J(int position);
-InitFig_L(int position);
-InitFig_O(int position);
-InitFig_S(int position);
-InitFig_Z(int position);
-InitFig_T(int position);
+void InitFig_I(int position);
+void InitFig_J(int position);
+void InitFig_L(int position);
+void InitFig_O(int position);
+void InitFig_S(int position);
+void InitFig_Z(int position);
+void InitFig_T(int position);
 
 void StartFig(int type, int position);
 
@@ -53,7 +52,7 @@ int main()
 
 }
 
-InitFig_I(int position)
+void InitFig_I(int position)
 {
 	swith(position)
 	{
@@ -64,7 +63,7 @@ InitFig_I(int position)
 			game_place[0][5] = 1;
 			game_place[0][6] = 1;
 		}
-			break;
+		break;
 		case 2: // вертикальное положение 
 		{
 			game_place[0][5] = 1;
@@ -72,9 +71,179 @@ InitFig_I(int position)
 			game_place[2][5] = 1;
 			game_place[3][5] = 1;
 		}
-			break;
+		break;
 	}
 
+}
+
+void InitFig_J(int position)
+{
+	switch (position)
+	{
+	case 1:
+	{
+		game_place[0][5] = 1;
+		game_place[1][5] = 1;
+		game_place[2][4] = 1;
+		game_place[2][5] = 1;
+	}
+	break;
+	case 2:
+	{
+		game_place[0][4] = 1;
+		game_place[1][4] = 1;
+		game_place[1][5] = 1;
+		game_place[1][6] = 1;
+	}
+	break;
+	case 3:
+	{
+		game_place[0][4] = 1;
+		game_place[0][5] = 1;
+		game_place[1][4] = 1;
+		game_place[2][4] = 1;
+	}
+	break;
+	case 4:
+	{
+		game_place[0][4] = 1;
+		game_place[0][5] = 1;
+		game_place[0][6] = 1;
+		game_place[1][6] = 1;
+	}
+	break;
+	}
+}
+
+void InitFig_L(int position)
+{
+	switch (position)
+	{
+	case 1:
+	{
+		game_place[0][4] = 1;
+		game_place[1][4] = 1;
+		game_place[2][4] = 1;
+		game_place[2][5] = 1;
+	}
+	break;
+	case 2:
+	{
+		game_place[0][6] = 1;
+		game_place[1][4] = 1;
+		game_place[1][5] = 1;
+		game_place[1][6] = 1;
+	}
+	break;
+	case 3:
+	{
+		game_place[0][4] = 1;
+		game_place[0][5] = 1;
+		game_place[1][5] = 1;
+		game_place[2][5] = 1;
+	}
+	break;
+	case 4:
+	{
+		game_place[0][4] = 1;
+		game_place[0][5] = 1;
+		game_place[0][6] = 1;
+		game_place[1][4] = 1;
+	}
+	break;
+	}
+}
+void InitFig_O(int position)
+{
+	game_place[0][4] = 1;
+	game_place[0][5] = 1;
+	game_place[1][4] = 1;
+	game_place[1][5] = 1;
+}
+
+void InitFig_S(int position)
+{
+	switch (position)
+	{
+	case 1:
+	{
+		game_place[0][5] = 1;
+		game_place[1][5] = 1;
+		game_place[1][4] = 1;
+		game_place[0][6] = 1;
+	}
+	break;
+	case 2:
+	{
+		game_place[0][4] = 1;
+		game_place[1][4] = 1;
+		game_place[1][5] = 1;
+		game_place[2][5] = 1;
+	}
+	break;
+	}
+}
+
+void InitFig_Z(int position)
+{
+	switch (position)
+	{
+	case 1:
+	{
+		game_place[0][4] = 1;
+		game_place[0][5] = 1;
+		game_place[1][5] = 1;
+		game_place[1][6] = 1;
+	}
+	break;
+	case 2:
+	{
+		game_place[0][5] = 1;
+		game_place[1][5] = 1;
+		game_place[1][4] = 1;
+		game_place[2][4] = 1;
+	}
+	break;
+	}
+}
+
+void InitFig_T(int position)
+{
+	switch (position)
+	{
+	case 1:
+	{
+		game_place[0][4] = 1;
+		game_place[0][5] = 1;
+		game_place[1][5] = 1;
+		game_place[0][6] = 1;
+	}
+	break;
+	case 2:
+	{
+		game_place[0][5] = 1;
+		game_place[1][5] = 1;
+		game_place[2][5] = 1;
+		game_place[1][4] = 1;
+	}
+	break;
+	case 3:
+	{
+		game_place[0][4] = 1;
+		game_place[1][4] = 1;
+		game_place[2][4] = 1;
+		game_place[1][5] = 1;
+	}
+	break;
+	case 4:
+	{
+		game_place[1][4] = 1;
+		game_place[0][5] = 1;
+		game_place[1][5] = 1;
+		game_place[0][6] = 1;
+	}
+	break;
+	}
 }
 
 void StartFig(int type, int position)
@@ -114,7 +283,7 @@ bool RowFull(int row)
 
 int GameScore()
 {
-	
+
 	int k = 0;// переменная , подсчёт заполненных строк
 	for (int i = 0; i < ROW; i++)
 	{
@@ -140,13 +309,13 @@ int GameScore()
 void DeleteRow()
 {
 	int m = 0;
-	
+
 	for (int i = 0; i < ROW; i++)
 	{
 		if (RowFull(i))// если строка заполненная , то увеличиваем счётчик заполненных строк на 1 
 		{
 			m = i;
-			do 
+			do
 			{
 				for (int j = 0; j < COL; j++)
 				{
