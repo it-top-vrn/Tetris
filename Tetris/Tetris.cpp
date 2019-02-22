@@ -1,4 +1,4 @@
-﻿/*
+/*
 	Игра тетрис
 	Учебный проект консульной версии игры тетрис
 	(c) Protsenko Mikhail, Kitavina Nataya, Samzharovskiy Dmitriy, Karigyn Roman, Frolov Dmitriy, Bardin Valentin, Bryantsev Vsevolod, Protsenko Vyacheslav, Starinin Andrey
@@ -49,8 +49,27 @@ int GameScores();
 void DeleteROW();	// удаляет строку есть она полностью заполнена 
 void StartFigure(int type, int position);
 
+void Fig_I_Poz1(int x, int y);
+void Fig_I_Poz2(int x, int y);
+
+void Fig_J_Poz1(int x, int y);
+void Fig_J_Poz2(int x, int y);
+void Fig_J_Poz3(int x, int y);
+void Fig_J_Poz4(int x, int y);
+
+void Fig_L_Poz1(int x, int y);
+void Fig_L_Poz2(int x, int y);
+void Fig_L_Poz3(int x, int y);
+void Fig_L_Poz4(int x, int y);
+
+void Fig_Z_Poz1(int x, int y);
+void Fig_Z_Poz2(int x, int y);
+
+void Fig_S_Poz1(int x, int y);
+void Fig_S_Poz2(int x, int y);
+
 int mail() {
-	
+
 
 	return 0;
 }
@@ -69,7 +88,7 @@ bool GameOver() {
 }
 
 int GameScores() {
-	
+
 	for (int i = 0; i < ROW; i++)
 	{
 		temp = 0;
@@ -102,7 +121,7 @@ bool ROWfull(int row) {
 	for (int j = 0; j < COL; j++)
 	{
 		temp = temp + Game_Play[row][j];
-	
+
 	}
 	if (temp == 10) {
 		return true;
@@ -168,18 +187,307 @@ void InitFig_I(int position) {
 	case 1:		// gorizontalnoe polozhenie
 		for (int i = 0; i < COL; i++)
 		{
-			if (i > 2 && i <= 6) {
-				Game_Play[0][i] = 1;
-			}
+			
+			Fig_I_Poz1(0, 3);
+			
 		}
 		break;
 	case 2:		// vertikalnoe polozhenie
 		for (int i = 0; i < COL; i++)
 		{
-			if (i < 4) {
-				Game_Play[i][5] = 1;
-			}
+			Fig_I_Poz2(0, 3);
 		}
 		break;
 	}
+}
+
+void InitFig_0() {
+	Game_Play[0][4] = 1;
+	Game_Play[0][5] = 1;
+	Game_Play[1][4] = 1;
+	Game_Play[1][5] = 1;
+}
+
+void InitFig_J(int position) {
+	switch (position)
+	{
+	case 1:		// gorizontalnoe polozhenie
+		Fig_J_Poz1(0, 5);
+		break;
+	case 2:		// vertikalnoe polozhenie
+		Fig_J_Poz2(0, 5);
+		/*Game_Play[0][4] = 1;
+		Game_Play[1][4] = 1;
+		Game_Play[1][5] = 1;
+		Game_Play[1][6] = 1;*/
+		break;
+
+	case 3:		// vertikalnoe polozhenie
+		Fig_J_Poz3(0, 4);
+		/*Game_Play[0][4] = 1;
+		Game_Play[0][5] = 1;
+		Game_Play[1][4] = 1;
+		Game_Play[2][4] = 1;*/
+		break;
+	case 4:		// vertikalnoe polozhenie
+		Fig_J_Poz4(0, 6);
+		/*Game_Play[0][4] = 1;
+		Game_Play[0][5] = 1;
+		Game_Play[0][6] = 1;
+		Game_Play[1][6] = 1;*/
+		break;
+
+	}
+}
+
+void InitFig_L(int position) {
+	switch (position)
+	{
+	case 1:		// gorizontalnoe polozhenie
+		Fig_L_Poz1(0, 4);
+		/*Game_Play[0][4] = 1;
+		Game_Play[1][4] = 1;
+		Game_Play[2][4] = 1;
+		Game_Play[2][5] = 1;*/
+		break;
+	case 2:		// vertikalnoe polozhenie
+		Fig_L_Poz2(0, 4);
+		/*Game_Play[0][4] = 1;
+		Game_Play[0][5] = 1;
+		Game_Play[0][6] = 1;
+		Game_Play[1][4] = 1;*/
+		break;
+
+	case 3:		// vertikalnoe polozhenie
+		Fig_L_Poz3(0, 5);
+		/*Game_Play[0][4] = 1;
+		Game_Play[0][5] = 1;
+		Game_Play[1][5] = 1;
+		Game_Play[2][5] = 1;*/
+		break;
+	case 4:		// vertikalnoe polozhenie
+		Fig_L_Poz4(0, 4);
+		/*Game_Play[0][4] = 1;
+		Game_Play[0][5] = 1;
+		Game_Play[0][6] = 1;
+		Game_Play[1][4] = 1;*/
+		break;
+
+	}
+}
+
+
+void InitFig_Z(int position) {
+	switch (position)
+	{
+	case 1:		// gorizontalnoe polozhenie
+		Fig_Z_Poz1(0, 4);
+		/*Game_Play[0][3] = 1;
+		Game_Play[0][4] = 1;
+		Game_Play[1][4] = 1;
+		Game_Play[1][5] = 1;*/
+		break;
+	case 2:		// vertikalnoe polozhenie
+		Fig_Z_Poz2(0, 5);
+		/*Game_Play[0][5] = 1;
+		Game_Play[1][5] = 1;
+		Game_Play[1][4] = 1;
+		Game_Play[2][4] = 1;*/
+		break;
+
+	}
+}
+
+
+
+
+void InitFig_S(int position) {
+	switch (position)
+	{
+	case 1:		// gorizontalnoe polozhenie
+		Fig_S_Poz1(0, 4);
+		/*Game_Play[0][4] = 1;
+		Game_Play[0][5] = 1;
+		Game_Play[1][4] = 1;
+		Game_Play[1][3] = 1;*/
+		break;
+	case 2:		// vertikalnoe polozhenie
+		Fig_S_Poz2(0, 4);
+		/*Game_Play[0][4] = 1;
+		Game_Play[1][4] = 1;
+		Game_Play[1][5] = 1;
+		Game_Play[2][5] = 1;*/
+		break;
+	}
+}
+
+
+void InitFig_T(int position) {
+	switch (position)
+	{
+	case 1:		// gorizontalnoe polozhenie
+		Fig_T_Poz1(0, 4);
+		/*Game_Play[0][4] = 1;
+		Game_Play[0][5] = 1;
+		Game_Play[0][6] = 1;
+		Game_Play[1][5] = 1;*/
+		break;
+	case 2:		// vertikalnoe polozhenie
+		Fig_T_Poz2(0, 5);
+		/*Game_Play[0][5] = 1;
+		Game_Play[1][4] = 1;
+		Game_Play[1][5] = 1;
+		Game_Play[1][6] = 1;*/
+		break;
+
+	case 3:		// vertikalnoe polozhenie
+		Fig_T_Poz3(0, 5);
+		/*Game_Play[0][5] = 1;
+		Game_Play[1][5] = 1;
+		Game_Play[2][5] = 1;
+		Game_Play[1][4] = 1;*/
+		break;
+	case 4:		// vertikalnoe polozhenie
+		Fig_T_Poz4(0, 4);
+		/*Game_Play[0][4] = 1;
+		Game_Play[1][4] = 1;
+		Game_Play[2][4] = 1;
+		Game_Play[1][5] = 1;*/
+		break;
+
+	}
+}
+
+
+void Fig_I_Poz1(int x, int y) {
+	for (int i = 0; i < COL; i++)
+	{
+		if (i > 2 && i <= 6) {
+			Game_Play[0][i+i] = 1;
+		}
+	}
+}
+void Fig_I_Poz2(int x, int y) {
+	for (int i = 0; i < COL; i++)
+	{
+		if (i < 4) {
+			Game_Play[i][5] = 1;
+		}
+	}
+}
+
+
+
+void Fig_J_Poz1(int x, int y) {
+	Game_Play[x][y] = 1;
+	Game_Play[x+1][y] = 1;
+	Game_Play[x+2][y-1] = 1;
+	Game_Play[x+2][y] = 1;
+}
+
+void Fig_J_Poz2(int x, int y) {
+	Game_Play[x][y] = 1;
+	Game_Play[x+1][y] = 1;
+	Game_Play[x+1][y+1] = 1;
+	Game_Play[x+1][y+2] = 1;
+}
+
+void Fig_J_Poz3(int x, int y) {
+	Game_Play[x][y] = 1;
+	Game_Play[x][y+1] = 1;
+	Game_Play[x+1][y] = 1;
+	Game_Play[x+2][y] = 1;
+}
+
+void Fig_J_Poz4(int x, int y) {
+	Game_Play[x][y-2] = 1;
+	Game_Play[x][y-1] = 1;
+	Game_Play[x][y] = 1;
+	Game_Play[x+1][y] = 1;
+}
+
+
+void Fig_L_Poz1(int x, int y) {
+	Game_Play[x][y] = 1;
+	Game_Play[x+1][y] = 1;
+	Game_Play[x+2][y] = 1;
+	Game_Play[x+2][y+1] = 1;
+}
+
+void Fig_L_Poz2(int x, int y) {
+	Game_Play[x][y] = 1;
+	Game_Play[x][y+1] = 1;
+	Game_Play[x][y+2] = 1;
+	Game_Play[x+1][y] = 1;
+}
+
+void Fig_L_Poz3(int x, int y) {
+	Game_Play[x][y-1] = 1;
+	Game_Play[x][y] = 1;
+	Game_Play[x+1][y] = 1;
+	Game_Play[x+2][y] = 1;
+}
+
+void Fig_L_Poz4(int x, int y) {
+	Game_Play[x][y] = 1;
+	Game_Play[x][y+1] = 1;
+	Game_Play[x][y+2] = 1;
+	Game_Play[x+1][y] = 1;
+}
+
+void Fig_Z_Poz1(int x, int y) {
+	Game_Play[x][y-1] = 1;
+	Game_Play[x][y] = 1;
+	Game_Play[x+1][y] = 1;
+	Game_Play[x+1][y+1] = 1;
+}
+
+void Fig_Z_Poz2(int x, int y) {
+	Game_Play[x][y] = 1;
+	Game_Play[x+1][y] = 1;
+	Game_Play[x+1][y-1] = 1;
+	Game_Play[x+2][y-1] = 1;
+}
+
+void Fig_S_Poz1(int x, int y) {
+	Game_Play[x][y] = 1;
+	Game_Play[x][y+1] = 1;
+	Game_Play[x+1][y] = 1;
+	Game_Play[x+1][y-1] = 1;
+}
+
+void Fig_S_Poz2(int x, int y) {
+	Game_Play[x][y] = 1;
+	Game_Play[x+1][y] = 1;
+	Game_Play[x+1][y+1] = 1;
+	Game_Play[x+2][y+1] = 1;
+}
+
+
+void Fig_T_Poz1(int x, int y) {
+	Game_Play[x][y] = 1;
+	Game_Play[x][y+1] = 1;
+	Game_Play[x][y+2] = 1;
+	Game_Play[x+1][y+1] = 1;
+}
+
+void Fig_T_Poz2(int x, int y) {
+	Game_Play[x][y] = 1;
+	Game_Play[x+1][y-1] = 1;
+	Game_Play[x+1][y] = 1;
+	Game_Play[x+1][y+1] = 1;
+}
+
+void Fig_T_Poz3(int x, int y) {
+	Game_Play[x][y] = 1;
+	Game_Play[x+1][y] = 1;
+	Game_Play[x+2][y] = 1;
+	Game_Play[x+1][y-1] = 1;
+}
+
+void Fig_T_Poz4(int x, int y) {
+	Game_Play[x][y] = 1;
+	Game_Play[x+1][y] = 1;
+	Game_Play[x+2][y] = 1;
+	Game_Play[x+1][y+1] = 1;
 }
