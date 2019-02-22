@@ -44,8 +44,6 @@ void DeleteRow(); // удаление заполненной строки
 int main()
 {
 	setlocale(LC_ALL, "rus");
-
-
 }
 void Fig_I_Poz1(int x,int y) // Фигура I , горизонтальное положение 
 {
