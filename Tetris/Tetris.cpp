@@ -69,22 +69,142 @@ void InitFig_I(int position) {
 	}
 }
 void InitFig_J(int position) {
-
+	switch (position) {
+		case 1: { // Вертикальное положение J
+			game_place[0][5] == 1;
+			game_place[1][5] == 1;
+			game_place[2][4] == 1;
+			game_place[2][5] == 1;
+			break;
+		}
+		case 2: { // Повернули на 90
+			game_place[0][4] == 1;
+			game_place[1][4] == 1;
+			game_place[1][5] == 1;
+			game_place[1][6] == 1;
+			break;
+		}
+		case 3: { // Повернули на 90
+			game_place[0][4] == 1;
+			game_place[0][5] == 1;
+			game_place[1][4] == 1;
+			game_place[2][4] == 1;
+			break;
+		}
+		case 4: { // Повернули на 90
+			game_place[0][4] == 1;
+			game_place[0][5] == 1;
+			game_place[0][6] == 1;
+			game_place[1][6] == 1;
+			break;
+		}
+	}
 }
 void InitFig_L(int position) {
-
+	switch (position) {
+		case 1: { // Вертикальное положение L
+			game_place[0][4] == 1;
+			game_place[1][4] == 1;
+			game_place[2][4] == 1;
+			game_place[2][5] == 1;
+			break;
+		}
+		case 2: { // Повернули на 90
+			game_place[0][4] == 1;
+			game_place[0][5] == 1;
+			game_place[0][6] == 1;
+			game_place[1][4] == 1;
+			break;
+		}
+		case 3: { // Повернули на 90
+			game_place[0][4] == 1;
+			game_place[0][5] == 1;
+			game_place[1][5] == 1;
+			game_place[2][5] == 1;
+			break;
+		}
+		case 4: { // Повернули на 90
+			game_place[0][5] == 1;
+			game_place[1][5] == 1;
+			game_place[1][4] == 1;
+			game_place[1][3] == 1;
+			break;
+		}
+	}
 }
 void InitFig_O() {
-
+	game_place[0][4] == 1;
+	game_place[0][5] == 1;
+	game_place[1][4] == 1;
+	game_place[1][5] == 1;
 }
 void InitFig_S(int position) {
-
+	switch (position) {
+		case 1: { // S
+			game_place[0][5] == 1;
+			game_place[0][6] == 1;
+			game_place[1][5] == 1;
+			game_place[1][4] == 1;
+			break;
+		}
+		case 2: { 
+			game_place[0][4] == 1;
+			game_place[1][4] == 1;
+			game_place[1][5] == 1;
+			game_place[2][5] == 1;
+			break;
+		}
+	}
 }
 void InitFig_Z(int position) {
-
+	switch (position) {
+		case 1: { // Z
+			game_place[0][4] == 1;
+			game_place[0][5] == 1;
+			game_place[1][5] == 1;
+			game_place[1][6] == 1;
+			break;
+		}
+		case 2: {
+			game_place[0][5] == 1;
+			game_place[1][5] == 1;
+			game_place[1][4] == 1;
+			game_place[2][4] == 1;
+			break;
+		}
+	}
 }
 void InitFig_T(int position) {
-
+	switch (position) {
+		case 1: { // T
+			game_place[0][4] == 1;
+			game_place[0][5] == 1;
+			game_place[0][6] == 1;
+			game_place[1][5] == 1;
+			break;
+		}
+		case 2: { // Повернули
+			game_place[0][5] == 1;
+			game_place[1][5] == 1;
+			game_place[2][5] == 1;
+			game_place[1][4] == 1;
+			break;
+		}
+		case 3: { // Повернули
+			game_place[0][5] == 1;
+			game_place[1][4] == 1;
+			game_place[1][5] == 1;
+			game_place[1][6] == 1;
+			break;
+		}
+		case 4: { // Повернули
+			game_place[0][4] == 1;
+			game_place[1][4] == 1;
+			game_place[2][4] == 1;
+			game_place[1][5] == 1;
+			break;
+		}
+	}
 }
 
 void StartFig(int type, int position) {
