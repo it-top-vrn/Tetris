@@ -5,7 +5,6 @@
 	(c) Компьютерная академия ШАГ Воронеж
 	Версия:0.1(Февраль 2019г.)
 */
-
 #include <iostream>
 
 using namespace std;
@@ -36,13 +35,10 @@ void InitFig_O();
 void InitFig_S(int position);
 void InitFig_Z(int position);
 void InitFig_T(int position);
-
 void StartFig(int type, int position);
-
 bool GameOver(); // Определение проигрыша
 bool RowFull(int row); // определение заполненности строки 
 int GameScore(); // определение очков
-
 void DeleteRow(); // удаление заполненной строки 
 
 int main()
@@ -51,7 +47,6 @@ int main()
 
 
 }
-
 void Fig_I_Poz1(int x,int y) // Фигура I , горизонтальное положение 
 {
 	game_place[x][y] = 1;
@@ -190,12 +185,10 @@ void Fig_T_Pos4(int x, int y)
 	game_place[x + 1][y] = 1;
 	game_place[x ][y+1] = 1;
 }
-
 void InitFig_I(int position)
 {
 	switch (position)
 	{
-	
 		case 1: // горизонтальное положение 
 		{
 			Fig_I_Poz1(0, 3);
@@ -207,9 +200,7 @@ void InitFig_I(int position)
 		}
 		break;
 	}
-
 }
-
 void InitFig_J(int position)
 {
 	switch (position)
@@ -236,7 +227,6 @@ void InitFig_J(int position)
 	break;
 	}
 }
-
 void InitFig_L(int position)
 {
 	switch (position)
@@ -267,7 +257,6 @@ void InitFig_O()
 {
 	Fig_O_Pos(0, 5);
 }
-
 void InitFig_S(int position)
 {
 	switch (position)
@@ -284,7 +273,6 @@ void InitFig_S(int position)
 	break;
 	}
 }
-
 void InitFig_Z(int position)
 {
 	switch (position)
@@ -301,7 +289,6 @@ void InitFig_Z(int position)
 	break;
 	}
 }
-
 void InitFig_T(int position)
 {
 	switch (position)
@@ -328,7 +315,6 @@ void InitFig_T(int position)
 	break;
 	}
 }
-
 void StartFig(int type, int position)
 {
 	switch (type)
@@ -349,7 +335,6 @@ void StartFig(int type, int position)
 		break;
 	}
 }
-
 bool RowFull(int row)
 {
 	temp = 0;
@@ -357,23 +342,19 @@ bool RowFull(int row)
 	{
 		temp = temp + game_place[row][j];
 	}
-
 	if (temp == 10)
 		return true;
 	else
 		return false;
 }
-
 int GameScore()
 {
-
 	int k = 0;// переменная , подсчёт заполненных строк
 	for (int i = 0; i < ROW; i++)
 	{
 		if (RowFull(i)) // если строка заполненная , то увеличиваем счётчик заполненных строк на 1 
 			k++;
 	}
-
 	switch (k)
 	{
 	case 1: return 100; // при заполнении одной строки дается 100 очков
@@ -387,12 +368,9 @@ int GameScore()
 	default: return 0;
 		break;
 	}
-}
-
-void DeleteRow()
+}void DeleteRow()
 {
 	int m = 0;
-
 	for (int i = 0; i < ROW; i++)
 	{
 		if (RowFull(i))// если строка заполненная , то увеличиваем счётчик заполненных строк на 1 
@@ -409,7 +387,6 @@ void DeleteRow()
 		}
 	}
 }
-
 bool GameOver()
 {
 	// функция проверяет верхнюю строчку игрового поля на наличие в ней "1"(признак фигуры), если есть хоть одна единица - проигрыш.
