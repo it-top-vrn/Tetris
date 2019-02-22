@@ -510,6 +510,31 @@ void StartFig(int type, int postion)
 }
 
 
+void Fig_step(int type, int pos)
+{
+	switch (type)
+	{
+	case 1: 
+	{
+		switch (pos)
+		{
+		case 1:
+		{
+			for (int i = 0; i < ROW; i++)
+			{
+				Fig_I_pos_1(i,3);
+			}
+
+		}
+		break;
+		}
+
+	}
+		break;
+	}
+
+}
+
 
 bool RowFULL(int row)
 {
@@ -597,6 +622,6 @@ bool GameOver()
 		else
 		{
 			false;
-		}
+		}`
 	}
 }
