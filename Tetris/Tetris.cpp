@@ -9,6 +9,7 @@
 */
 
 #include <iostream>
+#include <windows.h>
 
 using namespace std;
 
@@ -28,7 +29,6 @@ int game_place[ROW][COL]{};		// Объявляем массив размером
 	7 - T
 */
 
-
 int score = 0;					// Подсчет очков
 int temp;						// Переменная, для подсчета заполненности строки
 
@@ -47,7 +47,6 @@ bool GameOver();				// Определение проигрыша
 
 
 int main() {
-	
 }
 
 void Fig_I_Pos1(int x, int y) { // Фигура I горизонтальная с передачей координат x, y
@@ -291,12 +290,25 @@ void StartFig(int type, int position) {
 	}
 }
 
+void Fig_Step(int type, int pos) { // Перемещение фигуры вниз
+	switch (type) {
+		case 1: {
+			switch (pos) {
+				case 1: {
+					for (int i = 0; i < ROW; i++) {
+						Fig_I_Pos1(i, 3);
+					}
+				}
+			}
+		}
+	}
+} 
+
 bool RowFull(int row) {
 	temp = 0;
 	for (int j = 0; j < COL; j++) {
 		temp += game_place[row][j];
 	}
-
 	if (temp == 10) {
 		return true;
 	}
