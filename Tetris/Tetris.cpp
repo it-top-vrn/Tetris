@@ -1,13 +1,13 @@
-﻿/*
+/*
 	Игра "Тетрис"
 	Учебный проект консольной версии игры "Тетрис"
 	(c) Starinin Andrey, Kitavina Natal'ya, Sanzharovskiy Dmitry, Karygin Roman, Frolov Dmitry, Bardin Valentin, Bryantsev Vsevolod, Ivutin Anton, Protsenko Vyacheslav, Protsenko Mikhail
 	(c) Компьютерная академия ШАГ. Воронеж
-
 	Версия: 0.1 (Февраль 2019 г.)
 */
 
 #include <iostream>
+#include "pch.h"
 
 using namespace std;
 
@@ -32,7 +32,7 @@ int temp; // временная переменная, для подсчёта з
 void InitFig_I(int position);
 void InitFig_J(int position);
 void InitFig_L(int position);
-void InitFig_O();
+void InitFig_O();                 //
 void InitFig_S(int position);
 void InitFig_Z(int position);
 void InitFig_T(int position);
@@ -50,24 +50,207 @@ int main()
 
 }
 
+void Fig_I_Pos1(int x,int y) //I горизонталь
+{
+	game_place[x][y] = 1;
+	game_place[x][y+1] = 1;
+	game_place[x][y+2] = 1;
+	game_place[x][y+3] = 1;
+}
+void Fig_I_Pos2(int x, int y)// I вертикаль
+{
+	game_place[x][y] = 1;
+	game_place[x+1][y] = 1;
+	game_place[x+2][y] = 1;
+	game_place[x+3][y] = 1;
+}
+
+void Fig_J_Pos1(int x, int y)
+{
+	game_place[x][y] = 1;
+	game_place[x+1][y] = 1;
+	game_place[x+2][y-1] = 1;
+	game_place[x+2][y] = 1;
+}
+
+void Fig_J_Pos2(int x, int y)
+{
+	game_place[x][y] = 1;
+	game_place[x][y+1] = 1;
+	game_place[x][y+2] = 1;
+	game_place[x-1][5] = 1;
+}
+
+void Fig_J_Pos3(int x, int y)
+{
+	game_place[x][y] = 1;
+	game_place[x][y+1] = 1;
+	game_place[x+1][y] = 1;
+	game_place[x+2][y] = 1;
+}
+
+void Fig_J_Pos4(int x, int y)
+{
+	game_place[x][y] = 1;
+	game_place[x+1][y] = 1;
+	game_place[x][y-1] = 1;
+	game_place[x][y-2] = 1;
+}
+
+void Fig_Z_Pos1(int x, int y)
+{
+	game_place[x][y] = 1;
+	game_place[x+1][y] = 1;
+	game_place[x][y+1] = 1;
+	game_place[x+1][y-1] = 1;
+}
+
+void Fig_Z_Pos2(int x, int y)
+{
+	game_place[x][y] = 1;
+	game_place[x+1][y] = 1;
+	game_place[x+1][y+1] = 1;
+	game_place[x+1][y+1] = 1;
+}
+
+void Fig_T_Pos1(int x, int y)
+{
+	game_place[x][y] = 1;
+	game_place[x+1][y] = 1;
+	game_place[x][y-1] = 1;
+	game_place[x][y+1] = 1;
+}
+
+void Fig_T_Pos2(int x, int y)
+{
+	game_place[x][y] = 1;
+	game_place[x+1][y] = 1;
+	game_place[x+2][y] = 1;
+	game_place[x+2][y-1] = 1;
+}
+
+void Fig_T_Pos3(int x, int y)
+{
+	game_place[x][y] = 1;
+	game_place[x+1][y] = 1;
+	game_place[x+1][y-1] = 1;
+	game_place[x+1][y+1] = 1;
+}
+
+void Fig_T_Pos4(int x, int y)
+{
+	game_place[x][y] = 1;
+	game_place[x+1][y] = 1;
+	game_place[x+2][y] = 1;
+	game_place[x+2][y+1] = 1;
+}
+
 void InitFig_I(int position)
 {
 	switch (position)
 	{
 	case 1: // горизонтальное положение
 	{
-		game_place[0][3] = 1;
-		game_place[0][4] = 1;
-		game_place[0][5] = 1;
-		game_place[0][6] = 1;
+		Fig_I_Pos1(0, 3);
+		
 	}
 	break;
 	case 2: // вертикальное положение
 	{
-		game_place[0][5] = 1;
-		game_place[1][5] = 1;
-		game_place[2][5] = 1;
-		game_place[3][5] = 1;
+		Fig_I_Pos2(0, 5);
+	}
+	break;
+	}
+}
+
+void InitFig_O(int position)
+{
+	game_place[0][4] = 1;
+	game_place[0][5] = 1;
+	game_place[1][4] = 1;
+	game_place[1][5] = 1;
+}
+
+void InitFig_J(int position)
+{
+	switch (position)
+	{
+	case 1: 
+	{
+		Fig_J_Pos1(0,5);
+		
+	}
+		break;
+	case 2:
+	{
+		Fig_J_Pos2(1, 5);
+		
+	}
+		break;
+	case 3: 
+	{
+		Fig_J_Pos3(0, 5);
+		
+	}
+		break;
+	case 4: 
+	{
+
+		Fig_J_Pos4(0, 5);
+	
+	}
+	break;
+	}
+}
+
+void InitFig_Z(int position)
+{
+	switch (position)
+	{
+	case 1:
+	{
+		Fig_Z_Pos1(0, 5);
+		
+	}
+	break;
+	case 2:
+	{
+
+		Fig_Z_Pos2(0,5);
+		
+	}
+		break;
+	}
+}
+void InitFig_T(int position)
+{
+	switch (position)
+	{
+	case 1:
+	{
+
+		Fig_T_Pos1(0, 5);
+		
+	}
+	break;
+	case 2:
+	{  
+		Fig_T_Pos2(0,5);
+		
+	}
+	break;
+	case 3:
+	{
+
+		Fig_T_Pos3(0, 5);
+		;
+	}
+	break;
+	case 4:
+	{
+
+		Fig_T_Pos4(0, 5);
+		
 	}
 	break;
 	}
