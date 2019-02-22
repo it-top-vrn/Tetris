@@ -68,6 +68,14 @@ void Fig_Z_Poz2(int x, int y);
 void Fig_S_Poz1(int x, int y);
 void Fig_S_Poz2(int x, int y);
 
+void Fig_T_Poz1(int x, int y);
+void Fig_T_Poz2(int x, int y);
+void Fig_T_Poz3(int x, int y);
+void Fig_T_Poz4(int x, int y);
+
+
+void Fig_Step(int type, int pos);
+
 int mail() {
 
 
@@ -490,4 +498,14 @@ void Fig_T_Poz4(int x, int y) {
 	Game_Play[x+1][y] = 1;
 	Game_Play[x+2][y] = 1;
 	Game_Play[x+1][y+1] = 1;
+}
+
+void Fig_Step(int type, int pos) {
+	switch (type)
+	{
+	case 1:
+		break;
+	default:
+		break;
+	}
 }
