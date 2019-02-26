@@ -11,6 +11,7 @@
 #include <time.h>
 #include <math.h>
 #include <conio.h>
+#include "windows.h"
 
 using namespace std;
 
@@ -133,6 +134,12 @@ bool CheckStep(int x, int y, int check) {
 
 void Fig_I_Poz1(int x, int y) // Фигура I , горизонтальное положение 
 {
+	if (x != 0) {
+		game_place[x-1][y] = 0;
+		game_place[x-1][y + 1] = 0;
+		game_place[x-1][y + 2] = 0;
+		game_place[x-1][y + 3] = 0;
+	}
 	game_place[x][y] = 1;
 	game_place[x][y + 1] = 1;
 	game_place[x][y + 2] = 1;
@@ -143,6 +150,12 @@ void Fig_I_Poz1(int x, int y) // Фигура I , горизонтальное �
 }
 void Fig_I_Poz2(int x, int y) // Фигура I , вертикальное положение 
 {
+	if (x != 0) {
+		game_place[x-1][y] = 0;
+		game_place[x ][y] = 0;
+		game_place[x + 1][y] = 0;
+		game_place[x + 2][y] = 0;
+	}
 	game_place[x][y] = 1;
 	game_place[x + 1][y] = 1;
 	game_place[x + 2][y] = 1;
@@ -154,6 +167,12 @@ void Fig_I_Poz2(int x, int y) // Фигура I , вертикальное по�
 
 void Fig_J_Pos1(int x, int y)
 {
+	if (x != 0) {
+		game_place[x - 1][y] = 0;
+		game_place[x ][y] = 0;
+		game_place[x + 1][y - 1] = 0;
+		game_place[x + 1][y] = 0;
+	}
 	game_place[x][y] = 1;
 	game_place[x + 1][y] = 1;
 	game_place[x + 2][y - 1] = 1;
@@ -164,6 +183,12 @@ void Fig_J_Pos1(int x, int y)
 }
 void Fig_J_Pos2(int x, int y)
 {
+	if (x != 0) {
+		game_place[x - 1][y - 1] = 0;
+		game_place[x][y - 1] = 0;
+		game_place[x][y] = 0;
+		game_place[x][y + 1] = 0;
+	}
 	game_place[x][y - 1] = 1;
 	game_place[x + 1][y - 1] = 1;
 	game_place[x + 1][y] = 1;
@@ -174,6 +199,12 @@ void Fig_J_Pos2(int x, int y)
 }
 void Fig_J_Pos3(int x, int y)
 {
+	if (x != 0) {
+		game_place[x - 1][y - 1] = 0;
+		game_place[x - 1][y] = 0;
+		game_place[x][y - 1] = 0;
+		game_place[x][y + 1] = 0;
+	}
 	game_place[x][y - 1] = 1;
 	game_place[x][y] = 1;
 	game_place[x + 1][y - 1] = 1;
@@ -184,6 +215,12 @@ void Fig_J_Pos3(int x, int y)
 }
 void Fig_J_Pos4(int x, int y)
 {
+	if (x != 0) {
+		game_place[x - 1][y - 1] = 0;
+		game_place[x - 1][y] = 0;
+		game_place[x - 1][y + 1] = 0;
+		game_place[x + 1][y - 1] = 0;
+	}
 	game_place[x][y - 1] = 1;
 	game_place[x][y] = 1;
 	game_place[x][y + 1] = 1;
@@ -195,6 +232,12 @@ void Fig_J_Pos4(int x, int y)
 
 void Fig_L_Pos1(int x, int y)
 {
+	if (x != 0) {
+		game_place[x - 1][y - 1] = 0;
+		game_place[x][y - 1] = 0;
+		game_place[x][y] = 0;
+		game_place[x][y + 1] = 0;
+	}
 	game_place[x][y - 1] = 1;
 	game_place[x + 1][y - 1] = 1;
 	game_place[x + 1][y] = 1;
@@ -205,6 +248,12 @@ void Fig_L_Pos1(int x, int y)
 }
 void Fig_L_Pos2(int x, int y)
 {
+	if (x != 0) {
+		game_place[x - 1][y + 1] = 0;
+		game_place[x][y - 1] = 0;
+		game_place[x + 1][y - 1] = 0;
+		game_place[x + 1][y] = 0;
+	}
 	game_place[x][y + 1] = 1;
 	game_place[x + 1][y - 1] = 1;
 	game_place[x + 2][y - 1] = 1;
@@ -215,6 +264,12 @@ void Fig_L_Pos2(int x, int y)
 }
 void Fig_L_Pos3(int x, int y)
 {
+	if (x != 0) {
+		game_place[x - 1][y - 1] = 0;
+		game_place[x - 1][y] = 0;
+		game_place[x][y] = 0;
+		game_place[x + 1][y] = 0;
+	}
 	game_place[x][y - 1] = 1;
 	game_place[x][y] = 1;
 	game_place[x + 1][y] = 1;
@@ -225,6 +280,12 @@ void Fig_L_Pos3(int x, int y)
 }
 void Fig_L_Pos4(int x, int y)
 {
+	if (x != 0) {
+		game_place[x - 1][y - 1] = 0;
+		game_place[x - 1][y] = 0;
+		game_place[x - 1][y + 1] = 0;
+		game_place[x][y - 1] = 0;
+	}
 	game_place[x][y - 1] = 1;
 	game_place[x][y] = 1;
 	game_place[x][y + 1] = 1;
@@ -236,6 +297,12 @@ void Fig_L_Pos4(int x, int y)
 
 void Fig_O_Pos(int x, int y)
 {
+	if (x != 0) {
+		game_place[x - 1][y - 1] = 0;
+		game_place[x - 1][y] = 0;
+		game_place[x][y - 1] = 0;
+		game_place[x][y] = 0;
+	}
 	game_place[x][y - 1] = 1;
 	game_place[x][y] = 1;
 	game_place[x + 1][y - 1] = 1;
@@ -247,6 +314,12 @@ void Fig_O_Pos(int x, int y)
 
 void Fig_S_Pos1(int x, int y)
 {
+	if (x != 0) {
+		game_place[x - 1][y] = 0;
+		game_place[x][y] = 0;
+		game_place[x][y - 1] = 0;
+		game_place[x - 1][y + 1] = 0;
+	}
 	game_place[x][y] = 1;
 	game_place[x + 1][y] = 1;
 	game_place[x + 1][y - 1] = 1;
@@ -257,6 +330,12 @@ void Fig_S_Pos1(int x, int y)
 }
 void Fig_S_Pos2(int x, int y)
 {
+	if (x != 0) {
+		game_place[x - 1][y - 1] = 0;
+		game_place[x][y - 1] = 0;
+		game_place[x][y] = 0;
+		game_place[x + 1][y] = 0;
+	}
 	game_place[x][y - 1] = 1;
 	game_place[x + 1][y - 1] = 1;
 	game_place[x + 1][y] = 1;
@@ -268,6 +347,12 @@ void Fig_S_Pos2(int x, int y)
 
 void Fig_Z_Pos1(int x, int y)
 {
+	if (x != 0) {
+		game_place[x - 1][y - 1] = 0;
+		game_place[x - 1][y] = 0;
+		game_place[x][y] = 0;
+		game_place[x][y + 1] = 0;
+	}
 	game_place[x][y - 1] = 1;
 	game_place[x][y] = 1;
 	game_place[x + 1][y] = 1;
@@ -278,6 +363,12 @@ void Fig_Z_Pos1(int x, int y)
 }
 void Fig_Z_Pos2(int x, int y)
 {
+	if (x != 0) {
+		game_place[x - 1][y] = 0;
+		game_place[x][y] = 0;
+		game_place[x][y - 1] = 0;
+		game_place[x + 1][y - 1] = 0;
+	}
 	game_place[x][y] = 1;
 	game_place[x + 1][y] = 1;
 	game_place[x + 1][y - 1] = 1;
@@ -289,6 +380,12 @@ void Fig_Z_Pos2(int x, int y)
 
 void Fig_T_Pos1(int x, int y)
 {
+	if (x != 0) {
+		game_place[x - 1][y - 1] = 0;
+		game_place[x - 1][y] = 0;
+		game_place[x][y] = 0;
+		game_place[x - 1][y + 1] = 0;
+	}
 	game_place[x][y - 1] = 1;
 	game_place[x][y] = 1;
 	game_place[x + 1][y] = 1;
@@ -299,6 +396,12 @@ void Fig_T_Pos1(int x, int y)
 }
 void Fig_T_Pos2(int x, int y)
 {
+	if (x != 0) {
+		game_place[x - 1][y] = 0;
+		game_place[x][y] = 0;
+		game_place[x + 1][y] = 0;
+		game_place[x][y - 1] = 0;
+	}
 	game_place[x][y] = 1;
 	game_place[x + 1][y] = 1;
 	game_place[x + 2][y] = 1;
@@ -309,6 +412,12 @@ void Fig_T_Pos2(int x, int y)
 }
 void Fig_T_Pos3(int x, int y)
 {
+	if (x != 0) {
+		game_place[x - 1][y - 1] = 0;
+		game_place[x][y - 1] = 0;
+		game_place[x + 1][y - 1] = 0;
+		game_place[x][y] = 0;
+	}
 	game_place[x][y - 1] = 1;
 	game_place[x + 1][y - 1] = 1;
 	game_place[x + 2][y - 1] = 1;
@@ -319,6 +428,12 @@ void Fig_T_Pos3(int x, int y)
 }
 void Fig_T_Pos4(int x, int y)
 {
+	if (x != 0) {
+		game_place[x - 1][y - 1] = 0;
+		game_place[x - 0][y] = 0;
+		game_place[x][y] = 0;
+		game_place[x - 1][y + 1] = 0;
+	}
 	game_place[x][y - 1] = 1;
 	game_place[x][y] = 1;
 	game_place[x + 1][y] = 1;
