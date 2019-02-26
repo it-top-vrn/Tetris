@@ -3,7 +3,6 @@
 	Учебный проект консульной версии игры тетрис
 	(c) Protsenko Mikhail, Kitavina Nataya, Samzharovskiy Dmitriy, Karigyn Roman, Frolov Dmitriy, Bardin Valentin, Bryantsev Vsevolod, Protsenko Vyacheslav, Starinin Andrey
 	(c) Компьютерная академия ШАГ . Воронеж
-
 	Версия 0.1 (21.02.2019)
 */
 
@@ -12,7 +11,6 @@
 #include <time.h>
 #include <math.h>
 #include <conio.h>
-
 
 using namespace std;
 
@@ -93,38 +91,38 @@ bool CheckStep(int x, int y, int check) {
 	{
 	case 1:   // проверка 1 координатного горизонтального элемента
 		if (game_place[x + 1][y] != 1 ) {
-			false;
+			return false;
 		}
 		else
 		{
-			true;
+			return true;
 		}
 		break;
 	case 2:   // проверка 2 координатного горизонтального элемента
-		if (game_place[x + 1][y] != 1 || game_place[x + 1][y + 1]) {
-			false;
+		if (game_place[x + 1][y] != 1 || game_place[x + 1][y + 1] != 1) {
+			return false;
 		}
 		else
 		{
-			true;
+			return true;
 		}
 		break;
 	case 3:  // проверка 3 координатного горизонтального элемента
-		if (game_place[x + 1][y] != 1 || game_place[x + 1][y + 1] || game_place[x + 1][y + 2]){
-			false;
+		if (game_place[x + 1][y] != 1 || game_place[x + 1][y + 1] != 1 || game_place[x + 1][y + 2] != 1){
+			return false;
 		}
 		else
 		{
-			true;
+			return true;
 		}
 		break;
 	case 4:   // проверка 4 координатного горизонтального элемента
-		if (game_place[x + 1][y] != 1 || game_place[x + 1][y + 1] || game_place[x + 1][y + 2] || game_place[x + 1][y + 3]) {
-			false;
+		if (game_place[x + 1][y] != 1 || game_place[x + 1][y + 1] != 1|| game_place[x + 1][y + 2] != 1 || game_place[x + 1][y + 3] != 1) {
+			return false;
 		}
 		else
 		{
-			true;
+			return true;
 		}
 		break;
 	default:
@@ -529,5 +527,4 @@ bool GameOver()
 			return false;
 	}
 }
-
 
