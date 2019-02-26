@@ -45,158 +45,158 @@ int main()
 {
 	setlocale(LC_ALL, "rus");
 }
-void Fig_I_Poz1(int x,int y) // Фигура I , горизонтальное положение 
+void Fig_I_Pos1(int x, int y, int n) // Фигура I , горизонтальное положение 
 {
-	game_place[x][y] = 1;
-	game_place[x][y+1] = 1;
-	game_place[x][y+2] = 1;
-	game_place[x][y+3] = 1;
+	game_place[x][y] = n;
+	game_place[x][y + 1] = n;
+	game_place[x][y + 2] = n;
+	game_place[x][y + 3] = n;
 }
-void Fig_I_Poz2(int x, int y) // Фигура I , вертикальное положение 
+void Fig_I_Pos2(int x, int y, int n) // Фигура I , вертикальное положение 
 {
-	game_place[x][y] = 1;
-	game_place[x+1][y] = 1;
-	game_place[x+2][y] = 1;
-	game_place[x+3][y] = 1;
-}
-
-void Fig_J_Pos1(int x, int y)
-{
-	game_place[x][y] = 1;
-	game_place[x+1][y] = 1;
-	game_place[x+2][y-1] = 1;
-	game_place[x+2][y] = 1;
-}
-void Fig_J_Pos2(int x, int y)
-{
-	game_place[x][y-1] = 1;
-	game_place[x + 1][y-1] = 1;
-	game_place[x + 1][y] = 1;
-	game_place[x + 1][y+1] = 1;
-}
-void Fig_J_Pos3(int x, int y)
-{
-	game_place[x][y - 1] = 1;
-	game_place[x][y] = 1;
-	game_place[x + 1][y - 1] = 1;
-	game_place[x + 1][y + 1] = 1;
-}
-void Fig_J_Pos4(int x, int y)
-{
-	game_place[x][y-1] = 1;
-	game_place[x][y] = 1;
-	game_place[x][y + 1] = 1;
-	game_place[x + 2][y-1] = 1;
+	game_place[x][y] = n;
+	game_place[x + 1][y] = n;
+	game_place[x + 2][y] = n;
+	game_place[x + 3][y] = n;
 }
 
-void Fig_L_Pos1(int x, int y)
+void Fig_J_Pos1(int x, int y, int n)
 {
-	game_place[x][y-1] = 1;
-	game_place[x+1][y-1] = 1;
-	game_place[x+1][y] = 1;
-	game_place[x+1][y+1] = 1;
+	game_place[x][y] = n;
+	game_place[x + 1][y] = n;
+	game_place[x + 2][y - 1] = n;
+	game_place[x + 2][y] = n;
 }
-void Fig_L_Pos2(int x, int y)
+void Fig_J_Pos2(int x, int y, int n)
 {
-	game_place[x][y + 1] = 1;
-	game_place[x + 1][y - 1] = 1;
-	game_place[x + 2][y - 1] = 1;
-	game_place[x + 2][y] = 1;
+	game_place[x][y - 1] = n;
+	game_place[x + 1][y - 1] = n;
+	game_place[x + 1][y] = n;
+	game_place[x + 1][y + 1] = n;
 }
-void Fig_L_Pos3(int x, int y)
+void Fig_J_Pos3(int x, int y, int n)
 {
-	game_place[x][y - 1] = 1;
-	game_place[x ][y] = 1;
-	game_place[x + 1][y] = 1;
-	game_place[x + 2][y] = 1;
+	game_place[x][y - 1] = n;
+	game_place[x][y] = n;
+	game_place[x + 1][y - 1] = n;
+	game_place[x + 2][y - 1] = n;
 }
-void Fig_L_Pos4(int x, int y)
+void Fig_J_Pos4(int x, int y, int n)
 {
-	game_place[x][y - 1] = 1;
-	game_place[x][y] = 1;
-	game_place[x][y+1] = 1;
-	game_place[x + 1][y-1] = 1;
-}
-
-void Fig_O_Pos(int x, int y)
-{
-	game_place[x][y-1] = 1;
-	game_place[x][y] = 1;
-	game_place[x+1][y-1] = 1;
-	game_place[x+1][y] = 1;
+	game_place[x][y - 1] = n;
+	game_place[x][y] = n;
+	game_place[x][y + 1] = n;
+	game_place[x + 1][y + 1] = n;
 }
 
-void Fig_S_Pos1(int x, int y)
+void Fig_L_Pos1(int x, int y, int n)
 {
-	game_place[x][y] = 1;
-	game_place[x+1][y] = 1;
-	game_place[x + 1][y - 1] = 1;
-	game_place[x][y+1] = 1;
+	game_place[x][y + 1] = n;
+	game_place[x + 1][y - 1] = n;
+	game_place[x + 1][y] = n;
+	game_place[x + 1][y + 1] = n;
+}
+void Fig_L_Pos2(int x, int y, int n)
+{
+	game_place[x][y-1] = n;
+	game_place[x + 1][y - 1] = n;
+	game_place[x + 2][y - 1] = n;
+	game_place[x + 2][y] = n;
+}
+void Fig_L_Pos3(int x, int y, int n)
+{
+	game_place[x][y - 1] = n;
+	game_place[x][y] = n;
+	game_place[x + 1][y] = n;
+	game_place[x + 2][y] = n;
+}
+void Fig_L_Pos4(int x, int y, int n)
+{
+	game_place[x][y - 1] = n;
+	game_place[x][y] = n;
+	game_place[x][y + 1] = n;
+	game_place[x + 1][y - 1] = n;
 }
 
-void Fig_S_Pos2(int x, int y)
+void Fig_O_Pos(int x, int y, int n)
 {
-	game_place[x][y-1] = 1;
-	game_place[x + 1][y-1] = 1;
-	game_place[x + 1][y] = 1;
-	game_place[x+2][y] = 1;
+	game_place[x][y - 1] = n;
+	game_place[x][y] = n;
+	game_place[x + 1][y - 1] = n;
+	game_place[x + 1][y] = n;
 }
-void Fig_Z_Pos1(int x, int y)
+
+void Fig_S_Pos1(int x, int y, int n)
 {
-	game_place[x][y - 1] = 1;
+	game_place[x][y] = n;
+	game_place[x + 1][y] = n;
+	game_place[x + 1][y - 1] = n;
+	game_place[x][y + 1] = n;
+}
+
+void Fig_S_Pos2(int x, int y, int n)
+{
+	game_place[x][y - 1] = n;
+	game_place[x + 1][y - 1] = n;
+	game_place[x + 1][y] = n;
+	game_place[x + 2][y] = n;
+}
+void Fig_Z_Pos1(int x, int y, int n)
+{
+	game_place[x][y - 1] = n;
 	game_place[x][y] = 1;
-	game_place[x + 1][y] = 1;
-	game_place[x + 1][y+1] = 1;
+	game_place[x + 1][y] = n;
+	game_place[x + 1][y + 1] = n;
 }
-void Fig_Z_Pos2(int x, int y)
+void Fig_Z_Pos2(int x, int y, int n)
 {
-	game_place[x][y] = 1;
-	game_place[x+1][y] = 1;
-	game_place[x + 1][y-1] = 1;
-	game_place[x + 2][y - 1] = 1;
+	game_place[x][y] = n;
+	game_place[x + 1][y] = n;
+	game_place[x + 1][y - 1] = n;
+	game_place[x + 2][y - 1] = n;
 }
-void Fig_T_Pos1(int x, int y)
+void Fig_T_Pos1(int x, int y, int n)
 {
-	game_place[x][y-1] = 1;
-	game_place[x][y] = 1;
-	game_place[x + 1][y] = 1;
-	game_place[x][y + 1] = 1;
+	game_place[x][y - 1] = n;
+	game_place[x][y] = n;
+	game_place[x + 1][y] = n;
+	game_place[x][y + 1] = n;
 }
-void Fig_T_Pos2(int x, int y)
+void Fig_T_Pos2(int x, int y, int n)
 {
-	game_place[x][y] = 1;
-	game_place[x+1][y] = 1;
-	game_place[x + 2][y] = 1;
-	game_place[x+1][y - 1] = 1;
+	game_place[x][y] = n;
+	game_place[x + 1][y-1] = n;
+	game_place[x + 1][y] = n;
+	game_place[x + 1][y + 1] = n;
 }
-void Fig_T_Pos3(int x, int y)
+void Fig_T_Pos3(int x, int y, int n)
 {
-	game_place[x][y-1] = 1;
-	game_place[x + 1][y-1] = 1;
-	game_place[x + 2][y-1] = 1;
-	game_place[x + 1][y] = 1;
+	game_place[x][y - 1] = n;
+	game_place[x + 1][y - 1] = n;
+	game_place[x + 2][y - 1] = n;
+	game_place[x + 1][y] = n;
 }
-void Fig_T_Pos4(int x, int y)
+void Fig_T_Pos4(int x, int y, int n)
 {
-	game_place[x][y - 1] = 1;
-	game_place[x][y] = 1;
-	game_place[x + 1][y] = 1;
-	game_place[x ][y+1] = 1;
+	game_place[x][y] = n;
+	game_place[x+1][y] = n;
+	game_place[x + 2][y] = n;
+	game_place[x + 1][y - 1] = n;
 }
 void InitFig_I(int position)
 {
 	switch (position)
 	{
-		case 1: // горизонтальное положение 
-		{
-			Fig_I_Poz1(0, 3);
-		}
-		break;
-		case 2: // вертикальное положение 
-		{
-			Fig_I_Poz2(0, 5);
-		}
-		break;
+	case 1: // горизонтальное положение 
+	{
+		Fig_I_Pos1(0, 3);
+	}
+	break;
+	case 2: // вертикальное положение 
+	{
+		Fig_I_Pos2(0, 5);
+	}
+	break;
 	}
 }
 void InitFig_J(int position)
@@ -334,27 +334,213 @@ void StartFig(int type, int position)
 	}
 }
 
-void Fig_Step(int type, int poz)
+void Fig_Step_I(int pos)
 {
-	switch (type)
+	switch (pos)
+	{
+	case 1:
+	{
+		for (int i = 0; i < ROW; i++)
+		{
+			Fig_I_Pos1(i, 3);
+			if (game_place[i + 1][3] == 1 || game_place[i + 1][4] == 1 || game_place[i + 1][5] == 1 || game_place[i + 1][6] == 1)
+				break;
+		}
+	}
+	case 2:
+	{
+		for (int i = 0; i < ROW; i++)
+		{
+			Fig_I_Pos2(i, 5);
+			if (game_place[i + 4][5] == 1)
+				break;
+		}
+	}
+
+	}
+}
+void Fig_Step_J(int pos)
+{
+	switch (pos)
+	{
+	case 1:
+	{
+		for (int i = 0; i < ROW; i++)
+		{
+			Fig_J_Pos1(i, 5);
+			if (game_place[i + 3][5] == 1 || game_place[i + 3][4] == 1)
+				break;
+		}
+	}
+	case 2:
+	{
+		for (int i = 0; i < ROW; i++)
+		{
+			Fig_J_Pos2(i, 5);
+			if (game_place[i + 2][4] == 1 || game_place[i + 2][5] == 1 || game_place[i + 2][6] == 1)
+				break;
+		}
+	}
+	case 3:
+	{
+		for (int i = 0; i < ROW; i++)
+		{
+			Fig_J_Pos3(i, 5);
+			if (game_place[i + 3][4] == 1 || game_place[i + 1][5] == 1)
+				break;
+		}
+	}
+	case 4:
+	{
+		for (int i = 0; i < ROW; i++)
+		{
+			Fig_J_Pos4(i, 5);
+			if (game_place[i + 1][4] == 1 || game_place[i + 1][5] == 1 || game_place[i + 2][6] == 1)
+				break;
+		}
+	}
+	}
+}
+void Fig_Step_L(int pos)
+{
+	switch (pos)
 	{
 		case 1:
 		{
-			switch (poz)
+			for (int i = 0; i < ROW; i++)
 			{
-				case 1:
-				{
-					for (int i = 0; i < ROW; i++)
-					{
-						Fig_I_Poz1(i, 3);
-					}
-				}
+				Fig_L_Pos1(i, 5);
+				if (game_place[i + 2][4] == 1 || game_place[i + 2][5] == 1 || game_place[i + 2][6] == 1)
+					break;
 			}
 		}
-
+		case 2:
+		{
+			for (int i = 0; i < ROW; i++)
+			{
+				Fig_L_Pos2(i, 5);
+				if (game_place[i + 3][5] == 1 || game_place[i + 3][4] == 1)
+					break;
+			}
+		}
+		case 3:
+		{
+			for (int i = 0; i < ROW; i++)
+			{
+				Fig_L_Pos3(i, 5);
+				if (game_place[i + 1][4] == 1 || game_place[i + 3][5] == 1)
+					break;
+			}
+		}
+		case 4:
+		{
+			for (int i = 0; i < ROW; i++)
+			{
+				Fig_L_Pos4(i, 5);
+				if (game_place[i + 2][4] == 1 || game_place[i + 1][5] == 1 || game_place[i + 1][6] == 1)
+					break;
+			}
+		}
 	}
-
-	
+}
+void Fig_Step_O()
+{
+	for (int i = 0; i < ROW; i++)
+	{
+		Fig_O_Pos(i, 5);
+		if (game_place[i + 2][4] == 1 || game_place[i + 2][5] == 1)
+		break;
+	}
+}
+void Fig_Step_S(int pos)
+{
+	switch (pos)
+	{
+	case 1:
+	{
+		for (int i = 0; i < ROW; i++)
+		{
+			Fig_S_Pos1(i, 5);
+			if (game_place[i + 2][4] == 1 || game_place[i + 2][5] == 1 || game_place[i + 1][6] == 1)
+				break;
+		}
+	}
+	case 2:
+	{
+		for (int i = 0; i < ROW; i++)
+		{
+			Fig_S_Pos2(i, 5);
+			if (game_place[i + 2][4] == 1 || game_place[i + 3][5] == 1)
+				break;
+		}
+	}
+	}
+}
+void Fig_Step_Z(int pos)
+{
+	switch (pos)
+	{
+	case 1:
+	{
+		for (int i = 0; i < ROW; i++)
+		{
+			Fig_Z_Pos1(i, 5);
+			if (game_place[i + 1][4] == 1 || game_place[i + 2][5] == 1 || game_place[i + 2][6] == 1)
+				break;
+		}
+	}
+	case 2:
+	{
+		for (int i = 0; i < ROW; i++)
+		{
+			Fig_Z_Pos2(i, 5);
+			if (game_place[i + 3][4] == 1 || game_place[i + 2][5] == 1)
+				break;
+		}
+	}
+	}
+}
+void Fig_Step_T(int pos)
+{
+	switch (pos)
+	{
+	case 1:
+	{
+		for (int i = 0; i < ROW; i++)
+		{
+			Fig_T_Pos1(i, 5);
+			if (game_place[i + 1][4] == 1 || game_place[i + 2][5] == 1 || game_place[i + 1][6] == 1)
+				break;
+		}
+	}
+	case 2:
+	{
+		for (int i = 0; i < ROW; i++)
+		{
+			Fig_T_Pos2(i, 5);
+			if (game_place[i + 2][4] == 1 || game_place[i + 2][5] == 1 || game_place[i + 2][6] == 1)
+				break;
+		}
+	}
+	case 3:
+	{
+		for (int i = 0; i < ROW; i++)
+		{
+			Fig_T_Pos3(i, 5);
+			if (game_place[i + 3][4] == 1 || game_place[i + 2][5] == 1)
+				break;
+		}
+	}
+	case 4:
+	{
+		for (int i = 0; i < ROW; i++)
+		{
+			Fig_T_Pos4(i, 5);
+			if (game_place[i + 2][4] == 1 || game_place[i + 3][5] == 1)
+				break;
+		}
+	}
+	}
 }
 bool RowFull(int row)
 {
