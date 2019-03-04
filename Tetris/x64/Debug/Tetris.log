@@ -1,0 +1,5 @@
+﻿  Tetris.cpp
+d:\projects\tetris\tetris\tetris.cpp(724): warning C4244: аргумент: преобразование "time_t" в "unsigned int", возможна потеря данных
+d:\projects\tetris\tetris\tetris.cpp(731): warning C4244: аргумент: преобразование "time_t" в "unsigned int", возможна потеря данных
+d:\projects\tetris\tetris\tetris.cpp(654): warning C4715: GameOver: значение возвращается не при всех путях выполнения
+  Tetris.vcxproj -> D:\Projects\Tetris\x64\Debug\Tetris.exe

@@ -38,9 +38,29 @@ bool GameOver(); // функция определения проигрыша
 bool RowFull(int row); // функция определения заполненности строки
 int GameScore(); // функция определения очков
 void DeleteRow(); // функция очистки строки
+void PrintGame();
+void Fig_I_Poz1_Delete(int x, int y);
+void Fig_I_Poz2_Delete(int x, int y);
+void Fig_J_Poz1_Delete(int x, int y);
+void Fig_J_Poz2_Delete(int x, int y);
+void Fig_J_Poz3_Delete(int x, int y);
+void Fig_J_Poz4_Delete(int x, int y);
+void Fig_L_Poz1_Delete(int x, int y);
+void Fig_L_Poz2_Delete(int x, int y);
+void Fig_L_Poz3_Delete(int x, int y);
+void Fig_L_Poz4_Delete(int x, int y);
+void Fig_O_Poz_Delete(int x, int y);
+void Fig_S_Poz1_Delete(int x, int y);
+void Fig_S_Poz2_Delete(int x, int y);
+void Fig_Z_Poz1_Delete(int x, int y);
+void Fig_Z_Poz2_Delete(int x, int y);
+void Fig_T_Poz1_Delete(int x, int y);
+void Fig_T_Poz2_Delete(int x, int y);
+void Fig_T_Poz3_Delete(int x, int y);
+void Fig_T_Poz4_Delete(int x, int y);
 int main()
 {
-    
+
 }
 void Fig_I_Poz1(int x, int y) // фигура I, горизонтальное положение
 {
@@ -734,6 +754,7 @@ int FigurePositionNumber()
 		number = rand() % 4 + 1;
 		break;
 	}
+	return number;
 }
 void Fig_I_Poz1_Delete(int x, int y) 
 {
@@ -867,4 +888,31 @@ void Fig_T_Poz4_Delete(int x, int y)
 	game_place[x + 1][y] = 0;
 	game_place[x + 2][y] = 0;
 	game_place[x + 1][y + 1] = 0;
+}
+void PrintGame() {
+	system("cls");
+	for (int i = 0; i < COL + 2; i++)
+	{
+		cout << char(219);
+	}
+	cout << endl;
+	for (int i = 0; i < ROW; i++)
+	{
+		cout << char(219);
+		for (int j = 0; j < COL; j++)
+		{
+			if (game_place[i][j] == 0) {
+				cout << " ";
+			}
+			else {
+				cout << char(219);
+			}
+		}
+		cout << char(219) << endl;
+	}
+	for (int i = 0; i < COL + 2; i++)
+	{
+		cout << char(219);
+	}
+	Sleep(400);
 }
