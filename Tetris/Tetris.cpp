@@ -79,13 +79,14 @@ void Fig_T_Poz3(int x, int y);
 void Fig_T_Poz4(int x, int y);
 
 
+//bool perGameOver;
 bool RowFull(int row);			// Определение заполненности строки
 int  GameScore();				// Определение очков
 void DeleteRow();				// Удаление заполенной строки
 void CleanBufferGetch(int x);
 
 void Fig_Step(int type, int poz);
-bool GameOver();				// Определение проигрыша
+bool GameOver(int doing);				// Определение проигрыша
 bool CheckStep(int x, int y, int check);
 void PrintGame();
 
@@ -96,9 +97,10 @@ int main()
 	setlocale(LC_ALL, ".866");
 	srand(time(NULL));
 
-	do {
-		 type = 1 +  rand() % 7;
-		 poz = 1 + rand() % 4;
+
+	do{
+		type = 1 + rand() % 7;
+		poz = 1 + rand() % 4;
 		/*cout << "type = " << type << endl;;
 		cout << "poz = " << poz << endl;
 		if (poz > 2) {
@@ -106,9 +108,11 @@ int main()
 			cout << "pozNEW = " << poz << endl;
 		}
 		Sleep(200);*/
+		Fig_Step(type, poz);
 		
-		Fig_Step(1, 2);
-	} while (!GameOver());
+	} while (!GameOver(1));
+
+	GameOver(2);
 
 	/*Fig_Step(1, 1);
 	Fig_Step(1, 2);
@@ -287,7 +291,6 @@ void Fig_I_Poz1(int x, int y) // Фигура I , горизонтальное �
 		game_place[x - 1][*pStepY + 2] = 0;
 		game_place[x - 1][*pStepY + 3] = 0;
 	}
-	GameOver();
 	CleanBufferGetch(x);
 	if (_kbhit()) {
 		switch (_getch())
@@ -325,7 +328,6 @@ void Fig_I_Poz2(int x, int y) // Фигура I , вертикальное по�
 		game_place[x + 1][*pStepY] = 0;
 		game_place[x + 2][*pStepY] = 0;
 	}
-	GameOver();
 	CleanBufferGetch(x);
 	if (_kbhit()) {
 		switch (_getch())
@@ -1090,16 +1092,16 @@ void Fig_Step(int type, int poz)
 		switch (poz)
 		{
 		case 1:
-			{
+		{
 			for (int i = 0; i < ROW; i++)
-				{
-					Fig_I_Poz1(i, 3);
-					if (*pcheck == 1) {
-						*pcheck = 0;
-						break;
-					}
+			{
+				Fig_I_Poz1(i, 3);
+				if (*pcheck == 1) {
+					*pcheck = 0;
+					break;
 				}
 			}
+		}
 		break;
 		case 2:
 		{
@@ -1442,16 +1444,26 @@ void DeleteRow()
 }
 
 // Функция для проверки верхней строчки игрового поля на наличие в ней 1 (признак фигуры), если есть хоть одна то игра окончена	
-bool GameOver()
+bool GameOver(int doing)
 {
-	for (int i = 0; i < COL; i++)
+	switch (doing)
 	{
-		if (game_place[0][i] == 1) {
-			return true;
+	case 1:
+	{
+		for (int i = 0; i < COL; i++)
+		{
+			if (game_place[0][i] == 1) {
+				return true;
+			}
 		}
-		else {
-			return false;
-		}
+		return false;
+	}
+	break;
+	case 2:
+	{
+		system("cls");
+		cout << "\n\n\tGame Over\n\n";
+	}
 	}
 }
 
