@@ -39,6 +39,8 @@ int StepY = 0;
 int *pcheck = &check;
 int *pStepY = &StepY;
 //char Step = _getch();
+int type;
+int poz;
 
 void InitFig_I(int position);
 void InitFig_J(int position);
@@ -63,7 +65,7 @@ void Fig_L_Poz2(int x, int y);
 void Fig_L_Poz3(int x, int y);
 void Fig_L_Poz4(int x, int y);
 
-void Fig_O_Pos(int x, int y);
+void Fig_O_Poz(int x, int y);
 
 void Fig_Z_Poz1(int x, int y);
 void Fig_Z_Poz2(int x, int y);
@@ -80,6 +82,7 @@ void Fig_T_Poz4(int x, int y);
 bool RowFull(int row);			// Определение заполненности строки
 int  GameScore();				// Определение очков
 void DeleteRow();				// Удаление заполенной строки
+void CleanBufferGetch(int x);
 
 void Fig_Step(int type, int poz);
 bool GameOver();				// Определение проигрыша
@@ -91,16 +94,28 @@ void Game();
 int main()
 {
 	setlocale(LC_ALL, ".866");
-	int type = 1;
-	int poz = 1;
-	Fig_Step(type, 2);
-	Fig_Step(type, 19);
-	Fig_Step(type, 19);
-	Fig_Step(type, 3);
-	Fig_Step(type, 4);
-	Fig_Step(type, 5);
-	Fig_Step(type, 7);
-	Fig_Step(type, 8);
+	srand(time(NULL));
+
+	do {
+		 type = 1 +  rand() % 7;
+		 poz = 1 + rand() % 4;
+		/*cout << "type = " << type << endl;;
+		cout << "poz = " << poz << endl;
+		if (poz > 2) {
+			poz = 1 + rand() % 2;
+			cout << "pozNEW = " << poz << endl;
+		}
+		Sleep(200);*/
+		
+		Fig_Step(1, 2);
+	} while (!GameOver());
+
+	/*Fig_Step(1, 1);
+	Fig_Step(1, 2);
+	Fig_Step(7, 1);
+	Fig_Step(7, 2);
+	Fig_Step(7, 3);
+	Fig_Step(7, 4);*/
 	//PrintGame();
 }
 
@@ -272,11 +287,13 @@ void Fig_I_Poz1(int x, int y) // Фигура I , горизонтальное �
 		game_place[x - 1][*pStepY + 2] = 0;
 		game_place[x - 1][*pStepY + 3] = 0;
 	}
+	GameOver();
+	CleanBufferGetch(x);
 	if (_kbhit()) {
 		switch (_getch())
 		{
 		case (char)77:  // право
-			if (game_place[x][*pStepY + 1] != 1 && *pStepY < 6) {
+			if (game_place[x][*pStepY + 4] != 1 && *pStepY < 6) {
 				*pStepY = *pStepY + 1;
 			}
 			break;
@@ -308,6 +325,8 @@ void Fig_I_Poz2(int x, int y) // Фигура I , вертикальное по�
 		game_place[x + 1][*pStepY] = 0;
 		game_place[x + 2][*pStepY] = 0;
 	}
+	GameOver();
+	CleanBufferGetch(x);
 	if (_kbhit()) {
 		switch (_getch())
 		{
@@ -333,7 +352,7 @@ void Fig_I_Poz2(int x, int y) // Фигура I , вертикальное по�
 	}
 }
 
-void Fig_J_Pos1(int x, int y)
+void Fig_J_Poz1(int x, int y)
 {
 	if (x == 0) {
 		*pStepY = y;
@@ -344,6 +363,7 @@ void Fig_J_Pos1(int x, int y)
 		game_place[x + 1][*pStepY - 1] = 0;
 		game_place[x + 1][*pStepY] = 0;
 	}
+	CleanBufferGetch(x);
 	if (_kbhit()) {
 		switch (_getch())
 		{
@@ -369,7 +389,7 @@ void Fig_J_Pos1(int x, int y)
 	}
 }
 
-void Fig_J_Pos2(int x, int y)
+void Fig_J_Poz2(int x, int y)
 {
 	if (x == 0) {
 		*pStepY = y;
@@ -380,6 +400,7 @@ void Fig_J_Pos2(int x, int y)
 		game_place[x][*pStepY] = 0;
 		game_place[x][*pStepY + 1] = 0;
 	}
+	CleanBufferGetch(x);
 	if (_kbhit()) {
 		switch (_getch())
 		{
@@ -404,7 +425,7 @@ void Fig_J_Pos2(int x, int y)
 		*pcheck = 1;
 	}
 }
-void Fig_J_Pos3(int x, int y)
+void Fig_J_Poz3(int x, int y)
 {
 	if (x == 0) {
 		*pStepY = y;
@@ -415,6 +436,7 @@ void Fig_J_Pos3(int x, int y)
 		game_place[x][*pStepY - 1] = 0;
 		game_place[x + 1][*pStepY - 1] = 0;
 	}
+	CleanBufferGetch(x);
 	if (_kbhit()) {
 		switch (_getch())
 		{
@@ -440,7 +462,7 @@ void Fig_J_Pos3(int x, int y)
 	}
 }
 
-void Fig_J_Pos4(int x, int y)
+void Fig_J_Poz4(int x, int y)
 {
 	if (x == 0) {
 		*pStepY = y;
@@ -451,6 +473,7 @@ void Fig_J_Pos4(int x, int y)
 		game_place[x - 1][*pStepY + 1] = 0;
 		game_place[x][*pStepY + 1] = 0;
 	}
+	CleanBufferGetch(x);
 	if (_kbhit()) {
 		switch (_getch())
 		{
@@ -476,7 +499,8 @@ void Fig_J_Pos4(int x, int y)
 	}
 }
 
-void Fig_L_Pos1(int x, int y)
+
+void Fig_L_Poz1(int x, int y)
 {
 	if (x == 0) {
 		*pStepY = y;
@@ -487,6 +511,7 @@ void Fig_L_Pos1(int x, int y)
 		game_place[x][*pStepY] = 0;
 		game_place[x][*pStepY + 1] = 0;
 	}
+	CleanBufferGetch(x);
 	if (_kbhit()) {
 		switch (_getch())
 		{
@@ -511,7 +536,7 @@ void Fig_L_Pos1(int x, int y)
 		*pcheck = 1;
 	}
 }
-void Fig_L_Pos2(int x, int y)
+void Fig_L_Poz2(int x, int y)
 {
 	if (x == 0) {
 		*pStepY = y;
@@ -522,6 +547,7 @@ void Fig_L_Pos2(int x, int y)
 		game_place[x + 1][*pStepY] = 0;
 		game_place[x + 1][*pStepY + 1] = 0;
 	}
+	CleanBufferGetch(x);
 	if (_kbhit()) {
 		switch (_getch())
 		{
@@ -546,7 +572,7 @@ void Fig_L_Pos2(int x, int y)
 		*pcheck = 1;
 	}
 }
-void Fig_L_Pos3(int x, int y)
+void Fig_L_Poz3(int x, int y)
 {
 	if (x == 0) {
 		*pStepY = y;
@@ -557,6 +583,7 @@ void Fig_L_Pos3(int x, int y)
 		game_place[x][*pStepY] = 0;
 		game_place[x + 1][*pStepY] = 0;
 	}
+	CleanBufferGetch(x);
 	if (_kbhit()) {
 		switch (_getch())
 		{
@@ -581,7 +608,7 @@ void Fig_L_Pos3(int x, int y)
 		*pcheck = 1;
 	}
 }
-void Fig_L_Pos4(int x, int y)
+void Fig_L_Poz4(int x, int y)
 {
 	if (x == 0) {
 		*pStepY = y;
@@ -592,6 +619,7 @@ void Fig_L_Pos4(int x, int y)
 		game_place[x - 1][*pStepY + 1] = 0;
 		game_place[x][*pStepY - 1] = 0;
 	}
+	CleanBufferGetch(x);
 	if (_kbhit()) {
 		switch (_getch())
 		{
@@ -617,7 +645,7 @@ void Fig_L_Pos4(int x, int y)
 	}
 }
 
-void Fig_O_Pos(int x, int y)
+void Fig_O_Poz(int x, int y)
 {
 	if (x == 0) {
 		*pStepY = y;
@@ -628,6 +656,7 @@ void Fig_O_Pos(int x, int y)
 		game_place[x][*pStepY + 1] = 0;
 		game_place[x][*pStepY] = 0;
 	}
+	CleanBufferGetch(x);
 	if (_kbhit()) {
 		switch (_getch())
 		{
@@ -653,7 +682,7 @@ void Fig_O_Pos(int x, int y)
 	}
 }
 
-void Fig_S_Pos1(int x, int y)
+void Fig_S_Poz1(int x, int y)
 {
 	if (x == 0) {
 		*pStepY = y;
@@ -664,6 +693,7 @@ void Fig_S_Pos1(int x, int y)
 		game_place[x][*pStepY - 1] = 0;
 		game_place[x - 1][*pStepY + 1] = 0;
 	}
+	CleanBufferGetch(x);
 	if (_kbhit()) {
 		switch (_getch())
 		{
@@ -688,7 +718,7 @@ void Fig_S_Pos1(int x, int y)
 		*pcheck = 1;
 	}
 }
-void Fig_S_Pos2(int x, int y)
+void Fig_S_Poz2(int x, int y)
 {
 	if (x == 0) {
 		*pStepY = y;
@@ -699,6 +729,7 @@ void Fig_S_Pos2(int x, int y)
 		game_place[x][*pStepY] = 0;
 		game_place[x + 1][*pStepY] = 0;
 	}
+	CleanBufferGetch(x);
 	if (_kbhit()) {
 		switch (_getch())
 		{
@@ -724,7 +755,7 @@ void Fig_S_Pos2(int x, int y)
 	}
 }
 
-void Fig_Z_Pos1(int x, int y)
+void Fig_Z_Poz1(int x, int y)
 {
 	if (x == 0) {
 		*pStepY = y;
@@ -735,6 +766,7 @@ void Fig_Z_Pos1(int x, int y)
 		game_place[x][*pStepY] = 0;
 		game_place[x][*pStepY + 1] = 0;
 	}
+	CleanBufferGetch(x);
 	if (_kbhit()) {
 		switch (_getch())
 		{
@@ -759,7 +791,7 @@ void Fig_Z_Pos1(int x, int y)
 		*pcheck = 1;
 	}
 }
-void Fig_Z_Pos2(int x, int y)
+void Fig_Z_Poz2(int x, int y)
 {
 	if (x == 0) {
 		*pStepY = y;
@@ -770,6 +802,7 @@ void Fig_Z_Pos2(int x, int y)
 		game_place[x][*pStepY - 1] = 0;
 		game_place[x + 1][*pStepY - 1] = 0;
 	}
+	CleanBufferGetch(x);
 	if (_kbhit()) {
 		switch (_getch())
 		{
@@ -795,7 +828,8 @@ void Fig_Z_Pos2(int x, int y)
 	}
 }
 
-void Fig_T_Pos1(int x, int y)
+
+void Fig_T_Poz1(int x, int y)
 {
 	if (x == 0) {
 		*pStepY = y;
@@ -806,11 +840,12 @@ void Fig_T_Pos1(int x, int y)
 		game_place[x][*pStepY] = 0;
 		game_place[x - 1][*pStepY + 1] = 0;
 	}
+	CleanBufferGetch(x);
 	if (_kbhit()) {
 		switch (_getch())
 		{
 		case (char)77: // право
-			if (game_place[x][*pStepY + 2] != 1 && game_place[x + 1][*pStepY + 1] != 1  && *pStepY < 8) {
+			if (game_place[x][*pStepY + 2] != 1 && game_place[x + 1][*pStepY + 1] != 1 && *pStepY < 8) {
 				*pStepY = *pStepY + 1;
 			}
 			break;
@@ -830,7 +865,7 @@ void Fig_T_Pos1(int x, int y)
 		*pcheck = 1;
 	}
 }
-void Fig_T_Pos2(int x, int y)
+void Fig_T_Poz2(int x, int y)
 {
 	if (x == 0) {
 		*pStepY = y;
@@ -841,6 +876,7 @@ void Fig_T_Pos2(int x, int y)
 		game_place[x + 1][*pStepY] = 0;
 		game_place[x][*pStepY - 1] = 0;
 	}
+	CleanBufferGetch(x);
 	if (_kbhit()) {
 		switch (_getch())
 		{
@@ -865,7 +901,7 @@ void Fig_T_Pos2(int x, int y)
 		*pcheck = 1;
 	}
 }
-void Fig_T_Pos3(int x, int y)
+void Fig_T_Poz3(int x, int y)
 {
 	if (x == 0) {
 		*pStepY = y;
@@ -876,6 +912,7 @@ void Fig_T_Pos3(int x, int y)
 		game_place[x + 1][*pStepY] = 0;
 		game_place[x][*pStepY + 1] = 0;
 	}
+	CleanBufferGetch(x);
 	if (_kbhit()) {
 		switch (_getch())
 		{
@@ -900,7 +937,7 @@ void Fig_T_Pos3(int x, int y)
 		*pcheck = 1;
 	}
 }
-void Fig_T_Pos4(int x, int y)
+void Fig_T_Poz4(int x, int y)
 {
 	if (x == 0) {
 		*pStepY = y;
@@ -911,6 +948,7 @@ void Fig_T_Pos4(int x, int y)
 		game_place[x][*pStepY - 1] = 0;
 		game_place[x][*pStepY + 1] = 0;
 	}
+	CleanBufferGetch(x);
 	if (_kbhit()) {
 		switch (_getch())
 		{
@@ -952,13 +990,13 @@ void InitFig_J(int position)
 {
 	switch (position)
 	{
-	case 1:	Fig_J_Pos1(0, 5);
+	case 1:	Fig_J_Poz1(0, 5);
 		break;
-	case 2:	Fig_J_Pos2(0, 5);
+	case 2:	Fig_J_Poz2(0, 5);
 		break;
-	case 3:	Fig_J_Pos3(0, 5);
+	case 3:	Fig_J_Poz3(0, 5);
 		break;
-	case 4:	Fig_J_Pos4(0, 5);
+	case 4:	Fig_J_Poz4(0, 5);
 		break;
 	}
 }
@@ -967,28 +1005,28 @@ void InitFig_L(int position)
 {
 	switch (position)
 	{
-	case 1:	Fig_L_Pos1(0, 5);
+	case 1:	Fig_L_Poz1(0, 5);
 		break;
-	case 2:	Fig_L_Pos2(0, 5);
+	case 2:	Fig_L_Poz2(0, 5);
 		break;
-	case 3:	Fig_L_Pos3(0, 5);
+	case 3:	Fig_L_Poz3(0, 5);
 		break;
-	case 4:	Fig_L_Pos4(0, 5);
+	case 4:	Fig_L_Poz4(0, 5);
 		break;
 	}
 }
 void InitFig_O()
 {
-	Fig_O_Pos(0, 5);
+	Fig_O_Poz(0, 5);
 }
 
 void InitFig_S(int position)
 {
 	switch (position)
 	{
-	case 1:	Fig_S_Pos1(0, 5);
+	case 1:	Fig_S_Poz1(0, 5);
 		break;
-	case 2:	Fig_S_Pos2(0, 5);
+	case 2:	Fig_S_Poz2(0, 5);
 		break;
 	}
 }
@@ -997,9 +1035,9 @@ void InitFig_Z(int position)
 {
 	switch (position)
 	{
-	case 1:	Fig_Z_Pos1(0, 5);
+	case 1:	Fig_Z_Poz1(0, 5);
 		break;
-	case 2:	Fig_Z_Pos2(0, 5);
+	case 2:	Fig_Z_Poz2(0, 5);
 		break;
 	}
 }
@@ -1008,13 +1046,13 @@ void InitFig_T(int position)
 {
 	switch (position)
 	{
-	case 1:	Fig_T_Pos1(0, 5);
+	case 1:	Fig_T_Poz1(0, 5);
 		break;
-	case 2:	Fig_T_Pos2(0, 5);
+	case 2:	Fig_T_Poz2(0, 5);
 		break;
-	case 3:	Fig_T_Pos3(0, 5);
+	case 3:	Fig_T_Poz3(0, 5);
 		break;
-	case 4:	Fig_T_Pos4(0, 5);
+	case 4:	Fig_T_Poz4(0, 5);
 		break;
 	}
 }
@@ -1046,19 +1084,22 @@ void Fig_Step(int type, int poz)
 	{
 	case 1:
 	{
+		if (poz > 2) {
+			poz = 1 + rand() % 2;
+		}
 		switch (poz)
 		{
 		case 1:
-		{
-			for (int i = 0; i < ROW; i++)
 			{
-				Fig_I_Poz1(i, 3);
-				if (*pcheck == 1) {
-					*pcheck = 0;
-					break;
+			for (int i = 0; i < ROW; i++)
+				{
+					Fig_I_Poz1(i, 3);
+					if (*pcheck == 1) {
+						*pcheck = 0;
+						break;
+					}
 				}
 			}
-		}
 		break;
 		case 2:
 		{
@@ -1072,11 +1113,42 @@ void Fig_Step(int type, int poz)
 			}
 		}
 		break;
+		}
+	}
+	break;
+	case 2:
+	{
+		switch (poz)
+		{
+		case 1:
+		{
+			for (int i = 0; i < ROW - 2; i++)
+			{
+				Fig_J_Poz1(i, 4);
+				if (*pcheck == 1) {
+					*pcheck = 0;
+					break;
+				}
+			}
+		}
+		break;
+		case 2:
+		{
+			for (int i = 0; i < ROW - 1; i++)
+			{
+				Fig_J_Poz2(i, 4);
+				if (*pcheck == 1) {
+					*pcheck = 0;
+					break;
+				}
+			}
+		}
+		break;
 		case 3:
 		{
 			for (int i = 0; i < ROW - 2; i++)
 			{
-				Fig_J_Pos1(i, 4);
+				Fig_J_Poz3(i, 4);
 				if (*pcheck == 1) {
 					*pcheck = 0;
 					break;
@@ -1088,7 +1160,7 @@ void Fig_Step(int type, int poz)
 		{
 			for (int i = 0; i < ROW - 1; i++)
 			{
-				Fig_J_Pos2(i, 4);
+				Fig_J_Poz4(i, 4);
 				if (*pcheck == 1) {
 					*pcheck = 0;
 					break;
@@ -1096,11 +1168,30 @@ void Fig_Step(int type, int poz)
 			}
 		}
 		break;
-		case 5:
+		}
+	}
+	break;
+	case 3:
+	{
+		switch (poz)
+		{
+		case 1:
+		{
+			for (int i = 0; i < ROW - 1; i++)
+			{
+				Fig_L_Poz1(i, 4);
+				if (*pcheck == 1) {
+					*pcheck = 0;
+					break;
+				}
+			}
+		}
+		break;
+		case 2:
 		{
 			for (int i = 0; i < ROW - 2; i++)
 			{
-				Fig_J_Pos3(i, 4);
+				Fig_L_Poz2(i, 4);
 				if (*pcheck == 1) {
 					*pcheck = 0;
 					break;
@@ -1108,35 +1199,11 @@ void Fig_Step(int type, int poz)
 			}
 		}
 		break;
-		case 6:
-		{
-			for (int i = 0; i < ROW - 1; i++)
-			{
-				Fig_J_Pos4(i, 4);
-				if (*pcheck == 1) {
-					*pcheck = 0;
-					break;
-				}
-			}
-		}
-		break;
-		case 7:
-		{
-			for (int i = 0; i < ROW - 1; i++)
-			{
-				Fig_L_Pos1(i, 4);
-				if (*pcheck == 1) {
-					*pcheck = 0;
-					break;
-				}
-			}
-		}
-		break;
-		case 8:
+		case 3:
 		{
 			for (int i = 0; i < ROW - 2; i++)
 			{
-				Fig_L_Pos2(i, 4);
+				Fig_L_Poz3(i, 4);
 				if (*pcheck == 1) {
 					*pcheck = 0;
 					break;
@@ -1144,11 +1211,45 @@ void Fig_Step(int type, int poz)
 			}
 		}
 		break;
-		case 9:
+		case 4:
+		{
+			for (int i = 0; i < ROW - 1; i++)
+			{
+				Fig_L_Poz4(i, 4);
+				if (*pcheck == 1) {
+					*pcheck = 0;
+					break;
+				}
+			}
+		}
+		break;
+		}
+	}
+	break;
+	case 4:
+	{
+		if (poz > 2) {
+			poz = 1 + rand() % 2;
+		}
+		switch (poz)
+		{
+		case 1:
+		{
+			for (int i = 0; i < ROW - 1; i++)
+			{
+				Fig_Z_Poz1(i, 4);
+				if (*pcheck == 1) {
+					*pcheck = 0;
+					break;
+				}
+			}
+		}
+		break;
+		case 2:
 		{
 			for (int i = 0; i < ROW - 2; i++)
 			{
-				Fig_L_Pos3(i, 4);
+				Fig_Z_Poz2(i, 4);
 				if (*pcheck == 1) {
 					*pcheck = 0;
 					break;
@@ -1156,11 +1257,21 @@ void Fig_Step(int type, int poz)
 			}
 		}
 		break;
-		case 10:
+		}
+	}
+	break;
+	case 5:
+	{
+		if (poz > 2) {
+			poz = 1 + rand() % 2;
+		}
+		switch (poz)
+		{
+		case 1:
 		{
 			for (int i = 0; i < ROW - 1; i++)
 			{
-				Fig_L_Pos4(i, 4);
+				Fig_S_Poz1(i, 4);
 				if (*pcheck == 1) {
 					*pcheck = 0;
 					break;
@@ -1168,23 +1279,11 @@ void Fig_Step(int type, int poz)
 			}
 		}
 		break;
-		case 11:
-		{
-			for (int i = 0; i < ROW - 1; i++)
-			{
-				Fig_Z_Pos1(i, 4);
-				if (*pcheck == 1) {
-					*pcheck = 0;
-					break;
-				}
-			}
-		}
-		break;
-		case 12:
+		case 2:
 		{
 			for (int i = 0; i < ROW - 2; i++)
 			{
-				Fig_Z_Pos2(i, 4);
+				Fig_S_Poz2(i, 4);
 				if (*pcheck == 1) {
 					*pcheck = 0;
 					break;
@@ -1192,11 +1291,19 @@ void Fig_Step(int type, int poz)
 			}
 		}
 		break;
-		case 13:
+		}
+	}
+	break;
+	case 6:
+	{
+		poz = 1;
+		switch (poz)
+		{
+		case 1:
 		{
 			for (int i = 0; i < ROW - 1; i++)
 			{
-				Fig_S_Pos1(i, 4);
+				Fig_O_Poz(i, 4);
 				if (*pcheck == 1) {
 					*pcheck = 0;
 					break;
@@ -1204,11 +1311,30 @@ void Fig_Step(int type, int poz)
 			}
 		}
 		break;
-		case 14:
+		}
+	}
+	break;
+	case 7:
+	{
+		switch (poz)
+		{
+		case 1:
+		{
+			for (int i = 0; i < ROW - 1; i++)
+			{
+				Fig_T_Poz1(i, 4);
+				if (*pcheck == 1) {
+					*pcheck = 0;
+					break;
+				}
+			}
+		}
+		break;
+		case 2:
 		{
 			for (int i = 0; i < ROW - 2; i++)
 			{
-				Fig_S_Pos2(i, 4);
+				Fig_T_Poz2(i, 4);
 				if (*pcheck == 1) {
 					*pcheck = 0;
 					break;
@@ -1216,35 +1342,11 @@ void Fig_Step(int type, int poz)
 			}
 		}
 		break;
-		case 15:
-		{
-			for (int i = 0; i < ROW - 1; i++)
-			{
-				Fig_O_Pos(i, 4);
-				if (*pcheck == 1) {
-					*pcheck = 0;
-					break;
-				}
-			}
-		}
-		break;
-		case 16:
-		{
-			for (int i = 0; i < ROW - 1; i++)
-			{
-				Fig_T_Pos1(i, 4);
-				if (*pcheck == 1) {
-					*pcheck = 0;
-					break;
-				}
-			}
-		}
-		break;
-		case 17:
+		case 3:
 		{
 			for (int i = 0; i < ROW - 2; i++)
 			{
-				Fig_T_Pos2(i, 4);
+				Fig_T_Poz3(i, 4);
 				if (*pcheck == 1) {
 					*pcheck = 0;
 					break;
@@ -1252,23 +1354,11 @@ void Fig_Step(int type, int poz)
 			}
 		}
 		break;
-		case 18:
-		{
-			for (int i = 0; i < ROW - 2; i++)
-			{
-				Fig_T_Pos3(i, 4);
-				if (*pcheck == 1) {
-					*pcheck = 0;
-					break;
-				}
-			}
-		}
-		break;
-		case 19:
+		case 4:
 		{
 			for (int i = 0; i < ROW - 1; i++)
 			{
-				Fig_T_Pos4(i, 4);
+				Fig_T_Poz4(i, 4);
 				if (*pcheck == 1) {
 					*pcheck = 0;
 					break;
@@ -1283,6 +1373,12 @@ void Fig_Step(int type, int poz)
 	break;
 	default:
 		break;
+	}
+}
+
+void CleanBufferGetch(int x) {
+	if (_kbhit() && x != 0) {
+		char ch = _getch();
 	}
 }
 
@@ -1350,16 +1446,20 @@ bool GameOver()
 {
 	for (int i = 0; i < COL; i++)
 	{
-		if (game_place[0][i] == 1)
+		if (game_place[0][i] == 1) {
 			return true;
-		else
+		}
+		else {
 			return false;
+		}
 	}
 }
 
 
 void PrintGame() {
 	system("cls");
+	cout << "type = " << type << endl;;
+	cout << "poz = " << poz << endl;
 	for (int i = 0; i < COL + 2; i++)
 	{
 		cout << char(219);
