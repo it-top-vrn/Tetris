@@ -32,6 +32,10 @@ bool low; //проверка низа фигуры на наличие 1
 bool sides;  //Проверка стороны фигуры перед вращением
 
 int coorY = 4; //стартовая координата Y для фигур
+
+int find_X;   //первая координата найденой фигуры
+int find_Y;
+
 /*
 Типы фигур:
 1- I    (палка)
@@ -45,15 +49,17 @@ int fig_I[4] = { 1,1,1,1 };   //палка
 int fig_I[4] = { 1,1,1,1 };   //палка
 */
 
-void Fig_I_pos_1(int x);//Горизонтально I //палка
+void Fig_I_pos_1(int x);//Горизонтально I //палка    ++++
 void Fig_I_pos_2(int x);// вертикально I //палка
 void InitFig_I(int x);
 
-void Fig_J_pos_1(int x, int y); // вертикально J
-void Fig_J_pos_2(int x, int y); // J Вверх нагами
-void Fig_J_pos_3(int x, int y); //Горизонтально  |___
-void Fig_J_pos_4(int x, int y); // вертикально  ===,
-void InitFig_J(int postion);
+void InitFig_O(int x);// +++
+
+void Fig_J_pos_1(int x); // вертикально J
+void Fig_J_pos_2(int x); // J Вверх нагами
+void Fig_J_pos_3(int x); //Горизонтально  |___
+void Fig_J_pos_4(int x); // вертикально  ===,
+void InitFig_J(int x);
 
 void Fig_L_pos_1(int x, int y);  // вертикально L
 void Fig_L_pos_2(int x, int y); // L Вверх нагами 
@@ -61,7 +67,7 @@ void Fig_L_pos_3(int x, int y);  //Горизонтально  ,===
 void Fig_L_pos_4(int x, int y);  // вертикально  ___|
 void InitFig_L(int postion);
 
-void InitFig_O();
+
 
 void Fig_S_pos_1(int x, int y);  // вертикально S
 void Fig_S_pos_2(int x, int y);  // гориз S 
@@ -88,17 +94,19 @@ bool GameCheckerLower(); //Проверка строки ниже на нали�
 bool GameCheckerSideRight(); //Проверка правой стороны фигуры на наличие объекта
 bool GameCheckerSideLeft();  //Проверка левой стороны фигуры на наличие объекта
 
-bool  Checker_FigRotation();  //Проверка стороны фигуры перед вращением
+bool Checker_FigRotation(int Fig, int pos);  //Проверка стороны фигуры перед вращением
 
 void Fig_Cleaner(); //Затирание прошлого положения фигуры
 void Turner_1_2(); //Замена 2 фигуры на 1 после остановки фигуры
 
 void CleanBufferGetch(); //клинер буфера клавы
 
+void Find_Fig_in_place(); //функция поиска первой координаты фигуры
+
 void PrintGame();// функция вывода фигуры на консоль
 void Fig_step(int type);
 
-int type = 1;
+int type = 3;
 int pos = 1;
 
 int main()
@@ -117,14 +125,15 @@ int main()
 			}
 		}
 	}
-
-
 	/*pos = rand();*/
 
 	do
 	{
 		Fig_step(type);
-	} while (GameOver() != 0);
+
+	} while (GameOver());
+	PrintGame();
+	cout << endl << "GAME OVER" << endl;
 }
 
 void CleanBufferGetch() {
@@ -145,6 +154,8 @@ void Fig_step(int type)
 			InitFig_I(i);
 			if (!GameCheckerLower())
 			{
+				InitFig_I(i);
+				PrintGame();
 				break;
 			}
 			PrintGame();
@@ -152,8 +163,39 @@ void Fig_step(int type)
 		Turner_1_2();
 	}
 	break;
-
 	case 2:
+	{
+		for (int i = 1; i < ROW - 1; i++)
+		{
+			InitFig_O(i);
+			if (!GameCheckerLower())
+			{
+				InitFig_O(i);
+				PrintGame();
+				break;
+			}
+			PrintGame();
+		}
+		Turner_1_2();
+	}
+	break;
+	case 3:
+	{
+		for (int i = 1; i < ROW - 1; i++)
+		{
+			InitFig_J(i);
+			if (!GameCheckerLower())
+			{
+				InitFig_J(i);
+				PrintGame();
+				break;
+			}
+			PrintGame();
+		}
+		Turner_1_2();
+	}
+	break;
+	case 4:
 	{
 		Turner_1_2();
 	}
@@ -165,13 +207,16 @@ void InitFig_I(int x)  //палка
 {
 	if (pos % 2 != 0)
 	{
-		//if (x>1){
-		//	x++;
-		//}
+		if (pos > 4) {
+			pos = 1;
+		}
 		Fig_I_pos_1(x);//Горизонтально === //палка
 	}
 	else if (pos % 2 == 0)
 	{
+		if (pos > 4) {
+			pos = 2;
+		}
 		if (x > 1) {
 			x--;
 		}
@@ -181,20 +226,26 @@ void InitFig_I(int x)  //палка
 
 void Fig_I_pos_1(int x)//Горизонтально === //палка
 {
+	int stick = 1;
 	CleanBufferGetch();
 	Right = GameCheckerSideRight();//проверка слева фигуры на наличие 1
 	Left = GameCheckerSideLeft();//проверка справа фигуры на наличие 1
-	int stop=0;
+	int stop = 0;
 	if (_kbhit())
 	{
 		switch (_getch())
 		{
 		case (char)72:
 		{
-			InitFig_I(x);
-			coorY++;
-			pos++;
-			stop = 1;
+			if (Checker_FigRotation(stick,pos)==0) {
+				break;
+			}
+			else {
+				InitFig_I(x);
+				coorY++;
+				pos++;
+				stop = 1;
+			}
 		}break;
 		case (char)77: // right
 		{
@@ -231,6 +282,7 @@ void Fig_I_pos_1(int x)//Горизонтально === //палка
 
 void Fig_I_pos_2(int x)// вертикально I //палка
 {
+	int stick = 1;
 	CleanBufferGetch();
 	Right = GameCheckerSideRight();//проверка слева фигуры на наличие 1
 	Left = GameCheckerSideLeft(); //проверка справа фигуры на наличие 1
@@ -241,10 +293,15 @@ void Fig_I_pos_2(int x)// вертикально I //палка
 		{
 		case (char)72:
 		{
-			InitFig_I(x);
-			coorY--;
-			pos++;
-			stop = 1;
+			if (Checker_FigRotation(stick, pos) == 0) {
+				break;
+			}
+			else {
+				InitFig_I(x);
+				coorY--;
+				pos++;
+				stop = 1;
+			}
 		}break;
 		case (char)77: // right
 		{
@@ -278,94 +335,285 @@ void Fig_I_pos_2(int x)// вертикально I //палка
 	}
 }
 
-void InitFig_O()   //кубик
+void InitFig_O(int x)   //кубик
 {
-	game_place[0][4] = 1;
-	game_place[0][5] = 1;
-	game_place[1][4] = 1;
-	game_place[1][5] = 1;
+	CleanBufferGetch();
+	Right = GameCheckerSideRight();//проверка слева фигуры на наличие 1
+	Left = GameCheckerSideLeft(); //проверка справа фигуры на наличие 1
+	if (_kbhit())
+	{
+		switch (_getch())
+		{
+		case (char)77: // right
+		{
+			if (!Right)
+			{
+				break;
+			}
+			else {
+				coorY++;
+			}
+		}break;
+		case (char)75: // left
+		{
+			if (!Left)
+			{
+				break;
+			}
+			else {
+				coorY--;
+			}
+		}break;
+		}
+	}
+	Fig_Cleaner();
+	game_place[x][coorY] = 2;
+	game_place[x][coorY+1] = 2;
+	game_place[x+1][coorY] = 2;
+	game_place[x+1][coorY+1] = 2;
 }
 
-void Fig_J_pos_1(int x, int y) // вертикально J
+void InitFig_J(int x)
 {
-
-	game_place[x + 0][y] = 1;
-	game_place[x + 1][y] = 1;
-	game_place[x + 2][y] = 1;
-	game_place[x + 2][y - 1] = 1;
+	if (pos == 1)
+	{
+		Fig_J_pos_1(x);// вертикально J
+	}
+	else if (pos == 2)
+	{
+		Fig_J_pos_2(x);//Горизонтально  |___
+	}
+	else if (pos == 3)
+	{
+		Fig_J_pos_3(x);// J Вверх нагами
+	}
+	else if (pos == 4)
+	{
+		Fig_J_pos_4(x);// вертикально  ===,
+	}
 }
 
-void Fig_J_pos_2(int x, int y) // J Вверх нагами
+void Fig_J_pos_1(int x) // вертикально J
 {
-
-	game_place[x][y + 1] = 1;
-	game_place[x][y] = 1;
-	game_place[x + 1][y] = 1;
-	game_place[x + 2][y] = 1;
+	int J = 2;
+	CleanBufferGetch();
+	Right = GameCheckerSideRight();//проверка слева фигуры на наличие 1
+	Left = GameCheckerSideLeft();//проверка справа фигуры на наличие 1
+	int stop = 0;
+	if (_kbhit())
+	{
+		switch (_getch())
+		{
+		case (char)72:
+		{
+			if (Checker_FigRotation(J, pos) == 0) {
+				break;
+			}
+			else {
+				coorY--;
+				Fig_J_pos_2(x);
+				pos++;
+				stop = 1;
+			}
+		}break;
+		case (char)77: // right
+		{
+			stop = 0;
+			if (!Right)
+			{
+				break;
+			}
+			else {
+				coorY++;
+			}
+		}break;
+		case (char)75: // left
+		{
+			if (!Left)
+			{
+				break;
+			}
+			else {
+				coorY--;
+			}
+		}break;
+		}
+	}
+	if (stop == 0)
+	{
+		Fig_Cleaner();
+		game_place[x + 0][coorY] = 2;
+		game_place[x + 1][coorY] = 2;
+		game_place[x + 2][coorY] = 2;
+		game_place[x + 2][coorY - 1] = 2;
+	}
 }
 
-void Fig_J_pos_3(int x, int y) //Горизонтально  |___
+void Fig_J_pos_2(int x) //Горизонтально  |___
 {
-
-	game_place[x][y] = 1;
-	game_place[x + 1][y] = 1;
-	game_place[x + 1][y + 1] = 1;
-	game_place[x + 1][y + 2] = 1;
+	int J = 2;
+	CleanBufferGetch();
+	Right = GameCheckerSideRight();//проверка слева фигуры на наличие 1
+	Left = GameCheckerSideLeft();//проверка справа фигуры на наличие 1
+	int stop = 0;
+	if (_kbhit())
+	{
+		switch (_getch())
+		{
+		case (char)72:
+		{
+			if (Checker_FigRotation(J, pos) == 0) {
+				break;
+			}
+			else {
+				coorY++;
+				Fig_J_pos_3(x);
+				pos++;
+				stop = 1;
+			}
+		}break;
+		case (char)77: // right
+		{
+			stop = 0;
+			if (!Right)
+			{
+				break;
+			}
+			else {
+				coorY++;
+			}
+		}break;
+		case (char)75: // left
+		{
+			if (!Left)
+			{
+				break;
+			}
+			else {
+				coorY--;
+			}
+		}break;
+		}
+	}
+	if (stop == 0)
+	{
+		Fig_Cleaner();
+		game_place[x][coorY] = 2;
+		game_place[x + 1][coorY] = 2;
+		game_place[x + 1][coorY + 1] = 2;
+		game_place[x + 1][coorY + 2] = 2;
+	}
 }
 
-void Fig_J_pos_4(int x, int y) // вертикально  ===,
+void Fig_J_pos_3(int x) 
 {
-
-	game_place[x][y + 2] = 1;
-	game_place[x][y] = 1;
-	game_place[x][y + 1] = 1;
-	game_place[x + 1][y + 2] = 1;
+	int J = 2;
+	CleanBufferGetch();
+	Right = GameCheckerSideRight();//проверка слева фигуры на наличие 1
+	Left = GameCheckerSideLeft();//проверка справа фигуры на наличие 1
+	int stop = 0;
+	if (_kbhit())
+	{
+		switch (_getch())
+		{
+		case (char)72:
+		{
+			if (Checker_FigRotation(J, pos) == 0) {
+				break;
+			}
+			else {
+				coorY--;
+				Fig_J_pos_4(x);
+				pos++;
+				stop = 1;
+			}
+		}break;
+		case (char)77: // right
+		{
+			stop = 0;
+			if (!Right)
+			{
+				break;
+			}
+			else {
+				coorY++;
+			}
+		}break;
+		case (char)75: // left
+		{
+			if (!Left)
+			{
+				break;
+			}
+			else {
+				coorY--;
+			}
+		}break;
+		}
+	}
+	if (stop == 0)
+	{
+	Fig_Cleaner();
+	game_place[x][coorY + 1] = 2;
+	game_place[x][coorY] = 2;
+	game_place[x + 1][coorY] = 2;
+	game_place[x + 2][coorY] = 2;
+	}
 }
 
-
-void InitFig_J(int postion)
+void Fig_J_pos_4(int x) // вертикально  ===,
 {
-	switch (postion)
+	int J = 2;
+	CleanBufferGetch();
+	Right = GameCheckerSideRight();//проверка слева фигуры на наличие 1
+	Left = GameCheckerSideLeft();//проверка справа фигуры на наличие 1
+	int stop = 0;
+	if (_kbhit())
 	{
-	case 1: // вертикально J
+		switch (_getch())
+		{
+		case (char)72:
+		{
+			if (Checker_FigRotation(J, pos) == 0) {
+				break;
+			}
+			else {
+				coorY++;
+				pos = 1;
+				Fig_J_pos_1(x);
+				stop = 1;
+			}
+		}break;
+		case (char)77: // right
+		{
+			stop = 0;
+			if (!Right)
+			{
+				break;
+			}
+			else {
+				coorY++;
+			}
+		}break;
+		case (char)75: // left
+		{
+			if (!Left)
+			{
+				break;
+			}
+			else {
+				coorY--;
+			}
+		}break;
+		}
+	}
+	if (stop == 0)
 	{
-		Fig_J_pos_1(0, 5);
-		//game_place[0][5] = 1;
-		//game_place[1][5] = 1;
-		//game_place[2][5] = 1;
-		//game_place[2][4] = 1;
-
-	}break;
-	case 2: // J Вверх нагами 
-	{
-		Fig_J_pos_2(0, 5);
-		//game_place[0][6] = 1;
-		//game_place[0][5] = 1;
-		//game_place[1][5] = 1;
-		//game_place[2][5] = 1;
-
-
-	}break;
-
-	case 3: //Горизонтально  |___
-	{
-		Fig_J_pos_3(0, 4);
-		//game_place[0][4] = 1;
-		//game_place[1][4] = 1;
-		//game_place[1][5] = 1;
-		//game_place[1][6] = 1;
-
-	}break;
-
-	case 4: // вертикально  ===,
-	{
-		Fig_J_pos_4(0, 4);
-		//game_place[0][6] = 1;
-		//game_place[0][4] = 1;
-		//game_place[0][5] = 1;
-		//game_place[1][6] = 1;
-	}break;
-
+		Fig_Cleaner();
+		game_place[x][coorY + 2] = 2;
+		game_place[x][coorY] = 2;
+		game_place[x][coorY + 1] = 2;
+		game_place[x + 1][coorY + 2] = 2;
 	}
 }
 
@@ -663,29 +911,57 @@ void InitFig_T(int postion)
 //	}
 //}
 
-
-bool Checker_FigRotation()  //Проверка стороны фигуры перед вращением
+void Find_Fig_in_place() //функция поиска первой координаты фигуры
 {
-	sides = true;
+	int stop=0;
 	for (int i = 1; i < ROW - 1; i++)
 	{
 		for (int j = 1; j < COL - 1; j++)
 		{
 			if (game_place[i][j] == 2)
 			{
-				if (game_place[i + 2][j] == 1 || game_place[i][j + 2] == 1 || game_place[i][j - 1] == 1)
-				{
-					return sides = false;
-					break;
-				}
+				find_X=i;   //первая координата найденой фигуры
+				find_Y=j;
+				stop = 1;
+				break;
 			}
 		}
-		if (sides == false)
-		{
+		if (stop == 1) {
 			break;
 		}
 	}
-	return sides;
+}
+
+bool Checker_FigRotation(int Fig, int pos)  //Проверка стороны фигуры перед вращением
+{
+	sides = false;
+	if (Fig==1 && pos==1)
+	{
+		Find_Fig_in_place();
+		if (game_place[find_X + 2][find_Y] != 1 && game_place[find_X + 3][find_Y +1] != 1 && game_place[find_X +2][find_Y +1] != 1 && game_place[find_X +2][find_Y + 2] != 1 && game_place[find_X + 3][find_Y + 2] != 1)
+		{
+			return sides = true;
+		}
+		return sides;
+	}
+	else if (Fig == 1 && pos == 2)
+	{
+		Find_Fig_in_place();
+		if (game_place[find_X][find_Y - 2] != 1 && game_place[find_X][find_Y - 1] != 1 && game_place[find_X][find_Y + 1] != 1 && game_place[find_X][find_Y + 3] != 1 && game_place[find_X + 1][find_Y + 2] != 1)
+		{
+			return sides = true;
+		}
+		return sides;
+	}
+	else if (Fig == 2 && pos == 1)
+	{
+		Find_Fig_in_place();
+		if (game_place[find_X+1][find_Y-1] != 1 && game_place[find_X+1][find_Y] != 1 && game_place[find_X][find_Y + 1] != 1 && game_place[find_X][find_Y + 3] != 1 && game_place[find_X + 1][find_Y + 2] != 1)
+		{
+			return sides = true;
+		}
+		return sides;
+	}
 }
 
 bool GameCheckerLower() //Проверка строки ниже на наличие объекта
@@ -837,17 +1113,14 @@ void DelRow()
 bool GameOver()
 {
 	// фун проверки верхней строки поля на наличие в ней "1", 1 -  часть фигуры 
-	for (int i = 0; i < COL; i++)
+	for (int i = 1; i < COL-1; i++)
 	{
-		if (game_place[0][i] == 1)
+		if (game_place[1][i] == 1)
 		{
-			return true;
-		}
-		else
-		{
-			false;
+			return false;
 		}
 	}
+	return true;
 }
 
 void PrintGame()
@@ -884,7 +1157,7 @@ void PrintGame()
 		}
 		cout << endl;
 	}
-	Sleep(200);
+	Sleep(100);
 }
 
 void Fig_Cleaner()
