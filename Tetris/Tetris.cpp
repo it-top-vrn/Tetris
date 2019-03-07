@@ -101,7 +101,7 @@ int main()
 
 	do {
 		type = 2; //+ rand() % 7;
-		poz = 3; // + rand() % 4;
+		poz = 4; // + rand() % 4;
 		/*cout << "type = " << type << endl;;
 		cout << "poz = " << poz << endl;
 		if (poz > 2) {
@@ -327,10 +327,10 @@ void Fig_I_Poz1(int x, int y) // Фигура I , горизонтальное �
 		if (CheckStep(x, *pStepY, 4)) {
 			*pcheck = 1;
 		}
-	}
-	else if (CurrentFigurePosition == 2) {
+	}else if(CurrentFigurePosition == 2){
 		Fig_I_Poz2(x - 3, *pStepY);
-	}
+		return;
+		}
 }
 void Fig_I_Poz2(int x, int y) // Фигура I , вертикальное положение 
 {
@@ -340,45 +340,46 @@ void Fig_I_Poz2(int x, int y) // Фигура I , вертикальное по�
 		CurrentFigurePosition = 2;
 	}
 	if (CurrentFigurePosition == 2) {
-		if (x != 0) {
-			game_place[x - 1][*pStepY] = 0;
-			game_place[x][*pStepY] = 0;
-			game_place[x + 1][*pStepY] = 0;
-			game_place[x + 2][*pStepY] = 0;
-		}
-		CleanBufferGetch(x);
-		if (_kbhit()) {
-			switch (_getch())
-			{
-			case (char)77: // право
-				if (game_place[x][*pStepY + 1] != 1 && game_place[x + 1][*pStepY + 1] != 1 && game_place[x + 2][*pStepY + 1] != 1 && game_place[x + 3][*pStepY + 1] != 1 && *pStepY < 9) {
-					*pStepY = *pStepY + 1;
-				}
-				break;
-			case (char)75: // лево
-				if (game_place[x][*pStepY - 1] != 1 && game_place[x + 1][*pStepY - 1] != 1 && game_place[x + 2][*pStepY - 1] != 1 && game_place[x + 3][*pStepY - 1] != 1 && *pStepY > 0) {
-					*pStepY = *pStepY - 1;
-				}
-				break;
-			case (char)72:  // вверх
-				if (game_place[x + 3][*pStepY - 2] != 1 && game_place[x + 3][*pStepY - 1] != 1 && game_place[x + 3][*pStepY] != 1 && game_place[x + 3][*pStepY + 1] != 1 && *pStepY > 1 && *pStepY < 9) {
-					CurrentFigurePosition = 1;
-					*pStepY -= 2;
-					Fig_I_Poz1(x + 3, *pStepY);
-					return;
-				}
+	if (x != 0) {
+		game_place[x - 1][*pStepY] = 0;
+		game_place[x][*pStepY] = 0;
+		game_place[x + 1][*pStepY] = 0;
+		game_place[x + 2][*pStepY] = 0;
+	}
+	CleanBufferGetch(x);
+	if (_kbhit()) {
+		switch (_getch())
+		{
+		case (char)77: // право
+			if (game_place[x][*pStepY + 1] != 1 && game_place[x + 1][*pStepY + 1] != 1 && game_place[x + 2][*pStepY + 1] != 1 && game_place[x + 3][*pStepY + 1] != 1 && *pStepY < 9) {
+				*pStepY = *pStepY + 1;
+			}
+			break;
+		case (char)75: // лево
+			if (game_place[x][*pStepY - 1] != 1 && game_place[x + 1][*pStepY - 1] != 1 && game_place[x + 2][*pStepY - 1] != 1 && game_place[x + 3][*pStepY - 1] != 1 && *pStepY > 0) {
+				*pStepY = *pStepY - 1;
+			}
+			break;
+		case (char)72:  // вверх
+			if (game_place[x + 3][*pStepY - 2] != 1 && game_place[x + 3][*pStepY - 1] != 1 && game_place[x + 3][*pStepY] != 1 && game_place[x + 3][*pStepY + 1] != 1 && *pStepY > 1 && *pStepY < 9) {
+				CurrentFigurePosition = 1;
+				*pStepY -= 2;
+				Fig_I_Poz1(x + 3, *pStepY);
+				return;
 			}
 		}
-		game_place[x][*pStepY] = 1;
-		game_place[x + 1][*pStepY] = 1;
-		game_place[x + 2][*pStepY] = 1;
-		game_place[x + 3][*pStepY] = 1;
-		PrintGame();
-		if (CheckStep(x + 3, *pStepY, 1)) {
-			*pcheck = 1;
-		}
+	}
+	game_place[x][*pStepY] = 1;
+	game_place[x + 1][*pStepY] = 1;
+	game_place[x + 2][*pStepY] = 1;
+	game_place[x + 3][*pStepY] = 1;
+	PrintGame();
+	if (CheckStep(x + 3, *pStepY, 1)) {
+		*pcheck = 1;
+	}
 	} if (CurrentFigurePosition == 1) {
 		Fig_I_Poz1(x + 3, *pStepY);
+		return;
 	}
 }
 
@@ -388,6 +389,7 @@ void Fig_J_Poz1(int x, int y)
 		*pStepY = y;
 		CurrentFigurePosition = 1;
 	}
+
 	if (CurrentFigurePosition == 1) {
 		if (x != 0) {
 			game_place[x - 1][*pStepY] = 0;
@@ -426,9 +428,15 @@ void Fig_J_Poz1(int x, int y)
 		if (CheckStep(x + 2, *pStepY, 2)) {
 			*pcheck = 1;
 		}
-	}
-	else if (CurrentFigurePosition == 2) {
+	}if (CurrentFigurePosition == 2) {
 		Fig_J_Poz2(x + 1, *pStepY);
+		return;
+	}if (CurrentFigurePosition == 3) {
+		Fig_J_Poz3(x , *pStepY);
+		return;
+	}if (CurrentFigurePosition == 4) {
+		Fig_J_Poz4(x + 1, *pStepY);
+		return;
 	}
 }
 
@@ -438,6 +446,7 @@ void Fig_J_Poz2(int x, int y)
 		*pStepY = y;
 		CurrentFigurePosition = 2;
 	}
+
 	if (CurrentFigurePosition == 2) {
 		if (x != 0) {
 			game_place[x - 1][*pStepY - 1] = 0;
@@ -476,18 +485,23 @@ void Fig_J_Poz2(int x, int y)
 		if (CheckStep(x + 1, *pStepY - 1, 3)) {
 			*pcheck = 1;
 		}
-	}else if(CurrentFigurePosition == 3) {
+	}if (CurrentFigurePosition == 1) {
+		Fig_J_Poz1(x - 1, *pStepY);
+		return;
+	}if (CurrentFigurePosition == 3) {
 		Fig_J_Poz3(x - 1, *pStepY);
+		return;
+	}if (CurrentFigurePosition == 4) {
+		Fig_J_Poz4(x, *pStepY);
+		return;
 	}
 }
-
 void Fig_J_Poz3(int x, int y)
 {
 	if (x == 0) {
 		*pStepY = y;
 		CurrentFigurePosition = 3;
 	}
-
 	if (CurrentFigurePosition == 3) {
 		if (x != 0) {
 			game_place[x - 1][*pStepY - 1] = 0;
@@ -526,9 +540,15 @@ void Fig_J_Poz3(int x, int y)
 		if (CheckStep(x + 2, *pStepY, 5)) {
 			*pcheck = 1;
 		}
-	}
-	else if (CurrentFigurePosition == 4) {
+	}if (CurrentFigurePosition == 4) {
 		Fig_J_Poz4(x + 1, *pStepY);
+		return;
+	}if (CurrentFigurePosition == 1) {
+		Fig_J_Poz1(x, *pStepY);
+		return;
+	}if (CurrentFigurePosition == 2) {
+		Fig_J_Poz2(x + 1, *pStepY);
+		return;
 	}
 }
 
@@ -562,8 +582,8 @@ void Fig_J_Poz4(int x, int y)
 			case (char)72:  // вверх
 				if (game_place[x + 1][*pStepY - 2] != 1 && game_place[x + 1][*pStepY - 1] != 1 && game_place[x + 1][*pStepY] != 1 && game_place[x + 2][*pStepY] != 1 && *pStepY > 1 && *pStepY < 10) {
 					CurrentFigurePosition = 1;
-					*pStepY -= 0;
-					Fig_J_Poz1(x + 1, *pStepY);
+					*pStepY += 1;
+					Fig_J_Poz1(x - 1, *pStepY);
 					return;
 				}
 			}
@@ -576,9 +596,15 @@ void Fig_J_Poz4(int x, int y)
 		if (CheckStep(x, *pStepY, 6)) {
 			*pcheck = 1;
 		}
-	}
-	else if (CurrentFigurePosition == 1) {
-			Fig_J_Poz1(x + 1, *pStepY);
+	}if (CurrentFigurePosition == 3) {
+		Fig_J_Poz3(x - 1, *pStepY);
+		return;
+	}if (CurrentFigurePosition == 1) {
+		Fig_J_Poz1(x - 1, *pStepY);
+		return;
+	}if (CurrentFigurePosition == 2) {
+		Fig_J_Poz2(x, *pStepY);
+		return;
 	}
 }
 
@@ -587,144 +613,223 @@ void Fig_L_Poz1(int x, int y)
 {
 	if (x == 0) {
 		*pStepY = y;
+		CurrentFigurePosition = 1;
 	}
-	if (x != 0) {
-		game_place[x - 1][*pStepY + 1] = 0;
-		game_place[x][*pStepY - 1] = 0;
-		game_place[x][*pStepY] = 0;
-		game_place[x][*pStepY + 1] = 0;
-	}
-	CleanBufferGetch(x);
-	if (_kbhit()) {
-		switch (_getch())
-		{
-		case (char)77: // право
-			if (game_place[x][*pStepY + 2] != 1 && game_place[x + 1][*pStepY + 2] != 1 && *pStepY < 8) {
-				*pStepY = *pStepY + 1;
-			}
-			break;
-		case (char)75:  // лево
-			if (game_place[x][*pStepY] != 1 && game_place[x + 1][*pStepY - 2] != 1 && *pStepY > 1) {
-				*pStepY = *pStepY - 1;
-			}
-			break;
+	if (CurrentFigurePosition == 1) {
+		if (x != 0) {
+			game_place[x - 1][*pStepY] = 0;
+			game_place[x][*pStepY] = 0;
+			game_place[x + 1][*pStepY] = 0;
+			game_place[x + 1][*pStepY + 1] = 0;
 		}
-	}
-	game_place[x][*pStepY + 1] = 1;
-	game_place[x + 1][*pStepY - 1] = 1;
-	game_place[x + 1][*pStepY] = 1;
-	game_place[x + 1][*pStepY + 1] = 1;
-	PrintGame();
-	if (CheckStep(x + 1, *pStepY - 1, 3)) {
-		*pcheck = 1;
+		CleanBufferGetch(x);
+		if (_kbhit()) {
+			switch (_getch())
+			{
+			case (char)77: // право
+				if (game_place[x][*pStepY + 1] != 1 && game_place[x + 1][*pStepY + 1] != 1 && game_place[x + 2][*pStepY + 2] != 1 && *pStepY < 8) {
+					*pStepY = *pStepY + 1;
+				}
+				break;
+			case (char)75:  // лево
+				if (game_place[x][*pStepY - 1] != 1 && game_place[x + 1][*pStepY - 1] != 1 && game_place[x + 2][*pStepY - 1] != 1 && *pStepY > 0) {
+					*pStepY = *pStepY - 1;
+				}
+				break;
+			case (char)72:  // вверх
+				if (game_place[x + 1][*pStepY + 1] != 1 && game_place[x + 1][*pStepY + 2] != 1 && *pStepY > 0 && *pStepY < 9) {
+					CurrentFigurePosition = 2;
+					*pStepY += 1;
+					Fig_L_Poz2(x + 1, *pStepY);
+					return;
+				}
+			}
+		}
+		game_place[x][*pStepY] = 1;
+		game_place[x + 1][*pStepY] = 1;
+		game_place[x + 2][*pStepY] = 1;
+		game_place[x + 2][*pStepY + 1] = 1;
+		PrintGame();
+		if (CheckStep(x + 2, *pStepY, 9)) {
+			*pcheck = 1;
+		}
+
+	}if (CurrentFigurePosition == 2) {
+		Fig_L_Poz2(x + 1, *pStepY);
+		return;
+	}if (CurrentFigurePosition == 3) {
+		Fig_L_Poz3(x, *pStepY);
+		return;
+	}if (CurrentFigurePosition == 4) {
+		Fig_L_Poz4(x + 1, *pStepY);
+		return;
 	}
 }
 void Fig_L_Poz2(int x, int y)
 {
 	if (x == 0) {
 		*pStepY = y;
+		CurrentFigurePosition = 2;
 	}
-	if (x != 0) {
-		game_place[x - 1][*pStepY] = 0;
-		game_place[x][*pStepY] = 0;
-		game_place[x + 1][*pStepY] = 0;
-		game_place[x + 1][*pStepY + 1] = 0;
-	}
-	CleanBufferGetch(x);
-	if (_kbhit()) {
-		switch (_getch())
-		{
-		case (char)77: // право
-			if (game_place[x][*pStepY + 1] != 1 && game_place[x + 1][*pStepY + 1] != 1 && game_place[x + 2][*pStepY + 2] != 1 && *pStepY < 8) {
-				*pStepY = *pStepY + 1;
-			}
-			break;
-		case (char)75:  // лево
-			if (game_place[x][*pStepY - 1] != 1 && game_place[x + 1][*pStepY - 1] != 1 && game_place[x + 2][*pStepY - 1] != 1 && *pStepY > 0) {
-				*pStepY = *pStepY - 1;
-			}
-			break;
+	if (CurrentFigurePosition == 2) {
+		if (x != 0) {
+			game_place[x - 1][*pStepY - 1] = 0;
+			game_place[x - 1][*pStepY] = 0;
+			game_place[x - 1][*pStepY + 1] = 0;
+			game_place[x][*pStepY - 1] = 0;
 		}
-	}
-	game_place[x][*pStepY] = 1;
-	game_place[x + 1][*pStepY] = 1;
-	game_place[x + 2][*pStepY] = 1;
-	game_place[x + 2][*pStepY + 1] = 1;
-	PrintGame();
-	if (CheckStep(x + 2, *pStepY, 9)) {
-		*pcheck = 1;
+		CleanBufferGetch(x);
+		if (_kbhit()) {
+			switch (_getch())
+			{
+			case (char)77: // право
+				if (game_place[x][*pStepY + 2] != 1 && game_place[x + 1][*pStepY] != 1 && *pStepY < 8) {
+					*pStepY = *pStepY + 1;
+				}
+				break;
+			case (char)75:  // лево
+				if (game_place[x][*pStepY - 2] != 1 && game_place[x + 1][*pStepY - 2] != 1 && *pStepY > 1) {
+					*pStepY = *pStepY - 1;
+				}
+				break;
+			case (char)72:  // вверх
+				if (game_place[x][*pStepY] != 1 && game_place[x][*pStepY + 1] != 1 && game_place[x + 1][*pStepY + 1] != 1 && *pStepY > 0 && *pStepY < 9) {
+					CurrentFigurePosition = 3;
+					*pStepY -= 0;
+					Fig_L_Poz3(x - 1, *pStepY);
+					return;
+				}
+			}
+		}
+		game_place[x][*pStepY - 1] = 1;
+		game_place[x][*pStepY] = 1;
+		game_place[x][*pStepY + 1] = 1;
+		game_place[x + 1][*pStepY - 1] = 1;
+		PrintGame();
+		if (CheckStep(x, *pStepY, 8)) {
+			*pcheck = 1;
+		}
+
+	}if (CurrentFigurePosition == 3) {
+		Fig_L_Poz3(x - 1, *pStepY);
+		return;
+	}if (CurrentFigurePosition == 4) {
+		Fig_L_Poz4(x, *pStepY);
+		return;
+	}if (CurrentFigurePosition == 1) {
+		Fig_L_Poz1(x - 1, *pStepY);
+		return;
 	}
 }
 void Fig_L_Poz3(int x, int y)
 {
 	if (x == 0) {
 		*pStepY = y;
+		CurrentFigurePosition = 3;
 	}
-	if (x != 0) {
-		game_place[x - 1][*pStepY - 1] = 0;
-		game_place[x - 1][*pStepY] = 0;
-		game_place[x][*pStepY] = 0;
-		game_place[x + 1][*pStepY] = 0;
-	}
-	CleanBufferGetch(x);
-	if (_kbhit()) {
-		switch (_getch())
-		{
-		case (char)77: // право
-			if (game_place[x][*pStepY + 1] != 1 && game_place[x + 1][*pStepY + 1] != 1 && game_place[x + 2][*pStepY + 1] != 1 && *pStepY < 9) {
-				*pStepY = *pStepY + 1;
-			}
-			break;
-		case (char)75:  // лево
-			if (game_place[x][*pStepY - 2] != 1 && game_place[x + 1][*pStepY - 1] != 1 && game_place[x + 2][*pStepY - 1] != 1 && *pStepY > 1) {
-				*pStepY = *pStepY - 1;
-			}
-			break;
+	if (CurrentFigurePosition == 3) {
+		if (x != 0) {
+			game_place[x - 1][*pStepY - 1] = 0;
+			game_place[x - 1][*pStepY] = 0;
+			game_place[x][*pStepY] = 0;
+			game_place[x + 1][*pStepY] = 0;
 		}
-	}
-	game_place[x][*pStepY - 1] = 1;
-	game_place[x][*pStepY] = 1;
-	game_place[x + 1][*pStepY] = 1;
-	game_place[x + 2][*pStepY] = 1;
-	PrintGame();
-	if (CheckStep(x + 2, *pStepY, 7)) {
-		*pcheck = 1;
+		CleanBufferGetch(x);
+		if (_kbhit()) {
+			switch (_getch())
+			{
+			case (char)77: // право
+				if (game_place[x][*pStepY + 1] != 1 && game_place[x + 1][*pStepY + 1] != 1 && game_place[x + 2][*pStepY + 1] != 1 && *pStepY < 9) {
+					*pStepY = *pStepY + 1;
+				}
+				break;
+			case (char)75:  // лево
+				if (game_place[x][*pStepY - 2] != 1 && game_place[x + 1][*pStepY - 1] != 1 && game_place[x + 2][*pStepY - 1] != 1 && *pStepY > 1) {
+					*pStepY = *pStepY - 1;
+				}
+				break;
+			case (char)72:  // вверх
+				if (game_place[x][*pStepY + 1] != 1 && game_place[x + 1][*pStepY + 1] != 1 && game_place[x + 2][*pStepY + 1] != 1 &&  game_place[x + 1][*pStepY - 1] != 1 && *pStepY > 0 && *pStepY < 9) {
+					CurrentFigurePosition = 4;
+					*pStepY -= 0;
+					Fig_L_Poz4(x + 1, *pStepY);
+					return;
+				}
+			}
+		}
+		game_place[x][*pStepY - 1] = 1;
+		game_place[x][*pStepY] = 1;
+		game_place[x + 1][*pStepY] = 1;
+		game_place[x + 2][*pStepY] = 1;
+		PrintGame();
+		if (CheckStep(x + 2, *pStepY, 7)) {
+			*pcheck = 1;
+		}
+	}if (CurrentFigurePosition == 4) {
+		Fig_L_Poz4(x + 1 , *pStepY);
+		return;
+	}if (CurrentFigurePosition == 2) {
+		Fig_L_Poz2(x + 1, *pStepY);
+		return;
+	}if (CurrentFigurePosition == 1) {
+		Fig_L_Poz1(x, *pStepY);
+		return;
 	}
 }
 void Fig_L_Poz4(int x, int y)
 {
 	if (x == 0) {
 		*pStepY = y;
+		CurrentFigurePosition = 4;
 	}
-	if (x != 0) {
-		game_place[x - 1][*pStepY - 1] = 0;
-		game_place[x - 1][*pStepY] = 0;
-		game_place[x - 1][*pStepY + 1] = 0;
-		game_place[x][*pStepY - 1] = 0;
-	}
-	CleanBufferGetch(x);
-	if (_kbhit()) {
-		switch (_getch())
-		{
-		case (char)77: // право
-			if (game_place[x][*pStepY + 2] != 1 && game_place[x + 1][*pStepY] != 1 && *pStepY < 8) {
-				*pStepY = *pStepY + 1;
-			}
-			break;
-		case (char)75:  // лево
-			if (game_place[x][*pStepY - 2] != 1 && game_place[x + 1][*pStepY - 2] != 1 && *pStepY > 1) {
-				*pStepY = *pStepY - 1;
-			}
-			break;
+	if (CurrentFigurePosition == 4) {
+			if (x != 0) {
+			game_place[x - 1][*pStepY + 1] = 0;
+			game_place[x][*pStepY - 1] = 0;
+			game_place[x][*pStepY] = 0;
+			game_place[x][*pStepY + 1] = 0;
 		}
-	}
-	game_place[x][*pStepY - 1] = 1;
-	game_place[x][*pStepY] = 1;
-	game_place[x][*pStepY + 1] = 1;
-	game_place[x + 1][*pStepY - 1] = 1;
-	PrintGame();
-	if (CheckStep(x, *pStepY, 8)) {
-		*pcheck = 1;
+		CleanBufferGetch(x);
+		if (_kbhit()) {
+			switch (_getch())
+			{
+			case (char)77: // право
+				if (game_place[x][*pStepY + 2] != 1 && game_place[x + 1][*pStepY + 2] != 1 && *pStepY < 8) {
+					*pStepY = *pStepY + 1;
+				}
+				break;
+			case (char)75:  // лево
+				if (game_place[x][*pStepY] != 1 && game_place[x + 1][*pStepY - 2] != 1 && *pStepY > 1) {
+					*pStepY = *pStepY - 1;
+				}
+				break;
+			case (char)72:  // вверх
+				if (game_place[x - 1][*pStepY - 1] != 1 && game_place[x][*pStepY - 1] != 1 && game_place[x + 1][*pStepY - 1] != 1 && *pStepY > 0 && *pStepY < 9) {
+					CurrentFigurePosition = 1;
+					*pStepY -= 1;
+					Fig_L_Poz1(x - 1, *pStepY);
+					return;
+				}
+			}
+		}
+		game_place[x][*pStepY + 1] = 1;
+		game_place[x + 1][*pStepY - 1] = 1;
+		game_place[x + 1][*pStepY] = 1;
+		game_place[x + 1][*pStepY + 1] = 1;
+		PrintGame();
+		if (CheckStep(x + 1, *pStepY - 1, 3)) {
+			*pcheck = 1;
+		}
+
+	}if (CurrentFigurePosition == 3) {
+		Fig_L_Poz3(x - 1, *pStepY);
+		return;
+	}if (CurrentFigurePosition == 2) {
+		Fig_L_Poz2(x, *pStepY);
+		return;
+	}if (CurrentFigurePosition == 1) {
+		Fig_L_Poz1(x - 1, *pStepY);
+		return;
 	}
 }
 
@@ -1260,7 +1365,7 @@ void Fig_Step(int type, int poz)
 		{
 		case 1:
 		{
-			for (int i = 0; i < ROW - 1; i++)
+			for (int i = 0; i < ROW - 2; i++)
 			{
 				Fig_L_Poz1(i, 4);
 				if (*pcheck == 1) {
@@ -1272,7 +1377,7 @@ void Fig_Step(int type, int poz)
 		break;
 		case 2:
 		{
-			for (int i = 0; i < ROW - 2; i++)
+			for (int i = 0; i < ROW - 1; i++)
 			{
 				Fig_L_Poz2(i, 4);
 				if (*pcheck == 1) {
