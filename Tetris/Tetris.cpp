@@ -43,16 +43,6 @@ int *pStepY = &StepY;
 int type;
 int poz;
 
-void InitFig_I(int position);
-void InitFig_J(int position);
-void InitFig_L(int position);
-void InitFig_O();
-void InitFig_S(int position);
-void InitFig_Z(int position);
-void InitFig_T(int position);
-void StartFig(int type, int position); // Описываем фигуры
-
-
 void Fig_I_Poz1(int x, int y);
 void Fig_I_Poz2(int x, int y);
 
@@ -100,8 +90,8 @@ int main()
 
 
 	do {
-		type = 7; //+ rand() % 7;
-		poz = 1; //+ rand() % 4;
+		type = 1 + rand() % 7;
+		poz = 1 + rand() % 4;
 		/*cout << "type = " << type << endl;;
 		cout << "poz = " << poz << endl;
 		if (poz > 2) {
@@ -1302,256 +1292,6 @@ void Fig_T_Poz4(int x, int y)
 		return;
 	}
 }
-//
-//void Fig_T_Poz1(int x, int y)
-//{
-//	if (x == 0) {
-//		*pStepY = y;
-//	}
-//	if (x != 0) {
-//		game_place[x - 1][*pStepY] = 0;
-//		game_place[x][*pStepY] = 0;
-//		game_place[x + 1][*pStepY] = 0;
-//		game_place[x][*pStepY - 1] = 0;
-//	}
-//	CleanBufferGetch(x);
-//	if (_kbhit()) {
-//		switch (_getch())
-//		{
-//		case (char)77: // право
-//			if (game_place[x][*pStepY + 1] != 1 && game_place[x + 1][*pStepY + 1] != 1 && game_place[x + 2][*pStepY + 1] != 1 && *pStepY < 9) {
-//				*pStepY = *pStepY + 1;
-//			}
-//			break;
-//		case (char)75:  // лево
-//			if (game_place[x][*pStepY - 1] != 1 && game_place[x + 1][*pStepY - 2] != 1 && game_place[x + 2][*pStepY - 1] != 1 && *pStepY > 1) {
-//				*pStepY = *pStepY - 1;
-//			}
-//			break;
-//		}
-//	}
-//	game_place[x][*pStepY] = 1;
-//	game_place[x + 1][*pStepY] = 1;
-//	game_place[x + 2][*pStepY] = 1;
-//	game_place[x + 1][*pStepY - 1] = 1;
-//	PrintGame();
-//	if (CheckStep(x + 2, *pStepY, 15)) {
-//		*pcheck = 1;
-//	}
-//}
-//void Fig_T_Poz2(int x, int y)
-//{
-//	if (x == 0) {
-//		*pStepY = y;
-//	}
-//	if (x != 0) {
-//		game_place[x - 1][*pStepY] = 0;
-//		game_place[x][*pStepY] = 0;
-//		game_place[x][*pStepY - 1] = 0;
-//		game_place[x][*pStepY + 1] = 0;
-//	}
-//	CleanBufferGetch(x);
-//	if (_kbhit()) {
-//		switch (_getch())
-//		{
-//		case (char)77: // право
-//			if (game_place[x][*pStepY + 1] != 1 && game_place[x + 1][*pStepY + 2] != 1 && *pStepY < 8) {
-//				*pStepY = *pStepY + 1;
-//			}
-//			break;
-//		case (char)75:  // лево
-//			if (game_place[x][*pStepY - 1] != 1 && game_place[x + 1][*pStepY - 2] != 1 && *pStepY > 1) {
-//				*pStepY = *pStepY - 1;
-//			}
-//			break;
-//		}
-//	}
-//	game_place[x][*pStepY] = 1;
-//	game_place[x + 1][*pStepY] = 1;
-//	game_place[x + 1][*pStepY - 1] = 1;
-//	game_place[x + 1][*pStepY + 1] = 1;
-//	PrintGame();
-//	if (CheckStep(x + 1, *pStepY - 1, 3)) {
-//		*pcheck = 1;
-//	}
-//	
-//}
-//void Fig_T_Poz3(int x, int y)
-//{
-//	if (x == 0) {
-//		*pStepY = y;
-//	}
-//	if (x != 0) {
-//		game_place[x - 1][*pStepY] = 0;
-//		game_place[x][*pStepY] = 0;
-//		game_place[x + 1][*pStepY] = 0;
-//		game_place[x][*pStepY + 1] = 0;
-//	}
-//	CleanBufferGetch(x);
-//	if (_kbhit()) {
-//		switch (_getch())
-//		{
-//		case (char)77: // право
-//			if (game_place[x][*pStepY + 1] != 1 && game_place[x + 1][*pStepY + 2] != 1 && game_place[x + 2][*pStepY + 1] != 1 && *pStepY < 8) {
-//				*pStepY = *pStepY + 1;
-//			}
-//			break;
-//		case (char)75:  // лево
-//			if (game_place[x][*pStepY - 1] != 1 && game_place[x + 1][*pStepY - 1] != 1 && game_place[x + 2][*pStepY - 1] != 1 && *pStepY > 0) {
-//				*pStepY = *pStepY - 1;
-//			}
-//			break;
-//		}
-//	}
-//	game_place[x][*pStepY] = 1;
-//	game_place[x + 1][*pStepY] = 1;
-//	game_place[x + 2][*pStepY] = 1;
-//	game_place[x + 1][*pStepY + 1] = 1;
-//	PrintGame();
-//	if (CheckStep(x + 2, *pStepY, 16)) {
-//		*pcheck = 1;
-//	}
-//}
-//void Fig_T_Poz4(int x, int y)
-//{
-//	if (x == 0) {
-//		*pStepY = y;
-//	}
-//	if (x != 0) {
-//		game_place[x - 1][*pStepY - 1] = 0;
-//		game_place[x - 1][*pStepY] = 0;
-//		game_place[x][*pStepY] = 0;
-//		game_place[x - 1][*pStepY + 1] = 0;
-//	}
-//	CleanBufferGetch(x);
-//	if (_kbhit()) {
-//		switch (_getch())
-//		{
-//		case (char)77: // право
-//			if (game_place[x][*pStepY + 2] != 1 && game_place[x + 1][*pStepY + 1] != 1 && *pStepY < 8) {
-//				*pStepY = *pStepY + 1;
-//			}
-//			break;
-//		case (char)75:  // лево
-//			if (game_place[x][*pStepY - 2] != 1 && game_place[x + 1][*pStepY - 1] != 1 && *pStepY > 1) {
-//				*pStepY = *pStepY - 1;
-//			}
-//			break;
-//		}
-//	}
-//	game_place[x][*pStepY - 1] = 1;
-//	game_place[x][*pStepY] = 1;
-//	game_place[x + 1][*pStepY] = 1;
-//	game_place[x][*pStepY + 1] = 1;
-//	PrintGame();
-//	if (CheckStep(x + 1, *pStepY, 14)) {
-//		*pcheck = 1;
-//	}
-//}
-
-void InitFig_I(int position)
-{
-	switch (position)
-	{
-	case 1: Fig_I_Poz1(0, 3);
-		break;
-	case 2: Fig_I_Poz2(0, 5);
-		break;
-	}
-
-}
-
-void InitFig_J(int position)
-{
-	switch (position)
-	{
-	case 1:	Fig_J_Poz1(0, 5);
-		break;
-	case 2:	Fig_J_Poz2(0, 5);
-		break;
-	case 3:	Fig_J_Poz3(0, 5);
-		break;
-	case 4:	Fig_J_Poz4(0, 5);
-		break;
-	}
-}
-
-void InitFig_L(int position)
-{
-	switch (position)
-	{
-	case 1:	Fig_L_Poz1(0, 5);
-		break;
-	case 2:	Fig_L_Poz2(0, 5);
-		break;
-	case 3:	Fig_L_Poz3(0, 5);
-		break;
-	case 4:	Fig_L_Poz4(0, 5);
-		break;
-	}
-}
-void InitFig_O()
-{
-	Fig_O_Poz(0, 5);
-}
-
-void InitFig_S(int position)
-{
-	switch (position)
-	{
-	case 1:	Fig_S_Poz1(0, 5);
-		break;
-	case 2:	Fig_S_Poz2(0, 5);
-		break;
-	}
-}
-
-void InitFig_Z(int position)
-{
-	switch (position)
-	{
-	case 1:	Fig_Z_Poz1(0, 5);
-		break;
-	case 2:	Fig_Z_Poz2(0, 5);
-		break;
-	}
-}
-
-void InitFig_T(int position)
-{
-	switch (position)
-	{
-	case 1:	Fig_T_Poz1(0, 5);
-		break;
-	case 2:	Fig_T_Poz2(0, 5);
-		break;
-	case 3:	Fig_T_Poz3(0, 5);
-		break;
-	case 4:	Fig_T_Poz4(0, 5);
-		break;
-	}
-}
-
-void StartFig(int type, int position)
-{
-	switch (type)
-	{
-	case 1: InitFig_I(position);
-		break;
-	case 2: InitFig_J(position);
-		break;
-	case 3: InitFig_L(position);
-		break;
-	case 4: InitFig_O();
-		break;
-	case 5: InitFig_S(position);
-		break;
-	case 6: InitFig_Z(position);
-		break;
-	case 7: InitFig_T(position);
-		break;
-	}
-}
 
 void Fig_Step(int type, int poz)
 {
@@ -1949,8 +1689,8 @@ bool GameOver(int doing)
 
 void PrintGame() {
 	system("cls");
-	cout << "type = " << type << endl;;
-	cout << "poz = " << poz << endl;
+	//cout << "type = " << type << endl;;
+	//cout << "poz = " << poz << endl;
 	cout << "\nScore = " << score << endl << endl;
 
 	for (int i = 0; i < COL + 2; i++)
@@ -1976,9 +1716,13 @@ void PrintGame() {
 	{
 		cout << char(219);
 	}
-	Sleep(100);
-
-	
+	if (score <= 1000) {
+		Sleep(200);
+	}if (score > 1000 && score <= 5000) {
+		Sleep(150);
+	}if (score > 5000 && score <= 7000) {
+		Sleep(100);
+	}
 }
 
 
