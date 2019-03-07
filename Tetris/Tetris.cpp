@@ -100,8 +100,8 @@ int main()
 
 
 	do {
-		type = 4; //+ rand() % 7;
-		poz = 2; // + rand() % 4;
+		type = 7; //+ rand() % 7;
+		poz = 4; // + rand() % 4;
 		/*cout << "type = " << type << endl;;
 		cout << "poz = " << poz << endl;
 		if (poz > 2) {
@@ -115,13 +115,6 @@ int main()
 
 	GameOver(2);
 
-	/*Fig_Step(1, 1);
-	Fig_Step(1, 2);
-	Fig_Step(7, 1);
-	Fig_Step(7, 2);
-	Fig_Step(7, 3);
-	Fig_Step(7, 4);*/
-	//PrintGame();
 }
 
 bool CheckStep(int x, int y, int check) {
@@ -384,13 +377,13 @@ void Fig_I_Poz2(int x, int y) // Фигура I , вертикальное по�
 	}
 }
 
+
 void Fig_J_Poz1(int x, int y)
 {
 	if (x == 0) {
 		*pStepY = y;
 		CurrentFigurePosition = 1;
 	}
-
 	if (CurrentFigurePosition == 1) {
 		if (x != 0) {
 			game_place[x - 1][*pStepY] = 0;
@@ -403,7 +396,7 @@ void Fig_J_Poz1(int x, int y)
 			switch (_getch())
 			{
 			case (char)77: // право
-				if (game_place[x][*pStepY + 1] != 1 && game_place[x + 1][*pStepY + 1] != 1 && game_place[x + 2][*pStepY + 1] != 1 && *pStepY < 9) {
+				if (game_place[x][*pStepY + 1] != 1 && game_place[x + 2][*pStepY + 1] != 1 && game_place[x][*pStepY + 1] != 1 && game_place[x + 1][*pStepY + 1] != 1 && *pStepY < 9) {
 					*pStepY = *pStepY + 1;
 				}
 				break;
@@ -413,7 +406,7 @@ void Fig_J_Poz1(int x, int y)
 				}
 				break;
 			case (char)72:  // вверх
-				if (game_place[x + 1][*pStepY - 1] != 1 && game_place[x + 2][*pStepY - 1] != 1 && game_place[x + 2][*pStepY + 1] != 1 && *pStepY > 0 && *pStepY < 9) {
+				if (game_place[x][*pStepY + 1] != 1 && game_place[x + 1][*pStepY + 1] != 1 && game_place[x + 1][*pStepY - 1] != 1 && game_place[x + 2][*pStepY + 1] != 1 && *pStepY < 9) {
 					CurrentFigurePosition = 2;
 					*pStepY -= 0;
 					Fig_J_Poz2(x + 1, *pStepY);
@@ -429,13 +422,16 @@ void Fig_J_Poz1(int x, int y)
 		if (CheckStep(x + 2, *pStepY, 2)) {
 			*pcheck = 1;
 		}
-	}if (CurrentFigurePosition == 2) {
+	}
+	if (CurrentFigurePosition == 2) {
 		Fig_J_Poz2(x + 1, *pStepY);
 		return;
-	}if (CurrentFigurePosition == 3) {
+	}
+	if (CurrentFigurePosition == 3) {
 		Fig_J_Poz3(x, *pStepY);
 		return;
-	}if (CurrentFigurePosition == 4) {
+	}
+	if (CurrentFigurePosition == 4) {
 		Fig_J_Poz4(x + 1, *pStepY);
 		return;
 	}
@@ -447,7 +443,6 @@ void Fig_J_Poz2(int x, int y)
 		*pStepY = y;
 		CurrentFigurePosition = 2;
 	}
-
 	if (CurrentFigurePosition == 2) {
 		if (x != 0) {
 			game_place[x - 1][*pStepY - 1] = 0;
@@ -470,9 +465,8 @@ void Fig_J_Poz2(int x, int y)
 				}
 				break;
 			case (char)72:  // вверх
-				if (game_place[x - 1][*pStepY] != 1 && game_place[x - 1][*pStepY - 1] != 1 && game_place[x][*pStepY - 1] != 1 && game_place[x + 1][*pStepY - 1] != 1 && *pStepY > 0 && *pStepY < 9) {
+				if (game_place[x - 1][*pStepY] != 1 && game_place[x - 1][*pStepY - 1] != 1) {
 					CurrentFigurePosition = 3;
-					*pStepY -= 0;
 					Fig_J_Poz3(x - 1, *pStepY);
 					return;
 				}
@@ -486,14 +480,17 @@ void Fig_J_Poz2(int x, int y)
 		if (CheckStep(x + 1, *pStepY - 1, 3)) {
 			*pcheck = 1;
 		}
-	}if (CurrentFigurePosition == 1) {
-		Fig_J_Poz1(x - 1, *pStepY);
-		return;
-	}if (CurrentFigurePosition == 3) {
+	}
+	if (CurrentFigurePosition == 3) {
 		Fig_J_Poz3(x - 1, *pStepY);
 		return;
-	}if (CurrentFigurePosition == 4) {
+	}
+	if (CurrentFigurePosition == 4) {
 		Fig_J_Poz4(x, *pStepY);
+		return;
+	}
+	if (CurrentFigurePosition == 1) {
+		Fig_J_Poz1(x - 1, *pStepY);
 		return;
 	}
 }
@@ -525,9 +522,8 @@ void Fig_J_Poz3(int x, int y)
 				}
 				break;
 			case (char)72:  // вверх
-				if (game_place[x + 1][*pStepY - 2] != 1 && game_place[x + 1][*pStepY - 1] != 1 && game_place[x + 1][*pStepY] != 1 && game_place[x + 2][*pStepY] != 1 && *pStepY > 1 && *pStepY < 10) {
+				if (game_place[x + 1][*pStepY] != 1 && game_place[x + 1][*pStepY + 1] != 1 && game_place[x + 2][*pStepY + 1] != 1 && game_place[x][*pStepY + 1] != 1 && *pStepY < 9) {
 					CurrentFigurePosition = 4;
-					*pStepY -= 1;
 					Fig_J_Poz4(x + 1, *pStepY);
 					return;
 				}
@@ -541,14 +537,17 @@ void Fig_J_Poz3(int x, int y)
 		if (CheckStep(x + 2, *pStepY, 5)) {
 			*pcheck = 1;
 		}
-	}if (CurrentFigurePosition == 4) {
+	}
+	if (CurrentFigurePosition == 4) {
 		Fig_J_Poz4(x + 1, *pStepY);
 		return;
-	}if (CurrentFigurePosition == 1) {
-		Fig_J_Poz1(x, *pStepY);
-		return;
-	}if (CurrentFigurePosition == 2) {
+	}
+	if (CurrentFigurePosition == 2) {
 		Fig_J_Poz2(x + 1, *pStepY);
+		return;
+	}
+	if (CurrentFigurePosition == 1) {
+		Fig_J_Poz1(x, *pStepY);
 		return;
 	}
 }
@@ -581,9 +580,8 @@ void Fig_J_Poz4(int x, int y)
 				}
 				break;
 			case (char)72:  // вверх
-				if (game_place[x + 1][*pStepY - 2] != 1 && game_place[x + 1][*pStepY - 1] != 1 && game_place[x + 1][*pStepY] != 1 && game_place[x + 2][*pStepY] != 1 && *pStepY > 1 && *pStepY < 10) {
+				if (game_place[x - 1][*pStepY] != 1 && game_place[x + 1][*pStepY] != 1 && game_place[x + 1][*pStepY - 1] != 1) {
 					CurrentFigurePosition = 1;
-					*pStepY += 1;
 					Fig_J_Poz1(x - 1, *pStepY);
 					return;
 				}
@@ -597,14 +595,17 @@ void Fig_J_Poz4(int x, int y)
 		if (CheckStep(x, *pStepY, 6)) {
 			*pcheck = 1;
 		}
-	}if (CurrentFigurePosition == 3) {
-		Fig_J_Poz3(x - 1, *pStepY);
-		return;
-	}if (CurrentFigurePosition == 1) {
+	}
+	if (CurrentFigurePosition == 1) {
 		Fig_J_Poz1(x - 1, *pStepY);
 		return;
-	}if (CurrentFigurePosition == 2) {
+	}
+	if (CurrentFigurePosition == 2) {
 		Fig_J_Poz2(x, *pStepY);
+		return;
+	}
+	if (CurrentFigurePosition == 3) {
+		Fig_J_Poz3(x - 1, *pStepY);
 		return;
 	}
 }
@@ -1075,42 +1076,6 @@ void Fig_T_Poz1(int x, int y)
 		*pStepY = y;
 	}
 	if (x != 0) {
-		game_place[x - 1][*pStepY - 1] = 0;
-		game_place[x - 1][*pStepY] = 0;
-		game_place[x][*pStepY] = 0;
-		game_place[x - 1][*pStepY + 1] = 0;
-	}
-	CleanBufferGetch(x);
-	if (_kbhit()) {
-		switch (_getch())
-		{
-		case (char)77: // право
-			if (game_place[x][*pStepY + 2] != 1 && game_place[x + 1][*pStepY + 1] != 1 && *pStepY < 8) {
-				*pStepY = *pStepY + 1;
-			}
-			break;
-		case (char)75:  // лево
-			if (game_place[x][*pStepY - 2] != 1 && game_place[x + 1][*pStepY - 1] != 1 && *pStepY > 1) {
-				*pStepY = *pStepY - 1;
-			}
-			break;
-		}
-	}
-	game_place[x][*pStepY - 1] = 1;
-	game_place[x][*pStepY] = 1;
-	game_place[x + 1][*pStepY] = 1;
-	game_place[x][*pStepY + 1] = 1;
-	PrintGame();
-	if (CheckStep(x + 1, *pStepY, 14)) {
-		*pcheck = 1;
-	}
-}
-void Fig_T_Poz2(int x, int y)
-{
-	if (x == 0) {
-		*pStepY = y;
-	}
-	if (x != 0) {
 		game_place[x - 1][*pStepY] = 0;
 		game_place[x][*pStepY] = 0;
 		game_place[x + 1][*pStepY] = 0;
@@ -1140,6 +1105,43 @@ void Fig_T_Poz2(int x, int y)
 	if (CheckStep(x + 2, *pStepY, 15)) {
 		*pcheck = 1;
 	}
+}
+void Fig_T_Poz2(int x, int y)
+{
+	if (x == 0) {
+		*pStepY = y;
+	}
+	if (x != 0) {
+		game_place[x - 1][*pStepY] = 0;
+		game_place[x][*pStepY] = 0;
+		game_place[x][*pStepY - 1] = 0;
+		game_place[x][*pStepY + 1] = 0;
+	}
+	CleanBufferGetch(x);
+	if (_kbhit()) {
+		switch (_getch())
+		{
+		case (char)77: // право
+			if (game_place[x][*pStepY + 1] != 1 && game_place[x + 1][*pStepY + 2] != 1 && *pStepY < 8) {
+				*pStepY = *pStepY + 1;
+			}
+			break;
+		case (char)75:  // лево
+			if (game_place[x][*pStepY - 1] != 1 && game_place[x + 1][*pStepY - 2] != 1 && *pStepY > 1) {
+				*pStepY = *pStepY - 1;
+			}
+			break;
+		}
+	}
+	game_place[x][*pStepY] = 1;
+	game_place[x + 1][*pStepY] = 1;
+	game_place[x + 1][*pStepY - 1] = 1;
+	game_place[x + 1][*pStepY + 1] = 1;
+	PrintGame();
+	if (CheckStep(x + 1, *pStepY - 1, 3)) {
+		*pcheck = 1;
+	}
+	
 }
 void Fig_T_Poz3(int x, int y)
 {
@@ -1183,33 +1185,33 @@ void Fig_T_Poz4(int x, int y)
 		*pStepY = y;
 	}
 	if (x != 0) {
+		game_place[x - 1][*pStepY - 1] = 0;
 		game_place[x - 1][*pStepY] = 0;
 		game_place[x][*pStepY] = 0;
-		game_place[x][*pStepY - 1] = 0;
-		game_place[x][*pStepY + 1] = 0;
+		game_place[x - 1][*pStepY + 1] = 0;
 	}
 	CleanBufferGetch(x);
 	if (_kbhit()) {
 		switch (_getch())
 		{
 		case (char)77: // право
-			if (game_place[x][*pStepY + 1] != 1 && game_place[x + 1][*pStepY + 2] != 1 && *pStepY < 8) {
+			if (game_place[x][*pStepY + 2] != 1 && game_place[x + 1][*pStepY + 1] != 1 && *pStepY < 8) {
 				*pStepY = *pStepY + 1;
 			}
 			break;
 		case (char)75:  // лево
-			if (game_place[x][*pStepY - 1] != 1 && game_place[x + 1][*pStepY - 2] != 1 && *pStepY > 1) {
+			if (game_place[x][*pStepY - 2] != 1 && game_place[x + 1][*pStepY - 1] != 1 && *pStepY > 1) {
 				*pStepY = *pStepY - 1;
 			}
 			break;
 		}
 	}
+	game_place[x][*pStepY - 1] = 1;
 	game_place[x][*pStepY] = 1;
 	game_place[x + 1][*pStepY] = 1;
-	game_place[x + 1][*pStepY - 1] = 1;
-	game_place[x + 1][*pStepY + 1] = 1;
+	game_place[x][*pStepY + 1] = 1;
 	PrintGame();
-	if (CheckStep(x + 1, *pStepY - 1, 3)) {
+	if (CheckStep(x + 1, *pStepY, 14)) {
 		*pcheck = 1;
 	}
 }
@@ -1560,7 +1562,7 @@ void Fig_Step(int type, int poz)
 		{
 		case 1:
 		{
-			for (int i = 0; i < ROW - 1; i++)
+			for (int i = 0; i < ROW - 2; i++)
 			{
 				Fig_T_Poz1(i, 4);
 				if (*pcheck == 1) {
@@ -1572,7 +1574,7 @@ void Fig_Step(int type, int poz)
 		break;
 		case 2:
 		{
-			for (int i = 0; i < ROW - 2; i++)
+			for (int i = 0; i < ROW - 1; i++)
 			{
 				Fig_T_Poz2(i, 4);
 				if (*pcheck == 1) {
@@ -1735,3 +1737,232 @@ void PrintGame() {
 	}
 	Sleep(200);
 }
+
+
+
+
+
+//void Fig_J_Poz1(int x, int y)
+//{
+//	if (x == 0) {
+//		*pStepY = y;
+//		CurrentFigurePosition = 1;
+//	}
+//
+//	if (CurrentFigurePosition == 1) {
+//		if (x != 0) {
+//			game_place[x - 1][*pStepY] = 0;
+//			game_place[x][*pStepY] = 0;
+//			game_place[x + 1][*pStepY - 1] = 0;
+//			game_place[x + 1][*pStepY] = 0;
+//		}
+//		CleanBufferGetch(x);
+//		if (_kbhit()) {
+//			switch (_getch())
+//			{
+//			case (char)77: // право
+//				if (game_place[x][*pStepY + 1] != 1 && game_place[x + 1][*pStepY + 1] != 1 && game_place[x + 2][*pStepY + 1] != 1 && *pStepY < 9) {
+//					*pStepY = *pStepY + 1;
+//				}
+//				break;
+//			case (char)75:  // лево
+//				if (game_place[x][*pStepY - 1] != 1 && game_place[x + 1][*pStepY - 1] != 1 && game_place[x + 2][*pStepY - 2] != 1 && *pStepY > 1) {
+//					*pStepY = *pStepY - 1;
+//				}
+//				break;
+//			case (char)72:  // вверх
+//				if (game_place[x + 1][*pStepY - 1] != 1 && game_place[x + 2][*pStepY - 1] != 1 && game_place[x + 2][*pStepY + 1] != 1 && *pStepY > 0 && *pStepY < 9) {
+//					CurrentFigurePosition = 2;
+//					*pStepY -= 0;
+//					Fig_J_Poz2(x + 1, *pStepY);
+//					return;
+//				}
+//			}
+//		}
+//		game_place[x][*pStepY] = 1;
+//		game_place[x + 1][*pStepY] = 1;
+//		game_place[x + 2][*pStepY - 1] = 1;
+//		game_place[x + 2][*pStepY] = 1;
+//		PrintGame();
+//		if (CheckStep(x + 2, *pStepY, 2)) {
+//			*pcheck = 1;
+//		}
+//	}if (CurrentFigurePosition == 2) {
+//		Fig_J_Poz2(x + 1, *pStepY);
+//		return;
+//	}if (CurrentFigurePosition == 3) {
+//		Fig_J_Poz3(x, *pStepY);
+//		return;
+//	}if (CurrentFigurePosition == 4) {
+//		Fig_J_Poz4(x + 1, *pStepY);
+//		return;
+//	}
+//}
+//
+//void Fig_J_Poz2(int x, int y)
+//{
+//	if (x == 0) {
+//		*pStepY = y;
+//		CurrentFigurePosition = 2;
+//	}
+//
+//	if (CurrentFigurePosition == 2) {
+//		if (x != 0) {
+//			game_place[x - 1][*pStepY - 1] = 0;
+//			game_place[x][*pStepY - 1] = 0;
+//			game_place[x][*pStepY] = 0;
+//			game_place[x][*pStepY + 1] = 0;
+//		}
+//		CleanBufferGetch(x);
+//		if (_kbhit()) {
+//			switch (_getch())
+//			{
+//			case (char)77: // право
+//				if (game_place[x + 1][*pStepY + 2] != 1 && game_place[x][*pStepY] != 1 && *pStepY < 8) {
+//					*pStepY = *pStepY + 1;
+//				}
+//				break;
+//			case (char)75:  // лево
+//				if (game_place[x][*pStepY - 2] != 1 && game_place[x + 1][*pStepY - 2] != 1 && *pStepY > 1) {
+//					*pStepY = *pStepY - 1;
+//				}
+//				break;
+//			case (char)72:  // вверх
+//				if (game_place[x - 1][*pStepY] != 1 && game_place[x - 1][*pStepY - 1] != 1 && game_place[x][*pStepY - 1] != 1 && game_place[x + 1][*pStepY - 1] != 1 && *pStepY > 0 && *pStepY < 9) {
+//					CurrentFigurePosition = 3;
+//					*pStepY -= 0;
+//					Fig_J_Poz3(x - 1, *pStepY);
+//					return;
+//				}
+//			}
+//		}
+//		game_place[x][*pStepY - 1] = 1;
+//		game_place[x + 1][*pStepY - 1] = 1;
+//		game_place[x + 1][*pStepY] = 1;
+//		game_place[x + 1][*pStepY + 1] = 1;
+//		PrintGame();
+//		if (CheckStep(x + 1, *pStepY - 1, 3)) {
+//			*pcheck = 1;
+//		}
+//	}if (CurrentFigurePosition == 1) {
+//		Fig_J_Poz1(x - 1, *pStepY);
+//		return;
+//	}if (CurrentFigurePosition == 3) {
+//		Fig_J_Poz3(x - 1, *pStepY);
+//		return;
+//	}if (CurrentFigurePosition == 4) {
+//		Fig_J_Poz4(x, *pStepY);
+//		return;
+//	}
+//}
+//void Fig_J_Poz3(int x, int y)
+//{
+//	if (x == 0) {
+//		*pStepY = y;
+//		CurrentFigurePosition = 3;
+//	}
+//	if (CurrentFigurePosition == 3) {
+//		if (x != 0) {
+//			game_place[x - 1][*pStepY - 1] = 0;
+//			game_place[x - 1][*pStepY] = 0;
+//			game_place[x][*pStepY - 1] = 0;
+//			game_place[x + 1][*pStepY - 1] = 0;
+//		}
+//		CleanBufferGetch(x);
+//		if (_kbhit()) {
+//			switch (_getch())
+//			{
+//			case (char)77: // право
+//				if (game_place[x][*pStepY + 1] != 1 && game_place[x + 1][*pStepY] != 1 && game_place[x + 2][*pStepY] != 1 && *pStepY < 9) {
+//					*pStepY = *pStepY + 1;
+//				}
+//				break;
+//			case (char)75:  // лево
+//				if (game_place[x][*pStepY - 2] != 1 && game_place[x + 1][*pStepY - 2] != 1 && game_place[x + 2][*pStepY - 2] != 1 && *pStepY > 1) {
+//					*pStepY = *pStepY - 1;
+//				}
+//				break;
+//			case (char)72:  // вверх
+//				if (game_place[x + 1][*pStepY - 2] != 1 && game_place[x + 1][*pStepY - 1] != 1 && game_place[x + 1][*pStepY] != 1 && game_place[x + 2][*pStepY] != 1 && *pStepY > 1 && *pStepY < 10) {
+//					CurrentFigurePosition = 4;
+//					*pStepY -= 1;
+//					Fig_J_Poz4(x + 1, *pStepY);
+//					return;
+//				}
+//			}
+//		}
+//		game_place[x][*pStepY - 1] = 1;
+//		game_place[x][*pStepY] = 1;
+//		game_place[x + 1][*pStepY - 1] = 1;
+//		game_place[x + 2][*pStepY - 1] = 1;
+//		PrintGame();
+//		if (CheckStep(x + 2, *pStepY, 5)) {
+//			*pcheck = 1;
+//		}
+//	}if (CurrentFigurePosition == 4) {
+//		Fig_J_Poz4(x + 1, *pStepY);
+//		return;
+//	}if (CurrentFigurePosition == 1) {
+//		Fig_J_Poz1(x, *pStepY);
+//		return;
+//	}if (CurrentFigurePosition == 2) {
+//		Fig_J_Poz2(x + 1, *pStepY);
+//		return;
+//	}
+//}
+//
+//void Fig_J_Poz4(int x, int y)
+//{
+//	if (x == 0) {
+//		*pStepY = y;
+//		CurrentFigurePosition = 4;
+//	}
+//	if (CurrentFigurePosition == 4) {
+//		if (x != 0) {
+//			game_place[x - 1][*pStepY - 1] = 0;
+//			game_place[x - 1][*pStepY] = 0;
+//			game_place[x - 1][*pStepY + 1] = 0;
+//			game_place[x][*pStepY + 1] = 0;
+//		}
+//		CleanBufferGetch(x);
+//		if (_kbhit()) {
+//			switch (_getch())
+//			{
+//			case (char)77: // право
+//				if (game_place[x][*pStepY + 2] != 1 && game_place[x + 1][*pStepY + 2] != 1 && *pStepY < 8) {
+//					*pStepY = *pStepY + 1;
+//				}
+//				break;
+//			case (char)75:  // лево
+//				if (game_place[x][*pStepY - 2] != 1 && game_place[x + 1][*pStepY] != 1 && *pStepY > 1) {
+//					*pStepY = *pStepY - 1;
+//				}
+//				break;
+//			case (char)72:  // вверх
+//				if (game_place[x + 1][*pStepY - 2] != 1 && game_place[x + 1][*pStepY - 1] != 1 && game_place[x + 1][*pStepY] != 1 && game_place[x + 2][*pStepY] != 1 && *pStepY > 1 && *pStepY < 10) {
+//					CurrentFigurePosition = 1;
+//					*pStepY += 1;
+//					Fig_J_Poz1(x - 1, *pStepY);
+//					return;
+//				}
+//			}
+//		}
+//		game_place[x][*pStepY - 1] = 1;
+//		game_place[x][*pStepY] = 1;
+//		game_place[x][*pStepY + 1] = 1;
+//		game_place[x + 1][*pStepY + 1] = 1;
+//		PrintGame();
+//		if (CheckStep(x, *pStepY, 6)) {
+//			*pcheck = 1;
+//		}
+//	}if (CurrentFigurePosition == 3) {
+//		Fig_J_Poz3(x - 1, *pStepY);
+//		return;
+//	}if (CurrentFigurePosition == 1) {
+//		Fig_J_Poz1(x - 1, *pStepY);
+//		return;
+//	}if (CurrentFigurePosition == 2) {
+//		Fig_J_Poz2(x, *pStepY);
+//		return;
+//	}
+//}
