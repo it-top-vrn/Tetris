@@ -37,11 +37,12 @@ int temp;						// Переменная, для подсчета заполнен
 int check = 0;
 int StepY = 0;
 int CurrentFigurePosition;
+int CurrentFigureSpeed = 0;
 int *pcheck = &check;
 int *pStepY = &StepY;
 //char Step = _getch();
-int type;
-int poz;
+int TypeOfFig;
+int CurrentPozOfFig;
 
 void Fig_I_Poz1(int x, int y);
 void Fig_I_Poz2(int x, int y);
@@ -69,12 +70,11 @@ void Fig_T_Poz2(int x, int y);
 void Fig_T_Poz3(int x, int y);
 void Fig_T_Poz4(int x, int y);
 
-
-//bool perGameOver;
 bool RowFull(int row);			// Определение заполненности строки
 int  GameScore();				// Определение очков
 void DeleteRow();				// Удаление заполенной строки
 void CleanBufferGetch(int x);
+void ShowTypePozNextFig(int type, int poz);
 
 void Fig_Step(int type, int poz);
 bool GameOver(int doing);				// Определение проигрыша
@@ -88,18 +88,9 @@ int main()
 	setlocale(LC_ALL, ".866");
 	srand(time(NULL));
 
-
+	
 	do {
-		type = 1 + rand() % 7;
-		poz = 1 + rand() % 4;
-		/*cout << "type = " << type << endl;;
-		cout << "poz = " << poz << endl;
-		if (poz > 2) {
-			poz = 1 + rand() % 2;
-			cout << "pozNEW = " << poz << endl;
-		}
-		Sleep(200);*/
-		Fig_Step(type, poz);
+		Fig_Step(TypeOfFig, CurrentPozOfFig);
 		DeleteRow();
 
 	} while (!GameOver(1));
@@ -299,6 +290,9 @@ void Fig_I_Poz1(int x, int y) // Фигура I , горизонтальное �
 					Fig_I_Poz2(x - 3, *pStepY);
 					return;
 				}
+			case (char)80:
+				CurrentFigureSpeed = 1;
+				break;
 			}
 		}
 
@@ -352,6 +346,9 @@ void Fig_I_Poz2(int x, int y) // Фигура I , вертикальное по�
 					Fig_I_Poz1(x + 3, *pStepY);
 					return;
 				}
+			case (char)80:
+				CurrentFigureSpeed = 1;
+				break;
 			}
 		}
 		game_place[x][*pStepY] = 1;
@@ -403,6 +400,9 @@ void Fig_J_Poz1(int x, int y)
 					Fig_J_Poz2(x + 1, *pStepY);
 					return;
 				}
+			case (char)80:
+				CurrentFigureSpeed = 1;
+				break;
 			}
 		}
 		game_place[x][*pStepY] = 1;
@@ -461,6 +461,9 @@ void Fig_J_Poz2(int x, int y)
 					Fig_J_Poz3(x - 1, *pStepY);
 					return;
 				}
+			case (char)80:
+				CurrentFigureSpeed = 1;
+				break;
 			}
 		}
 		game_place[x][*pStepY - 1] = 1;
@@ -518,6 +521,9 @@ void Fig_J_Poz3(int x, int y)
 					Fig_J_Poz4(x + 1, *pStepY);
 					return;
 				}
+			case (char)80:
+				CurrentFigureSpeed = 1;
+				break;
 			}
 		}
 		game_place[x][*pStepY - 1] = 1;
@@ -576,6 +582,9 @@ void Fig_J_Poz4(int x, int y)
 					Fig_J_Poz1(x - 1, *pStepY);
 					return;
 				}
+			case (char)80:
+				CurrentFigureSpeed = 1;
+				break;
 			}
 		}
 		game_place[x][*pStepY - 1] = 1;
@@ -636,6 +645,9 @@ void Fig_L_Poz1(int x, int y)
 					Fig_L_Poz2(x + 1, *pStepY);
 					return;
 				}
+			case (char)80:
+				CurrentFigureSpeed = 1;
+				break;
 			}
 		}
 		game_place[x][*pStepY] = 1;
@@ -692,6 +704,9 @@ void Fig_L_Poz2(int x, int y)
 					Fig_L_Poz3(x - 1, *pStepY);
 					return;
 				}
+			case (char)80:
+				CurrentFigureSpeed = 1;
+				break;
 			}
 		}
 		game_place[x][*pStepY - 1] = 1;
@@ -748,6 +763,9 @@ void Fig_L_Poz3(int x, int y)
 					Fig_L_Poz4(x + 1, *pStepY);
 					return;
 				}
+			case (char)80:
+				CurrentFigureSpeed = 1;
+				break;
 			}
 		}
 		game_place[x][*pStepY - 1] = 1;
@@ -803,6 +821,9 @@ void Fig_L_Poz4(int x, int y)
 					Fig_L_Poz1(x - 1, *pStepY);
 					return;
 				}
+			case (char)80:
+				CurrentFigureSpeed = 1;
+				break;
 			}
 		}
 		game_place[x][*pStepY + 1] = 1;
@@ -851,6 +872,9 @@ void Fig_O_Poz(int x, int y)
 				*pStepY = *pStepY - 1;
 			}
 			break;
+		case (char)80:
+			CurrentFigureSpeed = 1;
+			break;
 		}
 	}
 	game_place[x][*pStepY + 1] = 1;
@@ -897,6 +921,9 @@ void Fig_S_Poz1(int x, int y)
 					Fig_S_Poz2(x - 1, *pStepY);
 					return;
 				}
+			case (char)80:
+				CurrentFigureSpeed = 1;
+				break;
 			}
 		}
 		game_place[x][*pStepY] = 1;
@@ -946,6 +973,9 @@ void Fig_S_Poz2(int x, int y)
 					Fig_S_Poz1(x + 1, *pStepY);
 					return;
 				}
+			case (char)80:
+				CurrentFigureSpeed = 1;
+				break;
 			}
 		}
 		game_place[x][*pStepY - 1] = 1;
@@ -995,6 +1025,9 @@ void Fig_Z_Poz1(int x, int y)
 					Fig_Z_Poz2(x - 1, *pStepY);
 					return;
 				}
+			case (char)80:
+				CurrentFigureSpeed = 1;
+				break;
 			}
 		}
 		game_place[x][*pStepY - 1] = 1;
@@ -1044,6 +1077,9 @@ void Fig_Z_Poz2(int x, int y)
 					Fig_Z_Poz1(x + 1, *pStepY);
 					return;
 				}
+			case (char)80:
+				CurrentFigureSpeed = 1;
+				break;
 			}
 		}
 		game_place[x][*pStepY] = 1;
@@ -1094,6 +1130,9 @@ void Fig_T_Poz1(int x, int y)
 					Fig_T_Poz2(x + 1, *pStepY);
 					return;
 				}
+			case (char)80:
+				CurrentFigureSpeed = 1;
+				break;
 			}
 		}
 		game_place[x][*pStepY] = 1;
@@ -1152,6 +1191,9 @@ void Fig_T_Poz2(int x, int y)
 					Fig_T_Poz3(x - 1, *pStepY);
 					return;
 				}
+			case (char)80:
+				CurrentFigureSpeed = 1;
+				break;
 			}
 		}
 		game_place[x][*pStepY] = 1;
@@ -1210,6 +1252,9 @@ void Fig_T_Poz3(int x, int y)
 					Fig_T_Poz4(x + 1, *pStepY);
 					return;
 				}
+			case (char)80:
+				CurrentFigureSpeed = 1;
+				break;
 			}
 		}
 		game_place[x][*pStepY] = 1;
@@ -1268,6 +1313,9 @@ void Fig_T_Poz4(int x, int y)
 					Fig_T_Poz1(x - 1, *pStepY);
 					return;
 				}
+			case (char)80:
+				CurrentFigureSpeed = 1;
+				break;
 			}
 		}
 		game_place[x][*pStepY - 1] = 1;
@@ -1295,12 +1343,18 @@ void Fig_T_Poz4(int x, int y)
 
 void Fig_Step(int type, int poz)
 {
+		TypeOfFig = 1 + rand() % 7;
+		CurrentPozOfFig = 1 + rand() % 4;
+
 	switch (type)
 	{
 	case 1:
 	{
-		if (poz > 2) {
-			poz = 1 + rand() % 2;
+		if (poz%2 != 0) {
+			poz = 1;
+		}
+		else {
+			poz = 2;
 		}
 		switch (poz)
 		{
@@ -1443,8 +1497,11 @@ void Fig_Step(int type, int poz)
 	break;
 	case 4:
 	{
-		if (poz > 2) {
-			poz = 1 + rand() % 2;
+		if (poz % 2 != 0) {
+			poz = 1;
+		}
+		else {
+			poz = 2;
 		}
 		switch (poz)
 		{
@@ -1477,8 +1534,11 @@ void Fig_Step(int type, int poz)
 	break;
 	case 5:
 	{
-		if (poz > 2) {
-			poz = 1 + rand() % 2;
+		if (poz % 2 != 0) {
+			poz = 1;
+		}
+		else {
+			poz = 2;
 		}
 		switch (poz)
 		{
@@ -1682,6 +1742,7 @@ bool GameOver(int doing)
 	{
 		system("cls");
 		cout << "\n\n\tGame Over\n\n";
+		cout << "\n\tScore = " << score << endl << endl;
 	}
 	}
 }
@@ -1689,9 +1750,18 @@ bool GameOver(int doing)
 
 void PrintGame() {
 	system("cls");
-	//cout << "type = " << type << endl;;
-	//cout << "poz = " << poz << endl;
+	//cout << "type = " << TypeOfFig << endl;;
+	//cout << "poz = " << CurrentPozOfFig << endl;
+	if (score <= 1000) {
+		cout << "\n Level 1" << endl;
+	}if (score > 1000 && score <= 5000) {
+		cout << "\n Level 2" << endl;
+	}if (score > 5000 && score <= 7000) {
+		cout << "\n Level 3" << endl;
+	}
 	cout << "\nScore = " << score << endl << endl;
+
+	ShowTypePozNextFig(TypeOfFig, CurrentPozOfFig);
 
 	for (int i = 0; i < COL + 2; i++)
 	{
@@ -1707,6 +1777,7 @@ void PrintGame() {
 				cout << " ";
 			}
 			else {
+				//system("color F");
 				cout << char(219);
 			}
 		}
@@ -1717,239 +1788,303 @@ void PrintGame() {
 		cout << char(219);
 	}
 	if (score <= 1000) {
-		Sleep(200);
+		if (CurrentFigureSpeed == 1) {
+			Sleep(30);
+			CurrentFigureSpeed = 0;
+		}
+		else {
+			Sleep(200);
+		}
+		
 	}if (score > 1000 && score <= 5000) {
-		Sleep(150);
+		if (CurrentFigureSpeed == 1) {
+			Sleep(30);
+			CurrentFigureSpeed = 0;
+		}
+		else {
+			Sleep(150);
+		}
 	}if (score > 5000 && score <= 7000) {
-		Sleep(100);
+		if (CurrentFigureSpeed == 1) {
+			Sleep(30);
+			CurrentFigureSpeed = 0;
+		}
+		else {
+			Sleep(100);
+		}
 	}
 }
 
+void ShowTypePozNextFig(int type, int poz) {
+	switch (type)
+	{
+	case 1: //  | - palka
+	{
+		switch (poz)
+		{
+		case 1:
+		{
+			cout << endl;
+			cout << endl;
+			cout << endl;
+			cout << "\t" << char(219) << char(219) << char(219) << char(219) << endl;
+			cout << endl;
+		}
+		break;
+		case 2:
+		{
+			cout << "\t" << char(219) << endl;
+			cout << "\t" << char(219) << endl;
+			cout << "\t" << char(219) << endl;
+			cout << "\t" << char(219) << endl;
+			cout << endl;
+		}
+		break;
+		case 3:
+		{
+			cout << endl;
+			cout << endl;
+			cout << endl;
+			cout << "\t" << char(219) << char(219) << char(219) << char(219) << endl;
+			cout << endl;
+		}
+		break;
+		case 4:
+		{
+			cout << "\t" << char(219) << endl;
+			cout << "\t" << char(219) << endl;
+			cout << "\t" << char(219) << endl;
+			cout << "\t" << char(219) << endl;
+			cout << endl;
+		}
+		break;
+		}
+	}
+	break;
+	case 2: // J
+	{
+		switch (poz)
+		{
+		case 1:
+		{
+			cout << endl;
+			cout << "\t " << char(219) << endl;
+			cout << "\t " << char(219) << endl;
+			cout << "\t" << char(219) << char(219) << endl;
+			cout << endl;
+		}
+		break;
+		case 2:
+		{
+			cout << endl;
+			cout << endl;
+			cout << "\t" << char(219) << endl;
+			cout << "\t" << char(219) << char(219) << char(219) << endl;
+			cout << endl;
+		}
+		break;
+		case 3:
+		{
+			cout << endl;
+			cout << "\t" << char(219) << char(219) << endl;
+			cout << "\t" << char(219) << endl;
+			cout << "\t" << char(219) << endl;
+			cout << endl;
+		}
+		break;
+		case 4:
+		{
+			cout << endl;
+			cout << endl;
+			cout << "\t" << char(219) << char(219) << char(219) << endl;
+			cout << "\t  " << char(219) << endl;
+			cout << endl;
+		}
+		break;
+		}
+	}
+	break;
+	case 3: // L
+	{
+		switch (poz)
+		{
+		case 1:
+		{
+			cout << endl;
+			cout << "\t" << char(219) << endl;
+			cout << "\t" << char(219) << endl;
+			cout << "\t" << char(219) << char(219) << endl;
+			cout << endl;
+		}
+		break;
+		case 2:
+		{
+			cout << endl;
+			cout << endl;
+			cout << "\t" << char(219) << char(219) << char(219) << endl;
+			cout << "\t" << char(219) << endl;
+			cout << endl;
+		}
+		break;
+		case 3:
+		{
+			cout << endl;
+			cout << "\t" << char(219) << char(219) << endl;
+			cout << "\t " << char(219) << endl;
+			cout << "\t " << char(219) << endl;
+			cout << endl;
+		}
+		break;
+		case 4:
+		{
+			cout << endl;
+			cout << endl;
+			cout << "\t  " << char(219) << endl;
+			cout << "\t" << char(219) << char(219) << char(219) << endl;
+			cout << endl;
+		}
+		break;
+		}
+	}
+	break;
+	case 4: // Z
+	{
+		switch (poz)
+		{
+		case 1:
+		{
+			cout << endl;
+			cout << endl;
+			cout << "\t" << char(219) << char(219) << endl;
+			cout << "\t " << char(219) << char(219) << endl;
+			cout << endl;
+		}
+		break;
+		case 2:
+		{
+			cout << endl;
+			cout << "\t " << char(219) << endl;
+			cout << "\t" << char(219) << char(219) << endl;
+			cout << "\t" << char(219) << endl;
+			cout << endl;
+		}
+		break;
+		case 3:
+		{
+			cout << endl;
+			cout << endl;
+			cout << "\t" << char(219) << char(219) << endl;
+			cout << "\t " << char(219) << char(219) << endl;
+			cout << endl;
+		}
+		break;
+		case 4:
+		{
+			cout << endl;
+			cout << "\t " << char(219) << endl;
+			cout << "\t" << char(219) << char(219) << endl;
+			cout << "\t" << char(219) << endl;
+			cout << endl;
+		}
+		break;
+		}
+	}
+	break;
+	case 5: // S
+	{
+		switch (poz)
+		{
+		case 1:
+		{
+			cout << endl;
+			cout << endl;
+			cout << "\t " << char(219) << char(219) << endl;
+			cout << "\t" << char(219) << char(219) << endl;
+			cout << endl;
+		}
+		break;
+		case 2:
+		{
+			cout << endl;
+			cout << "\t" << char(219) << endl;
+			cout << "\t" << char(219) << char(219) << endl;
+			cout << "\t " << char(219) << endl;
+			cout << endl;
+		}
+		break;
+		case 3:
+		{
+			cout << endl;
+			cout << endl;
+			cout << "\t " << char(219) << char(219) << endl;
+			cout << "\t" << char(219) << char(219) << endl;
+			cout << endl;
+		}
+		break;
+		case 4:
+		{
+			cout << endl;
+			cout << "\t" << char(219) << endl;
+			cout << "\t" << char(219) << char(219) << endl;
+			cout << "\t " << char(219) << endl;
+			cout << endl;
+		}
+		break;
+		}
+	}
+	break;
+	case 6: // O
+	{
+		cout << endl;
+		cout << endl;
+		cout << "\t" << char(219) << char(219) << endl;
+		cout << "\t" << char(219) << char(219) << endl;
+		cout << endl;
+	}
+	break;
+	case 7:  // T
+	{
+		switch (poz)
+		{
+		case 1:
+		{
+			cout << endl;
+			cout << "\t " << char(219) << endl;
+			cout << "\t" << char(219) << char(219) << endl;
+			cout << "\t " << char(219) << endl;
+			cout << endl;
+		}
+		break;
+		case 2:
+		{
+			cout << endl;
+			cout << endl;
+			cout << "\t " << char(219) << endl;
+			cout << "\t" << char(219) << char(219) << char(219) << endl;
+			cout << endl;
+		}
+		break;
+		case 3:
+		{
+			cout << endl;
+			cout << "\t" << char(219) << endl;
+			cout << "\t" << char(219) << char(219) << endl;
+			cout << "\t" << char(219) << endl;
+			cout << endl;
+		}
+		break;
+		case 4:
+		{
+			cout << endl;
+			cout << endl;
+			cout << "\t" << char(219) << char(219) << char(219) << endl;
+			cout << "\t " << char(219) << endl;
+			cout << endl;
+		}
+		break;
+		}
+	}
+	break;
+	}
+}
 
-
-
-
-//void Fig_J_Poz1(int x, int y)
-//{
-//	if (x == 0) {
-//		*pStepY = y;
-//		CurrentFigurePosition = 1;
-//	}
-//
-//	if (CurrentFigurePosition == 1) {
-//		if (x != 0) {
-//			game_place[x - 1][*pStepY] = 0;
-//			game_place[x][*pStepY] = 0;
-//			game_place[x + 1][*pStepY - 1] = 0;
-//			game_place[x + 1][*pStepY] = 0;
-//		}
-//		CleanBufferGetch(x);
-//		if (_kbhit()) {
-//			switch (_getch())
-//			{
-//			case (char)77: // право
-//				if (game_place[x][*pStepY + 1] != 1 && game_place[x + 1][*pStepY + 1] != 1 && game_place[x + 2][*pStepY + 1] != 1 && *pStepY < 9) {
-//					*pStepY = *pStepY + 1;
-//				}
-//				break;
-//			case (char)75:  // лево
-//				if (game_place[x][*pStepY - 1] != 1 && game_place[x + 1][*pStepY - 1] != 1 && game_place[x + 2][*pStepY - 2] != 1 && *pStepY > 1) {
-//					*pStepY = *pStepY - 1;
-//				}
-//				break;
-//			case (char)72:  // вверх
-//				if (game_place[x + 1][*pStepY - 1] != 1 && game_place[x + 2][*pStepY - 1] != 1 && game_place[x + 2][*pStepY + 1] != 1 && *pStepY > 0 && *pStepY < 9) {
-//					CurrentFigurePosition = 2;
-//					*pStepY -= 0;
-//					Fig_J_Poz2(x + 1, *pStepY);
-//					return;
-//				}
-//			}
-//		}
-//		game_place[x][*pStepY] = 1;
-//		game_place[x + 1][*pStepY] = 1;
-//		game_place[x + 2][*pStepY - 1] = 1;
-//		game_place[x + 2][*pStepY] = 1;
-//		PrintGame();
-//		if (CheckStep(x + 2, *pStepY, 2)) {
-//			*pcheck = 1;
-//		}
-//	}if (CurrentFigurePosition == 2) {
-//		Fig_J_Poz2(x + 1, *pStepY);
-//		return;
-//	}if (CurrentFigurePosition == 3) {
-//		Fig_J_Poz3(x, *pStepY);
-//		return;
-//	}if (CurrentFigurePosition == 4) {
-//		Fig_J_Poz4(x + 1, *pStepY);
-//		return;
-//	}
-//}
-//
-//void Fig_J_Poz2(int x, int y)
-//{
-//	if (x == 0) {
-//		*pStepY = y;
-//		CurrentFigurePosition = 2;
-//	}
-//
-//	if (CurrentFigurePosition == 2) {
-//		if (x != 0) {
-//			game_place[x - 1][*pStepY - 1] = 0;
-//			game_place[x][*pStepY - 1] = 0;
-//			game_place[x][*pStepY] = 0;
-//			game_place[x][*pStepY + 1] = 0;
-//		}
-//		CleanBufferGetch(x);
-//		if (_kbhit()) {
-//			switch (_getch())
-//			{
-//			case (char)77: // право
-//				if (game_place[x + 1][*pStepY + 2] != 1 && game_place[x][*pStepY] != 1 && *pStepY < 8) {
-//					*pStepY = *pStepY + 1;
-//				}
-//				break;
-//			case (char)75:  // лево
-//				if (game_place[x][*pStepY - 2] != 1 && game_place[x + 1][*pStepY - 2] != 1 && *pStepY > 1) {
-//					*pStepY = *pStepY - 1;
-//				}
-//				break;
-//			case (char)72:  // вверх
-//				if (game_place[x - 1][*pStepY] != 1 && game_place[x - 1][*pStepY - 1] != 1 && game_place[x][*pStepY - 1] != 1 && game_place[x + 1][*pStepY - 1] != 1 && *pStepY > 0 && *pStepY < 9) {
-//					CurrentFigurePosition = 3;
-//					*pStepY -= 0;
-//					Fig_J_Poz3(x - 1, *pStepY);
-//					return;
-//				}
-//			}
-//		}
-//		game_place[x][*pStepY - 1] = 1;
-//		game_place[x + 1][*pStepY - 1] = 1;
-//		game_place[x + 1][*pStepY] = 1;
-//		game_place[x + 1][*pStepY + 1] = 1;
-//		PrintGame();
-//		if (CheckStep(x + 1, *pStepY - 1, 3)) {
-//			*pcheck = 1;
-//		}
-//	}if (CurrentFigurePosition == 1) {
-//		Fig_J_Poz1(x - 1, *pStepY);
-//		return;
-//	}if (CurrentFigurePosition == 3) {
-//		Fig_J_Poz3(x - 1, *pStepY);
-//		return;
-//	}if (CurrentFigurePosition == 4) {
-//		Fig_J_Poz4(x, *pStepY);
-//		return;
-//	}
-//}
-//void Fig_J_Poz3(int x, int y)
-//{
-//	if (x == 0) {
-//		*pStepY = y;
-//		CurrentFigurePosition = 3;
-//	}
-//	if (CurrentFigurePosition == 3) {
-//		if (x != 0) {
-//			game_place[x - 1][*pStepY - 1] = 0;
-//			game_place[x - 1][*pStepY] = 0;
-//			game_place[x][*pStepY - 1] = 0;
-//			game_place[x + 1][*pStepY - 1] = 0;
-//		}
-//		CleanBufferGetch(x);
-//		if (_kbhit()) {
-//			switch (_getch())
-//			{
-//			case (char)77: // право
-//				if (game_place[x][*pStepY + 1] != 1 && game_place[x + 1][*pStepY] != 1 && game_place[x + 2][*pStepY] != 1 && *pStepY < 9) {
-//					*pStepY = *pStepY + 1;
-//				}
-//				break;
-//			case (char)75:  // лево
-//				if (game_place[x][*pStepY - 2] != 1 && game_place[x + 1][*pStepY - 2] != 1 && game_place[x + 2][*pStepY - 2] != 1 && *pStepY > 1) {
-//					*pStepY = *pStepY - 1;
-//				}
-//				break;
-//			case (char)72:  // вверх
-//				if (game_place[x + 1][*pStepY - 2] != 1 && game_place[x + 1][*pStepY - 1] != 1 && game_place[x + 1][*pStepY] != 1 && game_place[x + 2][*pStepY] != 1 && *pStepY > 1 && *pStepY < 10) {
-//					CurrentFigurePosition = 4;
-//					*pStepY -= 1;
-//					Fig_J_Poz4(x + 1, *pStepY);
-//					return;
-//				}
-//			}
-//		}
-//		game_place[x][*pStepY - 1] = 1;
-//		game_place[x][*pStepY] = 1;
-//		game_place[x + 1][*pStepY - 1] = 1;
-//		game_place[x + 2][*pStepY - 1] = 1;
-//		PrintGame();
-//		if (CheckStep(x + 2, *pStepY, 5)) {
-//			*pcheck = 1;
-//		}
-//	}if (CurrentFigurePosition == 4) {
-//		Fig_J_Poz4(x + 1, *pStepY);
-//		return;
-//	}if (CurrentFigurePosition == 1) {
-//		Fig_J_Poz1(x, *pStepY);
-//		return;
-//	}if (CurrentFigurePosition == 2) {
-//		Fig_J_Poz2(x + 1, *pStepY);
-//		return;
-//	}
-//}
-//
-//void Fig_J_Poz4(int x, int y)
-//{
-//	if (x == 0) {
-//		*pStepY = y;
-//		CurrentFigurePosition = 4;
-//	}
-//	if (CurrentFigurePosition == 4) {
-//		if (x != 0) {
-//			game_place[x - 1][*pStepY - 1] = 0;
-//			game_place[x - 1][*pStepY] = 0;
-//			game_place[x - 1][*pStepY + 1] = 0;
-//			game_place[x][*pStepY + 1] = 0;
-//		}
-//		CleanBufferGetch(x);
-//		if (_kbhit()) {
-//			switch (_getch())
-//			{
-//			case (char)77: // право
-//				if (game_place[x][*pStepY + 2] != 1 && game_place[x + 1][*pStepY + 2] != 1 && *pStepY < 8) {
-//					*pStepY = *pStepY + 1;
-//				}
-//				break;
-//			case (char)75:  // лево
-//				if (game_place[x][*pStepY - 2] != 1 && game_place[x + 1][*pStepY] != 1 && *pStepY > 1) {
-//					*pStepY = *pStepY - 1;
-//				}
-//				break;
-//			case (char)72:  // вверх
-//				if (game_place[x + 1][*pStepY - 2] != 1 && game_place[x + 1][*pStepY - 1] != 1 && game_place[x + 1][*pStepY] != 1 && game_place[x + 2][*pStepY] != 1 && *pStepY > 1 && *pStepY < 10) {
-//					CurrentFigurePosition = 1;
-//					*pStepY += 1;
-//					Fig_J_Poz1(x - 1, *pStepY);
-//					return;
-//				}
-//			}
-//		}
-//		game_place[x][*pStepY - 1] = 1;
-//		game_place[x][*pStepY] = 1;
-//		game_place[x][*pStepY + 1] = 1;
-//		game_place[x + 1][*pStepY + 1] = 1;
-//		PrintGame();
-//		if (CheckStep(x, *pStepY, 6)) {
-//			*pcheck = 1;
-//		}
-//	}if (CurrentFigurePosition == 3) {
-//		Fig_J_Poz3(x - 1, *pStepY);
-//		return;
-//	}if (CurrentFigurePosition == 1) {
-//		Fig_J_Poz1(x - 1, *pStepY);
-//		return;
-//	}if (CurrentFigurePosition == 2) {
-//		Fig_J_Poz2(x, *pStepY);
-//		return;
-//	}
-//}
