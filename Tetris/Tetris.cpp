@@ -61,10 +61,10 @@ void Fig_J_pos_3(int x); //Горизонтально  |___
 void Fig_J_pos_4(int x); // вертикально  ===,
 void InitFig_J(int x);
 
-void Fig_L_pos_1(int x, int y);  // вертикально L
-void Fig_L_pos_2(int x, int y); // L Вверх нагами 
-void Fig_L_pos_3(int x, int y);  //Горизонтально  ,===
-void Fig_L_pos_4(int x, int y);  // вертикально  ___|
+void Fig_L_pos_1(int x);  // вертикально L
+void Fig_L_pos_2(int x); // L Вверх нагами 
+void Fig_L_pos_3(int x);  //Горизонтально  ,===
+void Fig_L_pos_4(int x);  // вертикально  ___|
 void InitFig_L(int postion);
 
 
@@ -106,7 +106,7 @@ void Find_Fig_in_place(); //функция поиска первой коорд�
 void PrintGame();// функция вывода фигуры на консоль
 void Fig_step(int type);
 
-int type = 3;
+int type = 4;
 int pos = 1;
 
 int main()
@@ -144,11 +144,12 @@ void CleanBufferGetch() {
 
 void Fig_step(int type)
 {
-	coorY = 4;
+	coorY = 5;
 	switch (type)
 	{
 	case 1:
 	{
+		coorY--;
 		for (int i = 1; i < ROW - 1; i++)
 		{
 			InitFig_I(i);
@@ -197,6 +198,17 @@ void Fig_step(int type)
 	break;
 	case 4:
 	{
+		for (int i = 1; i < ROW - 1; i++)
+		{
+			InitFig_L(i);
+			if (!GameCheckerLower())
+			{
+				InitFig_L(i);
+				PrintGame();
+				break;
+			}
+			PrintGame();
+		}
 		Turner_1_2();
 	}
 	break;
@@ -237,7 +249,7 @@ void Fig_I_pos_1(int x)//Горизонтально === //палка
 		{
 		case (char)72:
 		{
-			if (Checker_FigRotation(stick,pos)==0) {
+			if (Checker_FigRotation(stick, pos) == 0) {
 				break;
 			}
 			else {
@@ -368,9 +380,9 @@ void InitFig_O(int x)   //кубик
 	}
 	Fig_Cleaner();
 	game_place[x][coorY] = 2;
-	game_place[x][coorY+1] = 2;
-	game_place[x+1][coorY] = 2;
-	game_place[x+1][coorY+1] = 2;
+	game_place[x][coorY + 1] = 2;
+	game_place[x + 1][coorY] = 2;
+	game_place[x + 1][coorY + 1] = 2;
 }
 
 void InitFig_J(int x)
@@ -442,10 +454,10 @@ void Fig_J_pos_1(int x) // вертикально J
 	if (stop == 0)
 	{
 		Fig_Cleaner();
-		game_place[x + 0][coorY] = 2;
-		game_place[x + 1][coorY] = 2;
+		game_place[x + 0][coorY+1] = 2;
+		game_place[x + 1][coorY+1] = 2;
+		game_place[x + 2][coorY+1] = 2;
 		game_place[x + 2][coorY] = 2;
-		game_place[x + 2][coorY - 1] = 2;
 	}
 }
 
@@ -498,14 +510,14 @@ void Fig_J_pos_2(int x) //Горизонтально  |___
 	if (stop == 0)
 	{
 		Fig_Cleaner();
-		game_place[x][coorY] = 2;
-		game_place[x + 1][coorY] = 2;
-		game_place[x + 1][coorY + 1] = 2;
+		game_place[x][coorY+1] = 2;
+		game_place[x + 1][coorY+1] = 2;
 		game_place[x + 1][coorY + 2] = 2;
+		game_place[x + 1][coorY + 3] = 2;
 	}
 }
 
-void Fig_J_pos_3(int x) 
+void Fig_J_pos_3(int x) // J Вверх нагами
 {
 	int J = 2;
 	CleanBufferGetch();
@@ -553,11 +565,11 @@ void Fig_J_pos_3(int x)
 	}
 	if (stop == 0)
 	{
-	Fig_Cleaner();
-	game_place[x][coorY + 1] = 2;
-	game_place[x][coorY] = 2;
-	game_place[x + 1][coorY] = 2;
-	game_place[x + 2][coorY] = 2;
+		Fig_Cleaner();
+		game_place[x][coorY + 2] = 2;
+		game_place[x][coorY+1] = 2;
+		game_place[x + 1][coorY+1] = 2;
+		game_place[x + 2][coorY+1] = 2;
 	}
 }
 
@@ -610,93 +622,245 @@ void Fig_J_pos_4(int x) // вертикально  ===,
 	if (stop == 0)
 	{
 		Fig_Cleaner();
+		game_place[x][coorY + 3] = 2;
+		game_place[x][coorY+1] = 2;
 		game_place[x][coorY + 2] = 2;
+		game_place[x + 1][coorY + 3] = 2;
+	}
+}
+
+void InitFig_L(int x)
+{
+	if (pos == 1)
+	{
+		Fig_L_pos_1(x); // вертикально L
+	}
+	else if (pos == 2)
+	{
+		Fig_L_pos_2(x); //Горизонтально  ,===
+	}
+	else if (pos == 3)
+	{
+		Fig_L_pos_3(x); // L Вверх нагами
+	}
+	else if (pos == 4)
+	{
+		Fig_L_pos_4(x);  // вертикально  ___|
+	}
+}
+
+void Fig_L_pos_1(int x) // вертикально L
+{
+	int L = 3;
+	CleanBufferGetch();
+	Right = GameCheckerSideRight();//проверка слева фигуры на наличие 1
+	Left = GameCheckerSideLeft();//проверка справа фигуры на наличие 1
+	int stop = 0;
+	if (_kbhit())
+	{
+		switch (_getch())
+		{
+		case (char)72:
+		{
+			pos++;
+			if (Checker_FigRotation(L, pos) == 0) {
+				pos--;
+				break;
+			}
+			else {
+				coorY--;
+				Fig_L_pos_2(x);
+				stop = 1;
+			}
+		}break;
+		case (char)77: // right
+		{
+			stop = 0;
+			if (!Right)
+			{
+				break;
+			}
+			else {
+				coorY++;
+			}
+		}break;
+		case (char)75: // left
+		{
+			if (!Left){
+				break;
+			}
+			else {
+				coorY--;
+			}
+		}break;
+		}
+	}
+	if (stop == 0){
+		Fig_Cleaner();
 		game_place[x][coorY] = 2;
+		game_place[x + 1][coorY] = 2;
+		game_place[x + 2][coorY] = 2;
+		game_place[x + 2][coorY + 1] = 2;
+	}
+}
+
+void Fig_L_pos_2(int x)  //Горизонтально  ,===
+{
+	int L = 3;
+	CleanBufferGetch();
+	Right = GameCheckerSideRight();//проверка слева фигуры на наличие 1
+	Left = GameCheckerSideLeft();//проверка справа фигуры на наличие 1
+	int stop = 0;
+	if (_kbhit())
+	{
+		switch (_getch())
+		{
+		case (char)72:
+		{
+			if (Checker_FigRotation(L, pos) == 0) {
+				break;
+			}
+			else {
+				coorY++; pos++;
+				Fig_L_pos_3(x);
+				stop = 1;
+			}
+		}break;
+		case (char)77: // right
+		{
+			stop = 0;
+			if (!Right)
+			{
+				break;
+			}
+			else {
+				coorY++;
+			}
+		}break;
+		case (char)75: // left
+		{
+			if (!Left) {
+				break;
+			}
+			else {
+				coorY--;
+			}
+		}break;
+		}
+	}
+	if (stop == 0) {
+		Fig_Cleaner();
+		game_place[x][coorY] = 2;
+		game_place[x + 1][coorY] = 2;
 		game_place[x][coorY + 1] = 2;
+		game_place[x][coorY + 2] = 2;
+	}
+}
+
+void Fig_L_pos_3(int x) // L Вверх нагами 
+{
+	int L = 3;
+	CleanBufferGetch();
+	Right = GameCheckerSideRight();//проверка слева фигуры на наличие 1
+	Left = GameCheckerSideLeft();//проверка справа фигуры на наличие 1
+	int stop = 0;
+	if (_kbhit())
+	{
+		switch (_getch())
+		{
+		case (char)72:
+		{
+			if (Checker_FigRotation(L, pos) == 0) {
+				break;
+			}
+			else {
+				coorY--; pos++;
+				Fig_L_pos_4(x);
+				stop = 1;
+			}
+		}break;
+		case (char)77: // right
+		{
+			stop = 0;
+			if (!Right)
+			{
+				break;
+			}
+			else {
+				coorY++;
+			}
+		}break;
+		case (char)75: // left
+		{
+			if (!Left) {
+				break;
+			}
+			else {
+				coorY--;
+			}
+		}break;
+		}
+	}
+	if (stop == 0) {
+		Fig_Cleaner();
+		game_place[x][coorY + 1] = 2;
+		game_place[x][coorY] = 2;
+		game_place[x + 1][coorY + 1] = 2;
+		game_place[x + 2][coorY + 1] = 2;
+	}
+}
+
+void Fig_L_pos_4(int x)  // вертикально  ___|
+{
+	int L = 3;
+	CleanBufferGetch();
+	Right = GameCheckerSideRight();//проверка слева фигуры на наличие 1
+	Left = GameCheckerSideLeft();//проверка справа фигуры на наличие 1
+	int stop = 0;
+	if (_kbhit())
+	{
+		switch (_getch())
+		{
+		case (char)72:
+		{
+			if (Checker_FigRotation(L, pos) == 0) {
+				break;
+			}
+			else {
+				coorY++; pos=1;
+				Fig_L_pos_1(x);
+				stop = 1;
+			}
+		}break;
+		case (char)77: // right
+		{
+			stop = 0;
+			if (!Right)
+			{
+				break;
+			}
+			else {
+				coorY++;
+			}
+		}break;
+		case (char)75: // left
+		{
+			if (!Left) {
+				break;
+			}
+			else {
+				coorY--;
+			}
+		}break;
+		}
+	}
+	if (stop == 0) {
+		Fig_Cleaner();
+		game_place[x][coorY + 2] = 2;
+		game_place[x + 1][coorY] = 2;
+		game_place[x + 1][coorY + 1] = 2;
 		game_place[x + 1][coorY + 2] = 2;
 	}
-}
-
-void Fig_L_pos_1(int x, int y) // вертикально L
-{
-
-	game_place[x][y] = 1;
-	game_place[x + 1][y] = 1;
-	game_place[x + 2][y] = 1;
-	game_place[x + 2][y + 1] = 1;
-}
-
-void Fig_L_pos_2(int x, int y) // L Вверх нагами 
-{
-
-	game_place[x][y - 1] = 1;
-	game_place[x][y] = 1;
-	game_place[x + 1][y] = 1;
-	game_place[x + 2][y] = 1;
-}
-
-void Fig_L_pos_3(int x, int y)  //Горизонтально  ,===
-{
-
-	game_place[x][y] = 1;
-	game_place[x + 1][y] = 1;
-	game_place[x][y + 1] = 1;
-	game_place[x][y + 2] = 1;
-}
-
-void Fig_L_pos_4(int x, int y)  // вертикально  ___|
-{
-
-	game_place[x][y + 2] = 1;
-	game_place[x + 1][y] = 1;
-	game_place[x + 1][y + 1] = 1;
-	game_place[x + 1][y + 2] = 1;
-}
-
-void InitFig_L(int postion)
-{
-	switch (postion)
-	{
-	case 1: // вертикально L
-	{
-		Fig_L_pos_1(0, 5);
-		//game_place[0][5] = 1;
-		//game_place[1][5] = 1;
-		//game_place[2][5] = 1;
-		//game_place[2][6] = 1;
-
-	}break;
-	case 2: // L Вверх нагами 
-	{
-		Fig_L_pos_2(0, 5);
-		//game_place[0][4] = 1;
-		//game_place[0][5] = 1;
-		//game_place[1][5] = 1;
-		//game_place[2][5] = 1;
-
-
-	}break;
-
-	case 3: //Горизонтально  ,===
-	{
-		Fig_L_pos_3(0, 4);
-		//game_place[0][4] = 1;
-		//game_place[1][4] = 1;
-		//game_place[0][5] = 1;
-		//game_place[0][6] = 1;
-
-	}break;
-
-	case 4: // вертикально  ___|
-	{
-		Fig_L_pos_4(0, 4);
-		//game_place[0][6] = 1;
-		//game_place[1][4] = 1;
-		//game_place[1][5] = 1;
-		//game_place[1][6] = 1;
-	}break;
-	}
-
 }
 
 void Fig_S_pos_1(int x, int y)  // вертикально S
@@ -913,15 +1077,15 @@ void InitFig_T(int postion)
 
 void Find_Fig_in_place() //функция поиска первой координаты фигуры
 {
-	int stop=0;
+	int stop = 0;
 	for (int i = 1; i < ROW - 1; i++)
 	{
 		for (int j = 1; j < COL - 1; j++)
 		{
 			if (game_place[i][j] == 2)
 			{
-				find_X=i;   //первая координата найденой фигуры
-				find_Y=j;
+				find_X = i;   //первая координата найденой фигуры
+				find_Y = j;
 				stop = 1;
 				break;
 			}
@@ -935,10 +1099,10 @@ void Find_Fig_in_place() //функция поиска первой коорди
 bool Checker_FigRotation(int Fig, int pos)  //Проверка стороны фигуры перед вращением
 {
 	sides = false;
-	if (Fig==1 && pos==1)
+	if (Fig == 1 && pos == 1)
 	{
 		Find_Fig_in_place();
-		if (game_place[find_X + 2][find_Y] != 1 && game_place[find_X + 3][find_Y +1] != 1 && game_place[find_X +2][find_Y +1] != 1 && game_place[find_X +2][find_Y + 2] != 1 && game_place[find_X + 3][find_Y + 2] != 1)
+		if (game_place[find_X + 2][find_Y] != 1 && game_place[find_X + 3][find_Y + 1] != 1 && game_place[find_X + 2][find_Y + 1] != 1 && game_place[find_X + 2][find_Y + 2] != 1 && game_place[find_X + 3][find_Y + 2] != 1)
 		{
 			return sides = true;
 		}
@@ -956,7 +1120,70 @@ bool Checker_FigRotation(int Fig, int pos)  //Проверка стороны ф
 	else if (Fig == 2 && pos == 1)
 	{
 		Find_Fig_in_place();
-		if (game_place[find_X+1][find_Y-1] != 1 && game_place[find_X+1][find_Y] != 1 && game_place[find_X][find_Y + 1] != 1 && game_place[find_X][find_Y + 3] != 1 && game_place[find_X + 1][find_Y + 2] != 1)
+		if (game_place[find_X + 1][find_Y] != 1 && game_place[find_X+2][find_Y] != 1 && game_place[find_X+2][find_Y-1] != 1)
+		{
+			return sides = true;
+		}
+		return sides;
+	}
+	else if (Fig == 2 && pos == 2)
+	{
+		Find_Fig_in_place();
+		if (game_place[find_X - 1][find_Y-2] != 1 && game_place[find_X][find_Y-2] != 1 && game_place[find_X][find_Y - 1] != 1)
+		{
+			return sides = true;
+		}
+		return sides;
+	}
+	else if (Fig == 2 && pos == 3)
+	{
+		Find_Fig_in_place();
+		if (game_place[find_X - 1][find_Y] != 1 && game_place[find_X-1][find_Y +1] != 1 && game_place[find_X+1][find_Y] != 1)
+		{
+			return sides = true;
+		}
+		return sides;
+	}
+	else if (Fig == 2 && pos == 4)
+	{
+		Find_Fig_in_place();
+		if (game_place[find_X][find_Y-1] != 1 && game_place[find_X][find_Y + 1] != 1 && game_place[find_X][find_Y+2] != 1 && game_place[find_X+1][find_Y + 2] != 1)
+		{
+			return sides = true;
+		}
+		return sides;
+	}
+	else if (Fig == 3 && pos == 1)
+	{
+		Find_Fig_in_place();
+		if (game_place[find_X-1][find_Y + 1] != 1 && game_place[find_X][find_Y+1] != 1 && game_place[find_X+1][find_Y+1] != 1 && game_place[find_X +1][find_Y + 2] != 1)
+		{
+			return sides = true;
+		}
+		return sides;
+	}
+	else if (Fig == 3 && pos == 2)
+	{
+		Find_Fig_in_place();
+		if (game_place[find_X][find_Y-1] != 1 && game_place[find_X+1][find_Y-1] != 1 && game_place[find_X][find_Y +1] != 1)
+		{
+			return sides = true;
+		}
+		return sides;
+	}
+	else if (Fig == 3 && pos == 3)
+	{
+		Find_Fig_in_place();
+		if (game_place[find_X][find_Y+1] != 1 && game_place[find_X][find_Y + 2] != 1 && game_place[find_X + 1][find_Y+2] != 1 && game_place[find_X + 2][find_Y + 2] != 1)
+		{
+			return sides = true;
+		}
+		return sides;
+	}
+	else if (Fig == 3 && pos == 4)
+	{
+		Find_Fig_in_place();
+		if (game_place[find_X+1][find_Y - 1] != 1 && game_place[find_X+1][find_Y] != 1 && game_place[find_X+1][find_Y + 1] != 1)
 		{
 			return sides = true;
 		}
@@ -1113,7 +1340,7 @@ void DelRow()
 bool GameOver()
 {
 	// фун проверки верхней строки поля на наличие в ней "1", 1 -  часть фигуры 
-	for (int i = 1; i < COL-1; i++)
+	for (int i = 1; i < COL - 1; i++)
 	{
 		if (game_place[1][i] == 1)
 		{
@@ -1195,125 +1422,3 @@ void Turner_1_2()
 			break;
 	}
 }
-
-
-
-
-
-//void Fig_step(int type, int pos)
-//{
-//	switch (type)
-//	{
-//	case 1:
-//	{
-//		switch (pos)
-//		{
-//		case 1:
-//		{
-//			*Ystart = 4;
-//			for (int i = 1; i < ROW; i++)
-//			{
-//				GameChecker();
-//				if (*niz == 1)
-//				{
-//					break;
-//				}
-//
-//				if (_kbhit()) {
-//					switch (_getch())
-//					{
-//					case (char)77:  // право
-//					{
-//						if (*sprava == 1)
-//						{
-//							Fig_I_pos_1(i, *Ystart);
-//						}
-//						else {
-//							*Ystart = *Ystart + 1;
-//							Fig_I_pos_1(i, *Ystart);
-//						}
-//						//do {
-//							//*Ystart = *Ystart + 1;
-//							//Fig_I_pos_1(i, *Ystart);
-//							//counter--;
-//						//} while (counter != 0);
-//					}
-//					break;
-//					case (char)75:  // лево
-//
-//						if (*sleva == 1)
-//						{
-//							Fig_I_pos_1(i, *Ystart);
-//						}
-//						else {
-//							*Ystart = *Ystart - 1;
-//							Fig_I_pos_1(i, *Ystart);
-//						}
-//						break;
-//					}
-//				}
-//				else {
-//					Fig_I_pos_1(i, *Ystart);
-//				}
-//			}
-//			Turner_1_2();
-//		}
-//		break;
-//		}
-//	case 2:
-//	{
-//		*Ystart = 4;
-//		for (int i = 1; i < ROW; i++)
-//		{
-//			GameChecker();
-//			if (*niz == 1)
-//			{
-//				break;
-//			}
-//
-//			if (_kbhit()) {
-//				switch (_getch())
-//				{
-//				case (char)77:  // право
-//				{
-//					if (*sprava == 1)
-//					{
-//						Fig_I_pos_2(i, *Ystart);
-//					}
-//					else {
-//						*Ystart = *Ystart + 1;
-//						Fig_I_pos_2(i, *Ystart);
-//					}
-//					//do {
-//						//*Ystart = *Ystart + 1;
-//						//Fig_I_pos_1(i, *Ystart);
-//						//counter--;
-//					//} while (counter != 0);
-//				}
-//				break;
-//				case (char)75:  // лево
-//
-//					if (*sleva == 1)
-//					{
-//						Fig_I_pos_2(i, *Ystart);
-//					}
-//					else {
-//						*Ystart = *Ystart - 1;
-//						Fig_I_pos_2(i, *Ystart);
-//					}
-//					break;
-//				}
-//			}
-//			else {
-//				Fig_I_pos_2(i, *Ystart);
-//			}
-//		}
-//		Turner_1_2();
-//	}
-//	break;
-//
-//	}
-//	break;
-//	}
-//
-//}
