@@ -1,8 +1,7 @@
 /*
 	Игра тетрис
 	учебный проект консельной версии игры тетрис
-	(c) Protsenko Vyacheslav, Kitavina Nata, Sanzharovskiy Dmitriy, Karigin Roman, Frolov Dmitriy, bardin Valentin, Brantsev Vsevolod, Protsenko Mikhail, Starin Andrey
-	(c) Computer academy "Step". Voronezh
+	(c) Protsenko Vyacheslav
 	Version: 0.1 (04.03.2019)
 */
 #include "pch.h" 
