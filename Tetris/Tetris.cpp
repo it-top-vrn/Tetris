@@ -2,7 +2,7 @@
 	Игра тетрис
 	учебный проект консельной версии игры тетрис
 	(c) Protsenko Vyacheslav
-	Version: 1.1 (11.03.2019)
+	Version: 1.0 (11.03.2019)
 */
 #include "pch.h" 
 #include <iostream> 
